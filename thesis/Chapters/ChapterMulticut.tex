@@ -1,0 +1,111 @@
+% Chapter 1
+
+\chapter{Multicut}\label{ch:multicut} 
+Here comes the multicut
+
+\subsection{Motivation}\label{sec:mc_motivation}
+
+\section{Problem Formulation}\label{sec:mc_problem_formulation}
+
+\section{Cutting Planes Multicut}\label{sec:cp_multicut}
+
+Describe Joers Multicut here
+
+\section{Cut Glue and Cut}
+a
+\subsection{Motivation}
+b
+\subsection{Algorithm}
+
+    \begin{algorithm}
+        \ifx\DontPrintSemicolon\undefined
+        \else
+        \DontPrintSemicolon
+        \fi
+        \KwData{weighted graph $G=(V,E,\w)$,
+                segmentation into regions given as queue $Q$}
+        \KwResult{segmentation into smaller regions $Q'$}
+        %
+        $Q' \leftarrow \emptyset$\;
+        %
+        \While{$Q\neq\emptyset$}{
+            $R \leftarrow \text{queue\_pop}(Q)$\;
+            $\y_{E_R}$ $\leftarrow$ solve max-cut \eqref{eq:max_cut} for $G_R$\;
+            \If{$\CUT_{G_R}(\y_{E_R}) < 0$}{
+                $Q \leftarrow Q \cup \text{connected\_components}(\y_{E_R})$\;
+            }
+            \Else{
+                $Q' \leftarrow Q' \cup R$
+            }
+        }
+        \caption{Cut phase\label{alg:cut_phase}}
+
+    \end{algorithm}
+
+
+    \begin{algorithm}[t]
+        \ifx\DontPrintSemicolon\undefined
+        \else
+        \DontPrintSemicolon
+        \fi
+        \KwData{weighted graph $G\!=\!(V,E,\w)$, segmentation $Q$}
+        \KwResult{improved segmentation $Q$ wrt. \eqref{eq:multicut_primal}}
+        %
+        mark all edges $e\in E$ as dirty\;
+        $\bar{\y} \leftarrow \text{edge\_labeling}(Q)$\;
+        \While{true}{\label{alg:line:forever}%
+            $c \leftarrow 0$\;
+            $E' \leftarrow \{ e\in E\cap (R_1 \times R_2) | R_1,R_2\in Q\text{ adjacent}\}$\footnotemark\label{alg:line:e_dash}\;
+            \For{$e=(i,j)\in E'$}{
+                \If{$\bar{\y}_e=0$ or $e$ is clean}{
+                    continue\; 
+                }
+                find regions $R_1, R_2\!\in\!Q$, s.t. $i\in R_1$, $j\in R_2$\;
+                $S \leftarrow R_1 \cup R_2\quad\text{//glue}$\;
+                $\y_{E_S}$ $\leftarrow$ solve \eqref{eq:max_cut} for $G_S\quad\text{//cut}$\;
+                {\color{blue}mark edges $E \cap S\times S$ clean$\quad(\star)$}\;
+                \If{$\CUT_{G_S}(\y_{E_S}) < \CUT_{G_S}(\bar{\y}_{E_S})$}{
+                    $c \leftarrow c+1$\;
+                    {\color{blue}mark edges $E \cap S \times (V\setminus S)$ dirty$\quad(\star)$}\;
+                    $\text{CC} \leftarrow \text{connected\_components}(\y_{E_S})$\;
+                    {\color{blue}
+                    \If{$|\CC| > 2$}{
+                        mark edges $E \cap (S\times S)$ dirty$\quad(\star)$\;
+                    }}
+                    $Q \leftarrow Q\setminus \{R_1, R_2\} \cup \text{CC}$\;
+                    $\bar{\y} \leftarrow \text{edge\_labeling}(Q)$\;
+                }
+            }
+            \If{$c = 0$}{
+                break\label{alg:line:break}\;
+            }
+        }
+        %
+        \caption{Glue \& Cut phase\label{alg:glue_cut_phase}}
+    \end{algorithm}
+
+
+    \begin{algorithm}
+        \ifx\DontPrintSemicolon\undefined
+        \else
+        \DontPrintSemicolon
+        \fi
+        \KwData{weighted graph $G=(V,E,\w)$,
+                segmentation into regions given as queue $Q$}
+        \KwResult{segmentation into smaller regions $Q'$}
+        $\quad\text{//TODO}$
+        \caption{Pseudo min-marginals \label{alg:cgc_min_marginals}}
+
+    \end{algorithm}
+
+
+    Here comes the pseudocode for cut glue and cut min marginals
+
+\subsection{Experiments}
+
+
+
+
+
+
+
