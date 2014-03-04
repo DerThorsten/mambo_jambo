@@ -61,3 +61,4 @@ nosetests.xml
 *.out
 *.synctex.gz
 *.lol
+*.tdo
