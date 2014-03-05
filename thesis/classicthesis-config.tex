@@ -1,3 +1,4 @@
+% !TEX root = ./main.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Thesis Configuration File
 %
@@ -56,9 +57,9 @@
  
  %------------------------------------------------
 
-\PassOptionsToPackage{american}{babel}  % Change this to your language(s)
-\usepackage{babel}
-
+%\PassOptionsToPackage{american}{babel}  % Change this to your language(s)
+%\usepackage{babel}[american]
+\usepackage[british,UKenglish,USenglish,english,american]{babel}
 %------------------------------------------------			
 
 \PassOptionsToPackage{square,numbers}{natbib}
@@ -211,16 +212,16 @@ pdfproducer={LaTeX with hyperref and classicthesis}
 \renewcommand*{\subsectionautorefname}{Section}
 \renewcommand*{\subsubsectionautorefname}{Section}
 }
-\addto\extrasngerman{
-\renewcommand*{\paragraphautorefname}{Absatz}
-\renewcommand*{\subparagraphautorefname}{Unterabsatz}
-\renewcommand*{\footnoteautorefname}{Fu\"snote}
-\renewcommand*{\FancyVerbLineautorefname}{Zeile}
-\renewcommand*{\theoremautorefname}{Theorem}
-\renewcommand*{\appendixautorefname}{Anhang}
-\renewcommand*{\equationautorefname}{Gleichung}
-\renewcommand*{\itemautorefname}{Punkt}
-}
+%\addto\extrasngerman{
+%\renewcommand*{\paragraphautorefname}{Absatz}
+%\renewcommand*{\subparagraphautorefname}{Unterabsatz}
+%\renewcommand*{\footnoteautorefname}{Fu\"snote}
+%\renewcommand*{\FancyVerbLineautorefname}{Zeile}
+%\renewcommand*{\theoremautorefname}{Theorem}
+%\renewcommand*{\appendixautorefname}{Anhang}
+%\renewcommand*{\equationautorefname}{Gleichung}
+%\renewcommand*{\itemautorefname}{Punkt}
+%}
 \providecommand{\subfigureautorefname}{\figureautorefname} % Fix to getting autorefs for subfigures right
 }{\relax}
 \makeatother

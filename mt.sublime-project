@@ -2,20 +2,23 @@
 	"folders":
 	[
 		{
+			"file_exclude_patterns":
+			[
+				"*.log",
+				"*.lol",
+				"*.aux",
+				"*.bbl",
+				"*.blg",
+				"*.lof",
+				"*.lot",
+				"*.toc"
+			],
 			"follow_symlinks": true,
-			"path": "/home/tbeier/src/vigra"
-
-
-		},
-		{
-			"follow_symlinks": true,
-			"path": "/home/tbeier/src/masterthesis/",
-			"file_exclude_patterns": [ "*.log","*.lol", "*.aux","*.bbl", "*.blg", "*.lof", "*.lot", "*.toc"]
+			"path": "."
 		}
 	],
-
-	"settings": {
-        "python_interpreter": "/usr/bin/python2.7"
-    }
-
+	"settings":
+	{
+		"python_interpreter": "/usr/bin/python2.7"
+	}
 }

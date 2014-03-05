@@ -1,11 +1,8 @@
+% !TEX root = ../main.tex
 % Chapter 1
 \flushleft
-\chapter{Multicut}\label{ch:multicut} 
+\chapter{Cut Glue and Cut Algorithm}\label{ch:cgc} 
 
-\section{Motivation}\label{sec:mc_motivation}
-
-
-\section{Problem Formulation}\label{sec:mc_problem_formulation}
 
 
 Given a graph $G=(V,E)$ and an edge weight $w_e  \forall e \in E $ .
@@ -20,15 +17,6 @@ cut and $x_e=0$ mean the edge is uncut.
 
 
 
-
-\section{Cutting Planes Multicut}\label{sec:cp_multicut}
-
-Describe Joergs Multicut here
-
-
-
-
-
 While the multicut objective is very simple and elegant, it is very
 hard to optimize such an objective to global optimality.
 In fact, solving the multicut to optimality is $\mathcal{NP}$-hard \cite{???} 
@@ -39,11 +27,10 @@ global optimal solvers are far way from a \todo{a speed , or just speed} speed w
 real time segmentation, at least for  graphs with more than a few thousands nodes. 
 Approximative solvers exists, but they are a) still to slow, and or b) far away from the global optimal solution (see figure \ref{fig:???} and table \ref{tab:???}).
 
-\section{Cut Glue and Cut}
 
 
 
-\subsection{Algorithm}
+\section{Algorithm}
 
     \begin{algorithm}
         \ifx\DontPrintSemicolon\undefined

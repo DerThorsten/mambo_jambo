@@ -1,3 +1,4 @@
+% !TEX root = ./main.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % from cgc paper
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21,8 +22,7 @@
 
 \usepackage{todonotes}
 
-
-
+\usepackage{verbatim}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TIKZ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,7 +44,7 @@
 \pgfdeclarelayer{background}
 \pgfdeclarelayer{foreground}
 \pgfsetlayers{background,main,foreground}
- 
+
 % Define block styles  
 \tikzstyle{materia}=[draw, fill=blue!20, text width=6.0em, text centered,
   minimum height=1.5em,drop shadow]
@@ -108,4 +108,5 @@
   stringstyle=\color{mymauve},     % string literal style
 }
 
-
+\usepackage{paralist} 
+\usepackage{cleveref}
