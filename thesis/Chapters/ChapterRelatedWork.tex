@@ -10,6 +10,66 @@ for image segmentation
 
 \section{Hierarchical Clustering}\label{sec:rw_hc}
 
+
+\begin{tikzpicture}[scale=  1,every node/.style={minimum size=1cm},on grid]
+        
+    %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
+    
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 0 bottom layer
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    \begin{scope}[yshift=0,every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+        \draw[-latex,thick] (-0.17,3.21/2) node[right]{\includegraphics[width=4.82cm]{fig/12074/0.png}};
+        \draw[black,very thick] (0,0) rectangle (4.81,3.21);
+    \end{scope}
+
+    \begin{scope}[yshift=60*1,every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+        \draw[-latex,thick] (-0.17,3.21/2) node[right]{\includegraphics[width=4.82cm]{fig/12074/2.png}};
+        \draw[black,very thick] (0,0) rectangle (4.81,3.21);
+    \end{scope}
+
+    \begin{scope}[yshift=60*2,every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+        \draw[-latex,thick] (-0.17,3.21/2) node[right]{\includegraphics[width=4.82cm]{fig/12074/4.png}};
+        \draw[black,very thick] (0,0) rectangle (4.81,3.21);
+    \end{scope}
+
+    \begin{scope}[yshift=60*3,every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+        \draw[-latex,thick] (-0.17,3.21/2) node[right]{\includegraphics[width=4.82cm]{fig/12074/6.png}};
+        \draw[black,very thick] (0,0) rectangle (4.81,3.21);
+    \end{scope}
+
+    \begin{scope}[yshift=60*4,every node/.append style={yslant=0.5,xslant=-1},yslant=0.5,xslant=-1]
+        \draw[-latex,thick] (-0.17,3.21/2) node[right]{\includegraphics[width=4.82cm]{fig/12074/8.png}};
+        \draw[black,very thick] (0,0) rectangle (4.81,3.21);
+    \end{scope}
+
+
+    \draw[->,-triangle 60] (-3,0) -- node[above]{time} (-3,4);
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 0 bottom layer
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \draw[-latex,thick] (6.2,2) node[right]{$\mathsf{over-segmentation}$}
+         to[out=180,in=90] (4,2);
+         
+         
+         
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 1 layer
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \draw[-latex,thick] (6.2,5.5) node[right]{$\mathsf{Region adjacency graph 1}$}
+         to[out=180,in=90] (4,5.5);
+
+\end{tikzpicture}
+
+
+
+
+
+
 In this section we will explain the principles of graph based hierarchical clustering (HC),
 and  give an overview of different methods which uses a graph based HC.
 The main idea of HC is to build a hierarchy of nested clusters instead of

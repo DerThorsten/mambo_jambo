@@ -1,9 +1,19 @@
 import vigra
 import vigra.graphs as vigraph
 import numpy
-
+import os
+import pylab
 print "get input"
-f = "/home/tbeier/datasets/BSR/BSDS500/data/images/train/12074.jpg"
+
+baseName = "12074"
+f = "/home/tbeier/datasets/BSR/BSDS500/data/images/train/%s.jpg" % baseName
+
+outBaseDir = "/home/tbeier/src/masterthesis/thesis/fig/"
+outDir = outBaseDir + baseName+"/"
+
+
+if not os.path.exists(outDir):
+    os.makedirs(outDir)
 
 
 sigma = 4.0
@@ -27,12 +37,17 @@ rag = vigraph.regionAdjacencyGraph(gridGraph, labels)
 edgeWeights = rag.accumulateEdgeFeatures(gridGraphEdgeIndicator)
 nodeFeatures = rag.accumulateNodeFeatures(img)
 
+counter=1
 while rag.nodeNum >= 2:
+    
     nodeNumStop = rag.nodeNum / 2
     labels = vigraph.agglomerativeClustering(
         rag, edgeWeights=edgeWeights, beta=0.1, wardness=1.0,
         nodeFeatures=nodeFeatures, nodeNumStop=nodeNumStop)
     rag2 = vigraph.regionAdjacencyGraph(graph=rag, labels=labels)
+
+    if rag2.nodeNum == 1:
+        break
 
     edgeWeights = rag2.accumulateEdgeFeatures(edgeWeights)
     nodeFeatures = rag2.accumulateNodeFeatures(nodeFeatures)
@@ -40,6 +55,13 @@ while rag.nodeNum >= 2:
     asImg = rag2.projectNodeFeaturesToGridGraph(nodeFeatures)
     asImg = vigra.taggedView(asImg, "xyc")
 
-    rag2.show(asImg)
-    vigra.show()
+    outFileName = outDir + str(counter)+".png"
+    print outFileName
+    
     rag = rag2
+    counter+=1
+    asSegImg=rag2.show(asImg,returnImg=True)
+    vigra.impex.writeImage(asSegImg, outFileName)
+    #vigra.show()
+
+print "exit"
