@@ -32,28 +32,41 @@ gridGraph = vigraph.gridGraph(img.shape[0:2])
 gridGraphEdgeIndicator = vigraph.edgeFeaturesFromInterpolatedImage(
     gridGraph, gradmag)
 
-
 rag = vigraph.regionAdjacencyGraph(gridGraph, labels)
 edgeWeights = rag.accumulateEdgeFeatures(gridGraphEdgeIndicator)
 nodeFeatures = rag.accumulateNodeFeatures(img)
+
 
 counter=1
 while rag.nodeNum >= 2:
     
     nodeNumStop = rag.nodeNum / 2
+    print rag.nodeNum,nodeNumStop
+
+    print "get the seg"
     labels = vigraph.agglomerativeClustering(
         rag, edgeWeights=edgeWeights, beta=0.1, wardness=1.0,
         nodeFeatures=nodeFeatures, nodeNumStop=nodeNumStop)
+
+    #labels = vigraph.felzenszwalbSegmentation(rag, edgeWeights,nodeNumStop=nodeNumStop)
+
+    print "make the rag"
+
     rag2 = vigraph.regionAdjacencyGraph(graph=rag, labels=labels)
 
     if rag2.nodeNum == 1:
         break
 
+
     edgeWeights = rag2.accumulateEdgeFeatures(edgeWeights)
+    print "blabla"
     nodeFeatures = rag2.accumulateNodeFeatures(nodeFeatures)
+
+    print "as image"
 
     asImg = rag2.projectNodeFeaturesToGridGraph(nodeFeatures)
     asImg = vigra.taggedView(asImg, "xyc")
+
 
     outFileName = outDir + str(counter)+".png"
     print outFileName

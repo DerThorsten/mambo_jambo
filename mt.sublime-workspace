@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"accu",
+				"accumulate"
+			],
+			[
 				"ra",
 				"rag2"
 			],
@@ -304,10 +308,6 @@
 				"mergeGraph"
 			],
 			[
-				"accu",
-				"accumulateEdgeFeatures"
-			],
-			[
 				"cl",
 				"clusterOp"
 			],
@@ -531,7 +531,15 @@
 			"file": "thesis/Chapters/ChapterRelatedWork.tex",
 			"settings":
 			{
-				"buffer_size": 5486,
+				"buffer_size": 7903,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "thesis/main.pdf",
+			"settings":
+			{
+				"buffer_size": 4774037,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +547,7 @@
 			"file": "experiments/hc_workflow.py",
 			"settings":
 			{
-				"buffer_size": 1453,
+				"buffer_size": 2686,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,7 +563,7 @@
 			"file": "/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
 			"settings":
 			{
-				"buffer_size": 57710,
+				"buffer_size": 59032,
 				"line_ending": "Unix"
 			}
 		},
@@ -611,7 +619,7 @@
 			"file": "/home/tbeier/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 			"settings":
 			{
-				"buffer_size": 292,
+				"buffer_size": 291,
 				"line_ending": "Unix"
 			}
 		},
@@ -898,6 +906,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"2",
+			"17",
+			"4",
+			"show",
+			"minEdgeWei",
+			"def mergeGraph",
 			"agglomer",
 			"german",
 			"babek",
@@ -1019,13 +1033,7 @@
 			"Edge",
 			"pyEdgeWeightNodeFeaturesConstructor",
 			"NewMergeGraphCallbacks",
-			"itemIds",
-			"nodeId",
-			"idMap",
-			"pyRagProjectNodeFeaturesToBaseGraph",
-			"graphNodeFeaturesArray",
-			"xyzc",
-			"OG_DIM"
+			"itemIds"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1171,7 +1179,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1302,10 +1310,10 @@
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1122.0,
+						"translation.y": 1040.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -1314,15 +1322,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5486,
+						"buffer_size": 7903,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1254,
-								1254
+								2073,
+								2073
 							]
 						],
 						"settings":
@@ -1437,27 +1445,55 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "experiments/hc_workflow.py",
-					"semi_transient": false,
+					"file": "thesis/main.pdf",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1453,
+						"buffer_size": 4774037,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1453,
-								1453
+								1319,
+								1319
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "experiments/hc_workflow.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2686,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1119,
+								1110
 							]
 						],
 						"settings":
@@ -1571,15 +1607,15 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 204.0,
+						"translation.x": 0.0,
+						"translation.y": 900.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/Python PEP8 Autoformat/pep8_autoformat.sublime-settings",
 					"semi_transient": false,
 					"settings":
@@ -1605,41 +1641,147 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 57710,
+						"buffer_size": 59032,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								49319,
-								49319
+								12363,
+								12363
 							]
 						],
 						"settings":
 						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
+										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 22603.0,
+						"translation.y": 4468.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/Python PEP8 Autoformat/Default (Linux).sublime-keymap",
 					"semi_transient": false,
 					"settings":
@@ -1663,11 +1805,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "thesis/my-config.tex",
 					"semi_transient": false,
 					"settings":
@@ -1799,11 +1941,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "thesis/Chapters/ChapterCgc.tex",
 					"semi_transient": false,
 					"settings":
@@ -1932,14 +2074,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 499.0,
+						"translation.y": 449.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
 					"semi_transient": false,
 					"settings":
@@ -2069,11 +2211,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/User/LaTex.sublime-build",
 					"semi_transient": false,
 					"settings":
@@ -2099,11 +2241,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/LaTeXTools/LaTeXTools Preferences.sublime-settings",
 					"semi_transient": false,
 					"settings":
@@ -2231,19 +2373,19 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 243.0,
+						"translation.y": 215.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 292,
+						"buffer_size": 291,
 						"regions":
 						{
 						},
@@ -2369,11 +2511,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
 					"semi_transient": false,
 					"settings":
@@ -2504,7 +2646,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 19,
 					"type": "text"
 				}
 			]
@@ -2514,7 +2656,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 13,
+					"buffer": 14,
 					"file": "thesis/Bibliography.bib",
 					"semi_transient": false,
 					"settings":
@@ -2643,14 +2785,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3696.0,
+						"translation.y": 1207.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 15,
 					"file": "thesis/classicthesis-config.tex",
 					"semi_transient": false,
 					"settings":
@@ -2777,14 +2919,14 @@
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3247.0,
+						"translation.y": 2923.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 16,
 					"semi_transient": false,
 					"settings":
 					{
@@ -7146,14 +7288,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 126789.0,
+						"translation.y": 111961.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 17,
 					"file": "thesis/main.tdo",
 					"semi_transient": false,
 					"settings":
@@ -7283,11 +7425,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 18,
 					"file": "/home/tbeier/.config/sublime-text-3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
 					"semi_transient": false,
 					"settings":
@@ -7416,14 +7558,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 19,
 					"file": "/home/tbeier/src/vigra/test/utilities/test.cxx",
 					"semi_transient": false,
 					"settings":
@@ -7552,10 +7694,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 289.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 17,
 					"type": "text"
 				}
 			]
@@ -7563,7 +7705,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 34.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -7589,7 +7731,7 @@
 		"cols":
 		[
 			0.0,
-			0.664682539681,
+			0.7123015873,
 			1.0
 		],
 		"rows":
@@ -7601,7 +7743,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 142.0
+		"height": 118.0
 	},
 	"output.find_results":
 	{
@@ -7614,7 +7756,7 @@
 	"project": "mt.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
