@@ -3,9 +3,46 @@
 
 
 
+
+
+\section{Lemon Graph API}
+
+
+
+
+
+
+
+
+\section{Python}
+
+On the python side, we want node-maps,edge-maps and arc-maps to be stored 
+as numpy arrays for ??? reasons.:
+\begin{compactitem}
+    \item Numpy arrays are the standard for storing multidimensional data in python.
+    The fast C implementations and a vectorized API of numpy make it very easy to write 
+    fast python code within a few lines.
+    Virtually any python user will be familiar with the numpy API and therefore it 
+    seems to be natural to store graph maps within numpy arrays.
+    \item Vigra provides an mechanism to pass numpy arrays to C++.
+    Therefore no new mechanism needs to be implemented to transfer graph
+    maps from python to C++.
+    This will not only simplify writing extension for the new vigra graph api,
+    but also it will reduce the glue code since we can use well tested existing
+    solutions.
+    \item New algorithms might be implemented in pure python with a mix of
+    existing numpy functions and new functions provided within vigras graph api.
+    As a proof of concept we implemented ??? in pure python with vigras
+    fresh graph api in \cref{???}.
+\end{compactitem}
+
+On the C++ side, numpy arrays are stored in MultiArrayViews.
+Since API of MultiArrayViews \cite{software_vigra_multiarray_api} does
+not implemented the API  of LEMON graph maps (e.g. node-maps,edge-maps and arc-maps).
+ 
+
 \begin{lstlisting}[language=python]
->>> from numpy import *
->>> from numpy.fft
+vigra.graphs.foobar(graph,nodeFeatures)
 \end{lstlisting}
 \section{Some Tikz stuff}
 
@@ -13,12 +50,12 @@
 
 
 \begin{lstlisting}[language=c++]
-
-static NumpyAnyArray ConverterStruct::arrayToMap(
+static NumpyAnyArray ConverterStruct::foobar(
     const Graph & graph , 
     const typename PyNodeMapTraits<Graph, UInt32>::Array & nodeArray
 ){
     typename PyNodeMapTraits<Graph, UInt32>::Map nodeArrayMap(graph,nodeArray)
-}
 
+    // code using LEMON Map Api 
+}
 \end{lstlisting}

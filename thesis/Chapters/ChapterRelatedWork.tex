@@ -6,6 +6,29 @@ for image segmentation
 
 \section{Multicut}\label{sec:rw_multicut}
 
+Segmentation is an important problem in computer vision as a first step
+towards understanding an image. Many algorithms start with an over-segmentation
+into superpixels, which are then clustered into ``perceptually meaningful''
+regions.
+Usually, the number of these regions is not known beforehand.
+
+Recently, the multicut formulation~\cite{chopra_1993_mp}
+(sometimes called \emph{correlation clustering}, \cite{bansal_2004_ml})
+has become increasingly popular for unsupervised
+image segmentation.
+Given an edge-weighted region adjacency graph,
+the problem is to find the segmentation which
+minimizes the cost of the cut edges.
+Such an approach has been shown to yield
+state-of-the-art results on the Berkeley Segmentation Database
+%TODO: - alush_2013_simbad apply it on BSD500, is is state-of-the-art?
+%      - gPb-owt is not really learned? Do we need to say this????
+\cite{andres_2011_iccv,yarkony_2012_eccv,alush_2013_simbad}.
+
+
+In this section we will motivate the multicuts and show the basic problem formulation.
+In \cref{ch:cgc} we will give an more detailed overview of different solvers
+for the multicut objective and introduce a new approximative solver. 
 
 
 \section{Hierarchical Clustering}\label{sec:rw_hc}

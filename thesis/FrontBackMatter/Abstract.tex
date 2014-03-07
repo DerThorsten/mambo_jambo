@@ -1,5 +1,5 @@
+% !TEX root = ../main.tex
 % Abstract
-
 \pdfbookmark[1]{Abstract}{Abstract} % Bookmark name visible in a PDF viewer
 
 \begingroup
@@ -9,7 +9,42 @@
 
 \chapter*{Abstract} % Abstract name
 
-Short summary of the contents\dots
+Recently, unsupervised image segmentation has become increasingly
+popular.
+Starting from a superpixel segmentation, an edge-weighted region
+adjacency graph is constructed. Amongst all
+segmentations of the graph,
+the one which best conforms to the given image
+evidence, as measured by the sum of cut edge weights,
+is chosen.
+
+Since this problem is NP-hard, we propose 
+a new approximate solver based on the move-making paradigm:
+first, the graph is recursively partitioned into
+small regions (cut phase).
+%
+Then, for any two adjacent 
+regions, we consider alternative cuts of these two regions
+defining possible moves (glue \& cut phase).
+%
+For planar problems, the optimal move can be found, whereas
+for non-planar problems, efficient approximations exist. 
+
+We evaluate our algorithm on published and
+new benchmark datasets, which we make available here.
+%
+The proposed algorithm finds segmentations that,
+as measured by a loss function, are as close to
+the ground-truth as the global optimum found by exact solvers.
+%
+It does so significantly faster then existing approximate methods,
+which is important for large-scale problems.
+
+Furthermore we provide a framework for graph based image analysis based
+on the VIGRA library and OpenGM library implemented in C++ with Python wrappers
+for easy use.
+The main aspects of the graph framework is usability and extendability.
+
 
 \endgroup			
 
