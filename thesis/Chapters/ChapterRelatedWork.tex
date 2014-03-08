@@ -34,6 +34,7 @@ for the multicut objective and introduce a new approximative solver.
 \section{Hierarchical Clustering}\label{sec:rw_hc}
 
 
+\iffalse
 \begin{tikzpicture}[scale=  1,every node/.style={minimum size=1cm},on grid]
         
     %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
@@ -87,7 +88,7 @@ for the multicut objective and introduce a new approximative solver.
          to[out=180,in=90] (4,5.5);
 
 \end{tikzpicture}
-
+\fi
 
 
 
@@ -102,25 +103,34 @@ In general there are two different strategies for HC.
 \begin{compactitem}
     \item Bottom-Up / Agglomerative HC (\cref{fig:hc_bottom_up}):
 
-        Each node in the graph starts in its own cluster. 
-        During the clustering pairs of adjacent nodes are merged 
-        by contracting the edge between them.
-        Not only the nodes can be merged but also the features associated with
-        the nodes and the edges.
+        Each observation starts in its own cluster. 
+        The most similar clusters are merged iteratively.
         The dendrogram / cluster-tree is grown from the leaf nodes (each node in the graph is a leaf)
-        to the root (all nodes in a single cluster) 
+        to the root (all nodes in a single cluster) .
+        If Bottom-Up / Agglomerative HC is applied to a graph, only adjacent nodes
+        can be merged. During the clustering process the adjacency of the graph
+        will change ( see \cref{hc_graph_contraction}).
+        In the literature and well known software packages graph HC
+        is also called ``hierarchical clustering with connectivity constraints'', or just ``structured clustering''.
 
     \item Top-Down HC (\cref{fig:hc_top_down}):
 
-        All nodes start in one single cluster. Each cluster is recursively divided 
-        into two or more clusters. 
+        All observations start in one single cluster. Each cluster is recursively divided 
+        into two or more clusters.  Global information might be used to generate the
+        splits since first splits see a great portion of the data at once.
         The dendrogram / cluster-tree is grown from the root  (all nodes in a single cluster)
-        to the leafs (all nodes in a single cluster) 
+        to the leafs (all nodes in a single cluster).
+        When top-down HC is  applied to a graph, usually each division of a cluster is restricted 
+        to divisions which yield exactly $N$ connected components. 
 \end{compactitem}
 
+In this section we will focus only on bottom-up / agglomerative HC . 
+In \cref{ch:cgc}  we propose an algorithm  based on top-down HC.
 
 
-\begin{figure}[ht]
+
+
+\begin{figure}
     \centering
     \subfloat[Bottom-Up: Nodes are merged with increasing time]{\label{fig:hc_bottom_up}
         {
@@ -190,28 +200,73 @@ In general there are two different strategies for HC.
 
 
 
-In this section we will only on bottom-up / agglomerative HC . 
-In \cref{ch:cgc}  we propose an algorithm  based on top-down HC.
 
-\subsection{Agglomerative Clustering}\label{sec:hc_agglomerative_clustering}
+The main idea behind agglomerative clustering is very simple:
+Initially, all observations start in a single cluster. 
+Next, cluster which have highest similarities / lowest distances will be merged.
 
-Agglomerative clustering benefits from the fact that noisy initial edge weights
-become more informative due to the updating / merging of weights during the clustering.
-
-
-\missingfigure{bla } \label{fig:hc_noise_reduction}
-
-
-\subsubsection{Wards Methods}\label{sec:hc_wards_method}
+Due to the merging, similarities will change and need to be updated
+/ recomputed. Therefore  noisy initial features
+will  become more informative .
+Historically, the distance between two clusters is based only 
+on the distances between the initial observations \footnote{Or the distances might be centroid distances}
+In \cref{tab:hc_linkage_types} is an overview of common definitions of cluster distances.
 
 
-\begin{equation} \label{eq:wards_method}
-    d_{ward}(u,v) =  \frac{d(u,v)}{ \frac{1}{|u|} + \frac{1}{|v|} }
-\end{equation}
 
-\begin{equation} \label{eq:sqrt_wards_method}
-    d_{\sqrt{\text{ward}}}(u,v) =  \frac{d(u,v)}{ \frac{1}{\sqrt{|u|}} + \frac{1}{\sqrt{|v|}} }
-\end{equation}
+In the case of graph hierarchical clustering, informative features
+can also be attached to the edges of the graph.
+Unsupervised edge detectors as gpb \citep{marie_2008_cvpr}  or learned
+edge detectors \cite{dollar_2013_iccv}  can be used to boost performance
+of graph based HC.
+As a consequence  we will formulate graph HC as an edge weighted algorithm.
+The edge weights can be be a mixture of edge detectors and accumulated
+over the shared boundary between two clusters and cluster distances 
+as defined in \cref{tab:hc_linkage_types}.
+
+
+
+
+
+\todo{talks about UCM here!!!}
+
+
+
+
+
+
+
+
+\begin{table}
+\begin{scriptsize}
+\begin{tabular}{ |l|l|p{5cm}|}
+    \hline
+    Average Linkage \citep{sokal_1958_science_bulletin}           
+        & $d_{al}(C_a,C_b) = \frac{1}{|C_a||C_b|} \sum _{a \in C_a} \sum_{b \in C_b} d(a,b) $ 
+        & \scriptsize Prefers clusters with same variance \cite{sokal_1958_science_bulletin} \\ \hline
+
+    Single Linkage \citep{florek_1951}            
+        & $d_{sl}(C_a,C_b) =  \min\{d(a,b) : a \in C_a, b \in C_b\}$ 
+        & Nice theoretic properties \citep{hartigan_1981_jjamstat,milligan_1980_psycho}, can lead
+          to very irregular shaped clusters \\ \hline
+    Complete Linkage \citep{sorensen_1948}         
+        & $d_{cl}(C_a,C_b) =  \max\{d(a,b) : a \in C_a, b \in C_b\}$ 
+        & Prefers clusters with same diameter \citep{milligan_1980_psycho} \\ \hline
+    Centroid Distance         
+        & $d_{cd}(C_a,C_b) =  d(\bar{C}_a,\bar{C}_b) $ 
+        & Robust w.r.t. outliers \citep{milligan_1980_psycho} \\ \hline
+    Wards Minimum Variance \citep{ward_63_jasa}
+        & $d_{wmv}(C_a,C_b) = \frac{ d(\bar{C}_a,\bar{C}_b)}{ \frac{1}{|C_a|} + \frac{1}{|C_b|} } $ 
+        & Prefers clusters with same size, is sensible to outliers \citep{milligan_1980_psycho} \\ \hline
+\end{tabular}
+
+\end{scriptsize}
+\caption{
+    An overview of the most common cluster distances and their main properties.
+}\label{tab:hc_linkage_types}
+\end{table}
+
+
 
 
 

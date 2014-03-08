@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 % Table of Contents - List of Tables/Figures/Listings and Acronyms
 
 \refstepcounter{dummy}
@@ -82,3 +83,46 @@
 \endgroup
 
 \cleardoublepage
+
+
+
+%----------------------------------------------------------------------------------------
+%   Notation
+%----------------------------------------------------------------------------------------
+\refstepcounter{dummy}
+%\addcontentsline{toc}{chapter}{Notation} % Uncomment if you would like the notation to appear in the table of contents
+\pdfbookmark[1]{Notation}{notation} % Bookmark name visible in a PDF viewer
+
+\markboth{\spacedlowsmallcaps{Notation}}{\spacedlowsmallcaps{Notation}}
+
+\chapter*{Notation}
+
+Within this thesis we will use the following Notation:
+
+\begin{compactitem}
+    \item $w$ is used for edge weights.
+    \item $F^E$ will be used for an edge feature vectors and $F^E$ will be used
+        for node feature vectors.
+    \item The superscript ``$+$'' (e.g. $w^+,\mathfrak{D}^+$) will be used to indicate 
+        that high values of the superscripted symbol stand for
+        measurements which themselves indicate that the two nodes of the edge should stay in separated
+        connected components. And low values indicates that the two regions should be merged.
+        The superscript ``-'' indicates the opposite.
+
+    \item Capital fractal letters as $\mathfrak{D,W}$ will be used as
+        functions transferring feature vector(s) to a single scalar, 
+        therefore $\mathbb{R}_0^N,\ldots,\mathbb{R}_k^N, \rightarrow \mathbb{R} $ .
+        $\mathfrak{W}$ will indicate a function transferring an edge feature
+        vector to an edge weight, $\mathfrak{D}$ will indicate a function transferring 
+        node features distances to edge weights.
+\end{compactitem}
+
+
+
+
+
+%UTC\nomenclature{UTC}{Coordinated Universal Time} 
+%is 3 hours behind ADT\nomenclature{ADT}{
+%Atlantic Daylight Time} and 10 hours ahead of
+%EST\nomenclature{EST}{Eastern Standard Time}.
+%\printnomenclature
