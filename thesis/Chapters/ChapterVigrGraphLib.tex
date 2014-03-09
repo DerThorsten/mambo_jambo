@@ -2,13 +2,74 @@
 \chapter{Vigra Graph Library} \label{ch:vigra_graph_lib}
 
 
+\section{Choosing the right Graph API}
+
+Argue why we choose lemon api 
+
+\section{Implementation}\label{sec:vigra_graph_lib_impl}
+
+\section{Graph API's}\label{sec:graph_apis}
+
+    \subsection{LEMON Graph API's}\label{sec:lemon_graph_apis}
+    Give brief overview of lemons graph api 
+    \subsection{BOOST Graph API's}\label{sec:boost_graph_apis}
+    Give brief overview of boost graph api
+    \subsection{VIGRA Graph API}
+    Explain why which api is used and how it is extended
+
+
+\section{Graphs}
+
+
+\subsection{Grid Graph}
+
+\missingfigure{show grid graph here}
+
+    \lstinline{vigra::GridGraph<DIM,DIRECTED_TAG>}
+
+\subsection{Adjacency List Graph}
+
+\subsection{Merge Graph}
+   To implemented structured clustering algorithms (see \cref{???}) we
+   need a graph which supports the contraction of edges.
+   Also a mechanism to merge node and edge features is needed.
+   Experiments suggest that the edge contraction is more expensive
+   than feature merging an can even be a bottleneck for huge 3D data 
+   (see \cref{???} ).
+   Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
+
+
+   \begin{figure}
+   \includegraphics[width=0.8\textwidth]{uml/mergeGraph.png}
+   \end{figure}
+
+   We propose and implemented the following design:
+   \begin{compactitem}
+       \item  A base graph is attached to a merge graph  and  a merge graph will
+            always ``view'' to
+       \item  Union find data structure for nodes
+       \item  Union find data structure for edges
+   \end{compactitem}
 
 
 
-\section{Lemon Graph API}
+   \lstinline{vigra::MergeGraphAdaptor<DIM,DIRECTED_TAG>}
 
+\subsection{Region Adjacency Graph}
 
+    \missingfigure{show region adjacency graph here}
 
+\section{Graph Algorithms}
+
+    \section{Multicut}
+
+    \section{Hierarchical Clustering}
+
+    \section{Mst Algorithms}
+
+    \section{Watershed Algorithms}
+
+    \section{Smoothing Algorithms}
 
 
 

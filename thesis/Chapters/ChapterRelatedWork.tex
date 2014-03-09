@@ -33,6 +33,54 @@ for the multicut objective and introduce a new approximative solver.
 
 \section{Hierarchical Clustering}\label{sec:rw_hc}
 
+Hierarchical clustering techniques have been successfully used
+in computer vision since decades \citep{ohlander_1978_cgip,forsyth_2002_book,arbelaez_2006_cvpr,iglesias_2013,morel_1995_book}.
+
+The method  of \citet{ohlander_1978_cgip} is an example for \emph{top-down} clustering,
+where all pixel start in one single cluster. Each cluster is recursively divided 
+into  more clusters. The method proposed in \cref{ch:cgc} has a strong connection to
+\emph{top-down} clustering.
+\citet{arbelaez_2006_cvpr} and \citet{iglesias_2013} use the bottom-up approach 
+also called \emph{agglomerative clustering}, where 
+adjacent nodes in a graph are merged iteratively to create 
+a set of nested segmentations.
+
+
+Such a hierarchy of clusters can be visualized as a dendrogram (see \cref{fig:hc_bottom_up_top_down} ).
+The dendrogram can be interpreted as a tree where each node represents a
+region in the image.
+The leafs in the tree are the atomic units of the image (e.g. pixel,superpixels, supervoxel)
+and the root note is the entire scene itself (e.g. the complete image / graph).
+
+There are a few difference between classic unstructured agglomerative clustering
+\citep{florek_1951,sokal_1958_science_bulletin,ward_63_jasa}
+and agglomerative clustering on graph data structures \citep{arbelaez_2006_cvpr,iglesias_2013,morel_1995_book}, 
+e.g. grid-graphs and region adjacency graphs\citep{vlachos_1993_csv}.
+While in unstructured hierarchical clustering any pair of observations could be merged,
+in the case of graph hierarchical clustering only adjacent nodes / regions can be merged.
+In the literature this is also called ``hierarchical clustering with connectivity constraints''.
+
+
+The main idea behind agglomerative clustering is very simple:
+
+Initially, all observations start in a single cluster. 
+Next, cluster which have highest similarities / lowest distances will be merged.
+Due to the merging, similarities will change and need to be updated
+/ recomputed. Therefore  noisy initial features
+will  become more informative .
+
+The definition of a specific distance betweens clusters is very crucial, 
+but does strongly depend on the application.
+In \cref{tab:hc_distance_types} is a short overview of most common distance
+types and in   \cref{tab:hc_linkage_types} is a  brief overview 
+of cluster distance linkage types.
+
+
+
+
+
+
+
 
 \iffalse
 \begin{tikzpicture}[scale=  1,every node/.style={minimum size=1cm},on grid]
@@ -86,49 +134,8 @@ for the multicut objective and introduce a new approximative solver.
     
     \draw[-latex,thick] (6.2,5.5) node[right]{$\mathsf{Region adjacency graph 1}$}
          to[out=180,in=90] (4,5.5);
-
 \end{tikzpicture}
 \fi
-
-
-
-
-
-In this section we will explain the principles of graph based hierarchical clustering (HC),
-and  give an overview of different methods which uses a graph based HC.
-The main idea of HC is to build a hierarchy of nested clusters instead of
-a single flat clustering.
-Such a hierarchy of clusters can be visualized as a dendrogram (see \cref{fig:hc_bottom_up_top_down} ).
-In general there are two different strategies for HC.
-\begin{compactitem}
-    \item Bottom-Up / Agglomerative HC (\cref{fig:hc_bottom_up}):
-
-        Each observation starts in its own cluster. 
-        The most similar clusters are merged iteratively.
-        The dendrogram / cluster-tree is grown from the leaf nodes (each node in the graph is a leaf)
-        to the root (all nodes in a single cluster) .
-        If Bottom-Up / Agglomerative HC is applied to a graph, only adjacent nodes
-        can be merged. During the clustering process the adjacency of the graph
-        will change ( see \cref{hc_graph_contraction}).
-        In the literature and well known software packages graph HC
-        is also called ``hierarchical clustering with connectivity constraints'', or just ``structured clustering''.
-
-    \item Top-Down HC (\cref{fig:hc_top_down}):
-
-        All observations start in one single cluster. Each cluster is recursively divided 
-        into two or more clusters.  Global information might be used to generate the
-        splits since first splits see a great portion of the data at once.
-        The dendrogram / cluster-tree is grown from the root  (all nodes in a single cluster)
-        to the leafs (all nodes in a single cluster).
-        When top-down HC is  applied to a graph, usually each division of a cluster is restricted 
-        to divisions which yield exactly $N$ connected components. 
-\end{compactitem}
-
-In this section we will focus only on bottom-up / agglomerative HC . 
-In \cref{ch:cgc}  we propose an algorithm  based on top-down HC.
-
-
-
 
 \begin{figure}
     \centering
@@ -201,39 +208,52 @@ In \cref{ch:cgc}  we propose an algorithm  based on top-down HC.
 
 
 
-The main idea behind agglomerative clustering is very simple:
-Initially, all observations start in a single cluster. 
-Next, cluster which have highest similarities / lowest distances will be merged.
-
-Due to the merging, similarities will change and need to be updated
-/ recomputed. Therefore  noisy initial features
-will  become more informative .
-Historically, the distance between two clusters is based only 
-on the distances between the initial observations \footnote{Or the distances might be centroid distances}
-In \cref{tab:hc_linkage_types} is an overview of common definitions of cluster distances.
-
 
 
 In the case of graph hierarchical clustering, informative features
 can also be attached to the edges of the graph.
-Unsupervised edge detectors as gpb \citep{marie_2008_cvpr}  or learned
+Unsupervised edge detectors as gPb \citep{marie_2008_cvpr}  or learned
 edge detectors \cite{dollar_2013_iccv}  can be used to boost performance
-of graph based HC.
-As a consequence  we will formulate graph HC as an edge weighted algorithm.
-The edge weights can be be a mixture of edge detectors and accumulated
-over the shared boundary between two clusters and cluster distances 
-as defined in \cref{tab:hc_linkage_types}.
+of agglomerative clustering.
 
 
 
 
 
-\todo{talks about UCM here!!!}
 
 
 
 
+\begin{table}
+\begin{scriptsize}
+\begin{tabular}{ |l|l|p{5cm}|}
+    \hline 
+    Euclidean Distance
+        & $||a-b||_2 = \sqrt{\sum{ (a_i-b_i })^2 } $
+        & For low dimensional data \\  \hline 
+    Squared Euclidean Distance
+        & $||a-b||_2^2 = \sum{ (a_i-b_i })^2  $
+        & For low dimensions data\\  \hline
+    Manhattan Distance
+        &  $||a-b||_1 = \sum{ |a_i-b_i |}  $
+        & Multi purpose \\  \hline 
+    Mahalanobis Distance 
+        & $\sqrt{(a-b)S^-1(a-b)^T}$
+        & ??? when to use \\  \hline 
+    $\mathcal{X}^2$-Distance  
+        &  $\frac{1}{2}\sum{  \frac{(a_i-b_i)^2}{a_i+b_i} }$
+        & For histograms \\  \hline 
+    Earth Mover  Distance          
+        &  see \citet{levina_2001_iccv} 
+        & For histograms \\  \hline 
 
+\end{tabular}
+
+\end{scriptsize}
+\caption{
+    An overview of the most common distances measurements and their main properties.
+}\label{tab:hc_distance_types}
+\end{table}
 
 
 
@@ -262,9 +282,79 @@ as defined in \cref{tab:hc_linkage_types}.
 
 \end{scriptsize}
 \caption{
-    An overview of the most common cluster distances and their main properties.
+    An overview of the most common cluster distances linkages and their main properties.
 }\label{tab:hc_linkage_types}
 \end{table}
+
+
+
+
+
+
+\begin{figure}  \label{fig:ucm_visu}
+    \begin{center}
+        \subfloat[$K_0$]{ \label{fig:ucm_k0}
+            \begin{tikzpicture}
+                \draw[step=0.5,black,thin] (0.0,0.0) grid (2,2);
+                \draw[step=2,black,thick] (0.0,0.0) grid (2,2);
+            \end{tikzpicture}
+        }
+        \hspace{0.5cm}
+        %
+        %
+        %
+        \subfloat[$K_1$]{ \label{fig:ucm_k1}
+            \begin{tikzpicture}
+                \draw[step=0.5,black,very thin,dashed] (0.0,0.0) grid (2,2);
+                \draw[step=1,black,thin] (0.0,0.0) grid (2,2);
+                \draw[step=2,black,thick] (0.0,0.0) grid (2,2);
+            \end{tikzpicture}
+        }
+        \hspace{0.5cm} 
+        %
+        %
+        %
+        \subfloat[$K_2$]{\label{fig:ucm_k2}
+            \begin{tikzpicture}
+                \draw[step=0.5,black,very thin,dashed] (0.0,0.0) grid (2,2);
+                \draw[step=2,black,thick] (0.0,0.0) grid (2,2);
+            \end{tikzpicture}
+        }
+        \hspace{0.5cm}
+        %
+        %
+        %
+        \subfloat[$\mathcal{C}(\Upsilon) $]{ \label{fig:ucm_saliency}
+            \begin{tikzpicture}
+                \draw[step=0.5,black!5,thick] (0.0,0.0) grid (2,2);
+                \draw[step=1,  black!40,thick] (0.0,0.0) grid (2,2);
+                \draw[step=2,black,thick] (0.0,0.0) grid (2,2);
+            \end{tikzpicture}
+        }
+        \hspace{0.5cm}
+        %
+        %
+        %
+        \subfloat[$\mathcal{C}(\Upsilon) $]{ \label{fig:ucm_saliency_3d}
+            \includegraphics[width=0.2\textwidth]{fig/ucm3d.pdf}
+        }
+    \end{center}
+    \caption{
+        \Cref{fig:ucm_k0} shows the an $4x4$ grid graph which servers as initial segmentation $K_0$.
+        \Cref{fig:ucm_k1} shows the segmentation $K_0$ after the contraction of a few edges.
+        Contracted edges are showed dashed.
+        \Cref{fig:ucm_k2} shows the graph after all edges have been contracted.
+        \Cref{fig:ucm_saliency} shows the saliency $\mathcal{C}$ of the contour $\Upsilon$ of the contours.
+        In \cref{fig:ucm_saliency_3d} the saliency from \ref{fig:ucm_saliency} as a 3D visualization.
+        This figure is very much inspired from a figure showed in \citep{arbelaez_2006_cvpr}.
+    }
+\end{figure}
+
+
+
+
+
+
 
 
 
@@ -282,4 +372,18 @@ and updating the edge weights while doing so.
 
 \section{MST Methods}\label{sec:rw_mst_methods}
 
+
+Discuss the method from \citet{felzenszwalb_2004_ijcv}.
+
+
+Discuss the method from \citet{Straehle_k-smallestspanning}.
+
+
+
+\section{Watershed Methods}
+
+Discuss the method from \citet{straehle_2011_miccai}
+
+
+Discuss the method from \citet{straehle_2012_cvpr}
 

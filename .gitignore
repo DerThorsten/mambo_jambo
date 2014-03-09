@@ -63,3 +63,5 @@ nosetests.xml
 *.lol
 *.tdo
 *.fdb_latexmk
+*.blx.bib
+*.nlo
