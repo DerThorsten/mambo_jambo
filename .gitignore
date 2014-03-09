@@ -65,3 +65,5 @@ nosetests.xml
 *.fdb_latexmk
 *.blx.bib
 *.nlo
+*.run.xml
+main-blx.bib
