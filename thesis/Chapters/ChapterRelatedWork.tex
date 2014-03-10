@@ -218,10 +218,24 @@ of agglomerative clustering.
 
 
 
+\citet{ arbelaez_2006_cvpr} uses $\Sigma \in \mathbb{R}^2$ as image domain.
+$P_0$ is the inital partition of $\Sigma$ and define a
+\emph{hierarchical segmentation operator} (HSO) which
+assignes a partiton $P_\labmda$ given the inital partiton and
+a scale parameter $lambda$.
+Furthermore the follwing properties must be fullfilled for an HSO.  
 
+\begin{equation} \label{ucm_hso_0}
+Ṕ_lambda = P_0 \forall \lambda \leq 0
+\end{equation}
 
+\begin{equation} \label{ucm_hso_1}
+thereis \lambda_1 \in \mathbb{R}^+  : P_{\lambda} = \Sigma, \forall \lambda \geq \lammbda_1
+\end{equation}
 
-
+\begin{equation} \label{ucm_hso_2}
+\lambda < \lambda' \rightarrow \P_{\lambda} subset \P_{\lambda'}
+\end{equation}
 
 
 \begin{table}
@@ -281,6 +295,7 @@ of agglomerative clustering.
 \end{tabular}
 
 \end{scriptsize}
+
 \caption{
     An overview of the most common cluster distances linkages and their main properties.
 }\label{tab:hc_linkage_types}
