@@ -82,7 +82,7 @@ of cluster distance linkage types.
 
 
 
-
+\iffalse
 \begin{tikzpicture}[scale=  1,every node/.style={minimum size=1cm},on grid]
         
     %slanting: production of a set of n 'laminae' to be piled up. N=number of grids.
@@ -135,7 +135,7 @@ of cluster distance linkage types.
     \draw[-latex,thick] (6.2,5.5) node[right]{$\mathsf{Region adjacency graph 1}$}
          to[out=180,in=90] (4,5.5);
 \end{tikzpicture}
-
+\fi
 
 \begin{figure}
     \centering
@@ -218,24 +218,27 @@ of agglomerative clustering.
 
 
 
-\citet{ arbelaez_2006_cvpr} uses $\Sigma \in \mathbb{R}^2$ as image domain.
-$P_0$ is the inital partition of $\Sigma$ and define a
+\citet{ arbelaez_2006_cvpr} uses $\Omega \in \mathbb{R}^2$ as image domain.
+$P_0$ is the inital partition of $\Omega$ and define a
 \emph{hierarchical segmentation operator} (HSO) which
-assignes a partiton $P_\labmda$ given the inital partiton and
-a scale parameter $lambda$.
+assignes a partiton $P_\lambda$ given the inital partiton and
+a scale parameter $\lambda$.
 Furthermore the follwing properties must be fullfilled for an HSO.  
 
 \begin{equation} \label{ucm_hso_0}
-Ṕ_lambda = P_0 \forall \lambda \leq 0
+P_{\lambda} = P_0 \forall \lambda \leq 0
 \end{equation}
 
 \begin{equation} \label{ucm_hso_1}
-thereis \lambda_1 \in \mathbb{R}^+  : P_{\lambda} = \Sigma, \forall \lambda \geq \lammbda_1
+\exists \lambda_1 \in \mathbb{R}^+  : P_{\lambda} = \{ \Omega \} , \forall \lambda \geq \lambda_1
 \end{equation}
 
 \begin{equation} \label{ucm_hso_2}
-\lambda < \lambda' \rightarrow \P_{\lambda} subset \P_{\lambda'}
+\lambda < \lambda' \rightarrow P_{\lambda} \sqsubseteq   P_{\lambda'}
 \end{equation}
+
+
+They define the \emph{salience}
 
 
 \begin{table}
