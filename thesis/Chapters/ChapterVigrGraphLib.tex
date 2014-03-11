@@ -30,18 +30,93 @@ Argue why we choose lemon api
 \subsection{Adjacency List Graph}
 
 \subsection{Merge Graph}
-   To implemented structured clustering algorithms (see \cref{???}) we
-   need a graph which supports the contraction of edges.
-   Also a mechanism to merge node and edge features is needed.
-   Experiments suggest that the edge contraction is more expensive
-   than feature merging an can even be a bottleneck for huge 3D data 
-   (see \cref{???} ).
-   Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
+To implemented structured clustering algorithms (see \cref{???}) we
+need a graph which supports the contraction of edges.
+Also a mechanism to merge node and edge features is needed.
+Experiments suggest that the edge contraction is more expensive
+than feature merging an can even be a bottleneck for huge 3D data 
+(see \cref{???} ).
+Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.35\textwidth]{fig/contraction.pdf}
+    \caption{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
+        Note the gray node $n$ which is connected to $u$ and $v$.
+        After the contraction, edges $\{ n,u\}$ and $\{ n,v\}$ are also merged into 
+        a single edge $\{ n, w\}$ 
+    }
+    \label{fig:figlabel}
+\end{figure}
+
+   
+
+\begin{center}
+    \begin{tikzpicture}
+        \umlclass[template=Graph]{MergeGraphAdpator}
+        {
+            \\// union find data structures                     \\
+            - edgeUfd               : IterablePartiton          \\
+            - nodeUfd               : IterablePartiton          \\ 
+            - nodesAdjacency        : AdjacencySetVector        \\
+
+            \\// callbacks                                      \\
+            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
+            - mergeEdgeCallBack     : MergeEdgeCallBackVector   \\
+            - eraseEdgeCallBack     : EraseEdgeCallBackVector   \\
+        }
+        {
+            \\// LEMON API for undirected graphs                \\
+                $\ldots$                                        \\
+            \\// register callbacks                             \\ 
+            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
+            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
+            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
+
+            \\// modify graph                                   \\
+            + contractEdge(edge : Edge)     : Node              \\
+
+            \\// find representatives                           \\
+            + reprNode(node : Node)         : Node              \\
+            + reprEdge(edge : Edge)         : Edge              \\ 
+
+            \\// get base graph                                 \\
+            + graph()                       : Graph             \\
+        } 
+    \end{tikzpicture}
+\end{center}
 
 
-   \begin{figure}
-   \includegraphics[width=0.8\textwidth]{uml/mergeGraph.png}
-   \end{figure}
+
+\begin{center}
+    \begin{tikzpicture}
+        \umlclass[template=MergeGraph]{ClusterOperatorInterface}
+        {
+
+        }
+        {
+            \\// contract next edge and get weight              \\
+            + contractionEdge(edge : Edge)         : Edge       \\ 
+            + contractionWeight(edge : Edge)       : Edge       \\
+            \\// get base graph                                 \\
+            + mergeGraph()                  : MergeGraph        \\
+        } 
+    \end{tikzpicture}
+\end{center}
+
+
+\begin{center}
+    \begin{tikzpicture}
+        \umlclass[template=ClusterOperator]{HierarchicalClustering}
+        {
+
+        }
+        {
+            + cluster()                     : void        \\
+            + reprLabels(nodeMap : NodeMap) : void        \\      
+        } 
+    \end{tikzpicture}
+\end{center}
+
 
    We propose and implemented the following design:
    \begin{compactitem}
