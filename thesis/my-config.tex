@@ -95,37 +95,93 @@
 %                        %
 % SYNTAX HIGHLIGHT       %   
 %                        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%\newcommand{\edgedist}{1.5}
+
+\usepackage{etex}
+
+%\usepackage{fancyvrb}
+%\fvset{tabsize=4}
+\usepackage{lstautogobble}
 \usepackage{listings}
+\usepackage{framed}
+\definecolor{lightblue}{rgb}{0.8,0.85,1}
+\definecolor{shadecolor}{named}{lightblue} 
 
-\lstset{ %
-  backgroundcolor=\color{code_lightblue}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\tiny\ttfamily,            % the size of the fonts that are used for the code
-  %breakatwhitespace=false,             % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                     % sets automatic line breaking
-  captionpos=b,                        % sets the caption-position to bottom
-  commentstyle=\color{code_green},     % comment style
-  deletekeywords={...},                % if you want to delete keywords from the given language
-  escapeinside={\%*}{*)},              % if you want to add LaTeX within your code
-  extendedchars=true,                  % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,                          % adds a frame around the code
-% keepspaces=true,                     % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
-  keywordstyle=\color{blue},           % keyword style
-  morekeywords={*,UInt32},             % if you want to add more keywords to the set
-  numbers=left,                        % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                       % how far the line-numbers are from the code
-  numberstyle=\tiny\color{code_mauve}, % the style that is used for the line-numbers
-  rulecolor=\color{black},             % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,                    % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,              % underline spaces within strings only
-  showtabs=false,                      % show tabs within strings adding particular underscores
-  stepnumber=1,                        % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\color{code_mauve},      % string literal style
-  tabsize=2,                           % sets default tabsize to 2 spaces
+
+%\reserveinserts{28}
+
+%\lstset{ %
+%  backgroundcolor=\color{code_lightblue}, % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+%  basicstyle=\tiny\ttfamily,            % the size of the fonts that are used for the code
+%  %breakatwhitespace=false,             % sets if automatic breaks should only happen at whitespace
+%  breaklines=true,                     % sets automatic line breaking
+%  captionpos=b,                        % sets the caption-position to bottom
+%  commentstyle=\color{code_green},     % comment style
+%  deletekeywords={...},                % if you want to delete keywords from the given language
+%  escapeinside={\%*}{*)},              % if you want to add LaTeX within your code
+%  extendedchars=true,                  % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+%  frame=single,                          % adds a frame around the code
+%% keepspaces=true,                     % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+%  keywordstyle=\color{blue},           % keyword style
+%  morekeywords={*,UInt32},             % if you want to add more keywords to the set
+%  numbers=left,                        % where to put the line-numbers; possible values are (none, left, right)
+%  numbersep=5pt,                       % how far the line-numbers are from the code
+%  numberstyle=\tiny\color{code_mauve}, % the style that is used for the line-numbers
+%  rulecolor=\color{black},             % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (%green here))
+%  showspaces=false,                    % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+%  showstringspaces=false,              % underline spaces within strings only
+%  showtabs=false,                      % show tabs within strings adding particular underscores
+%  stepnumber=1,                        % the step between two line-numbers. If it's 1, each line will be numbered
+%  stringstyle=\color{code_mauve},      % string literal style
+%  tabsize=4,                           % sets default tabsize to 2 spaces
+%  autogobble,
+%  title=\lstname                       % show the filename of files included with \lstinputlisting; also try caption instead of title
+%}
+
+
+\definecolor{lightblue}{rgb}{0.8,0.85,1}
+
+\definecolor{darkblue}{rgb}{0,0,.6}
+\definecolor{darkred}{rgb}{.6,0,0}
+\definecolor{darkgreen}{rgb}{0,.6,0}
+\definecolor{red}{rgb}{.98,0,0}
+
+
+\lstset{%
+  aboveskip=0pt,
+  basicstyle=\scriptsize\ttfamily,
+  commentstyle=\itshape\color{darkgreen},
+  keywordstyle=\bfseries\color{darkblue},
+  stringstyle=\color{darkred},
+  showspaces=false,
+  showtabs=false,
+  columns=fixed,
+  numbers=left,
+  stepnumber=1,
+  frame=none,
+  numberstyle=\scriptsize\ttfamily,
+  breaklines=true,
+  showstringspaces=false,
+  xleftmargin=1cm,
+  autogobble,
   title=\lstname                       % show the filename of files included with \lstinputlisting; also try caption instead of title
-}
+}%
 
-
+%\lstset{%
+%  basicstyle=\linespread{1.5}\tiny\ttfamily,
+%  numberstyle=\footnotesize\ttfamily,
+%  keywordstyle=\bf\tiny\ttfamily,,
+%  stringstyle=\tiny\ttfamily,
+%  showspaces=false,
+%  showtabs=false,
+%  columns=fixed,
+%  %backgroundcolor=\color{lightblue},
+%  numbers=left,
+%  frame=single,
+%  numberstyle=\tiny,
+%  autogobble,
+%  title=\lstname                       % show the filename of files included with \lstinputlisting; also try caption instead of title
+%}%
 
 
 
@@ -158,7 +214,7 @@
 \renewcommand{\indent}{\hspace*{\tindent}}
 
 
-\usepackage{etex}
+
 \usepackage{wrapfig}
 
 

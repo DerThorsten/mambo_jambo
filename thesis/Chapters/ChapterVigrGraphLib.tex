@@ -1,21 +1,163 @@
 % !TEX root = ../main.tex
+
+
+
+\bigskip
 \chapter{Vigra Graph Library} \label{ch:vigra_graph_lib}
 
+Vigra \cite{software_vigra} is library for image processing and analysis.
+Vigra provides customizable and genric algorithms and datastructures.
+Vigra is capable of dealing with multi-dimensional images 
+and many algorithms are implemented for arbitrary data types
+and dimensions.
+Vigra has a wide range of features from simple convolution filters, 
+tensor based image processing to machine learning algorithms 
+as decision trees.
 
-\section{Choosing the right Graph API}
+To simplify the implementation of algorithms for images arbitrary 
+dimension, vigra uses a grid graph which is capable of
+dealing with any dimension.
 
-Argue why we choose lemon api 
+Within this thesis we extend the concept graph based image processing
+within vigra w.r.t. graphs of any structure.
+We put main emphasis on extendability while keeping the usage very simple.
 
-\section{Implementation}\label{sec:vigra_graph_lib_impl}
 
 \section{Graph API's}\label{sec:graph_apis}
 
-    \subsection{LEMON Graph API's}\label{sec:lemon_graph_apis}
-    Give brief overview of lemons graph api 
-    \subsection{BOOST Graph API's}\label{sec:boost_graph_apis}
-    Give brief overview of boost graph api
-    \subsection{VIGRA Graph API}
-    Explain why which api is used and how it is extended
+We strongly belief is is beneficial to use an existing API's for
+graphs instead of inventing an own graph API for Vigra.
+Coming up with a new API is not straight forward
+since one might to think of any future use case this API.
+In addition, users became accustomed with existing API's as 
+the LEMON or Boost graph API.
+Existing algorithms of a particular API can be reused if we stick
+to that API.
+
+
+
+
+\subsection{LEMON Graph API's}\label{sec:lemon_graph_apis}
+    LEMON \citet{ software_lemon} 
+    stand for  ``Library for Efficient Modeling and Optimization in Networks.''.
+    It is an open source C++ library with algorithms and data structures 
+    related to directed and undirected graphs.
+    The extensive usage of templates make this library very flexible.
+    While lemon provides a huge set of graph algorithms,
+    we are mostly interested in the graph API itself.
+    In the following we will give a brief overview of lemons graph 
+    API and the related concepts.
+    Explaining the complete lemon graph API in detail
+    is beyond the scope of this thesis.
+    Interested readers are referred to \citet{software_lemon}.
+    We will only discuss the API for undirected graphs since any
+    graph algorithm we implemented within this thesis
+    will work on undirected graphs.
+
+\subsubsection{Graph Items}
+    Any undirected graph class fulfilling the lemon API needs to define 
+    the following \emph{descriptor} types to represent the graph items.
+    \begin{compactitem}
+    \item \lstinline{Graph::Edge}
+    \item \lstinline{Graph::Arc}
+    \item \lstinline{Graph::Node}
+    \end{compactitem}
+    These \emph{descriptor} should be cheap types which can be copied
+    and passed with almost no overhead.
+    In addition, descriptor has an unique id
+    \footnote{ unique id w.r.t. the item type. 
+    Therefore  multiple  nodes cannot have the same id.
+    The same holds line for edges and arcs.
+    But there might be a node and edge which have the same id}.
+    These id's can be accessed via \lstinline{Graph::id(Node)}, \lstinline{Graph::id(Edge)} and \lstinline{Graph::id(Arc)}.
+    These id's can not only be dense but also sparse, which is very
+    important for an efficient handling of grid graph edge ids.
+
+
+
+\subsubsection{Iterators}
+
+    Within lemon a very convenient mechanism is used to iterate over
+    nodes, edges and arcs.
+    A special constant \lstinline{INVALID} is used to determine if 
+    an iterator reached the end.
+
+    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    // iterate over nodes
+    for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){/*...*/}
+
+    // iterate over edges
+    for(Graph::EdgeIt e(g); e!= lemon::INVALID; ++e){/*...*/}
+
+    // iterate over arcs
+    for(Graph::ArcIt a(g); a!= lemon::INVALID; ++a){/*...*/}
+
+    // use arcs to iterate over neighbor nodes
+    for(Graph::OutArcIt a(g,n); a!= lemon::INVALID; ++a){
+        const Node neighborNode = g.target(a);
+        /*...*/
+    }
+    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+    Any iterator is convertible to the corresponding item which
+    is iterated without using \lstinline{operator*()}.
+
+\subsubsection{Map Concept}
+
+    In lemon, graph classes store only the structure of the graph itself.
+    All addition data for nodes, edges and arcs is stored 
+    in \emph{maps}. 
+    Any graph has default implementations for graph maps which
+    can be accessed in the following way.
+
+    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    // edge map (for data as edge weights)
+    Graph::EdgeMap<float> edgeMap(g); 
+
+    // read and write data 
+    for(Graph::EdgeIt e(g); e!= lemon::INVALID; ++e){
+        // read
+        const float val = edgeMap[*e];
+        // write
+        edgeMap[*e] = std::exp(-1.0*a);
+    }
+
+    // node map (for node related data as node labelings )
+    Graph::NodeMap<usigned int> nodeMap(g);
+    for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){
+        // read
+        const unsigned int val = nodeMap[*e];
+        // write
+        nodeMap[*e] = val+1;
+    }
+    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+    Custom maps can be implemented very easy:
+
+    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    template<class Graph>
+    class ImplicitEdgeMap {
+    public:
+        typedef typename Graph::Edge Key;
+        typedef double Value;
+        Value operator[](Key edge) const { 
+            Value a;
+            /*...*/
+            return a;
+        }
+    };
+    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+\subsection{BOOST Graph API's}\label{sec:boost_graph_apis}
+Give brief overview of boost graph api
+\subsection{VIGRA Graph API}
+Explain why which api is used and how it is extended
+
+
+
+\section{Implementation}\label{sec:vigra_graph_lib_impl}
+
 
 
 \section{Graphs}
@@ -136,15 +278,15 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
 \section{Graph Algorithms}
 
-    \section{Multicut}
+    \subsection{Multicut}
 
-    \section{Hierarchical Clustering}
+    \subsection{Hierarchical Clustering}
 
-    \section{Mst Algorithms}
+    \subsection{Mst Algorithms}
 
-    \section{Watershed Algorithms}
+    \subsection{Watershed Algorithms}
 
-    \section{Smoothing Algorithms}
+    \subsection{Smoothing Algorithms}
 
 
 
