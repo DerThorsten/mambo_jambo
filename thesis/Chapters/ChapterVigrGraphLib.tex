@@ -213,6 +213,32 @@ to make the python wrapped graph API very \emph{Pythonic}
 
 \subsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
+
+    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    typedef AdjacencyListGraph Graph;
+
+    // construct graph
+    Graph g;
+
+    // add nodes (id will be asigned automatically)
+    Graph::Node n0 = g.addNode() 
+
+    // add node with an explicit id
+    Graph::Node n3 = g.addNode(3)
+
+    // add edges from existing nodes
+    Graph::Edge e0 = g.addEdge(n0,n1)
+
+    // add edges and nodes simultaneous 
+    Graph::Edge e1 = g.addEdge(2,3)
+
+    // no parallel edges 
+    Graph::Edge e2 = g.addEdge(2,3)
+    assert(e1==e2)  
+    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+
 \subsection{Region Adjacency Graph} \label{sec:graphs_rag}
 
 
@@ -227,7 +253,15 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 \begin{figure}
     \centering
     \includegraphics[width=0.35\textwidth]{fig/contraction.pdf}
-    \caption{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
+
+    \addtocontents{lof}{%
+        \vspace{1cm}
+        \protect\centerline{%
+            \protect\includegraphics[width=.075\linewidth]{fig/contraction.pdf} 
+        }%
+    }%
+
+    \caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
         Note the gray node $n$ which is connected to $u$ and $v$.
         After the contraction, edges $\{ n,u\}$ and $\{ n,v\}$ are also merged into 
         a single edge $\{ n, w\}$ 

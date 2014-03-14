@@ -520,7 +520,13 @@ as sketched in Fig.~\ref{fig:illustrate_t}
 
 \begin{figure}[b]
 \centering\includegraphics[width=0.8\columnwidth]{fig/tjunction.pdf}
-\caption{%
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+    \protect\includegraphics[width=.2\linewidth]{fig/tjunction.pdf} 
+    }%
+}%
+\caption[Solving the labeling problem with more than two colors allows for T-junctions ]{%
 \emph{Top:} Solving the labeling problem \eqref{eq:multicut_primal} with
 more than two colors allows for T-junctions.
 %
@@ -552,7 +558,13 @@ T-junction.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure*}
 \centering\includegraphics[width=\textwidth]{fig/illustration_new.pdf}
-\caption{\label{fig:illustration_cut}%
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+    \protect\includegraphics[width=.2\linewidth]{fig/illustration_new.pdf} 
+    }%
+}%
+\caption[Illustration of cut and cut and glue phase]{\label{fig:illustration_cut}%
 %
 \emph{Top}:
 Illustration of the \emph{cut phase}.
@@ -1153,8 +1165,15 @@ algorithm, see also \cref{fig:cgc_illustration}.
             \end{semilogyaxis}
         \end{tikzpicture}
     }
+    
 
-    \caption{%
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.15\linewidth]{fig/thump/evalplot2d.png}
+    }%
+}%
+\caption[Evaluation of CGC on 2D datasets]{%
 Evaluation on various benchmark datasets:
 \Cref{fig:plots:2d-yarkony-gap} and \cref{fig:plots:2d-andres-gap} :
 Gap to the global optimal energy (MC-I) averaged over all instances.
@@ -1247,7 +1266,14 @@ significantly slower.
             \end{axis}
         \end{tikzpicture}
     }
-    \caption{%
+
+    \addtocontents{lof}{%
+        \vspace{1cm}
+        \protect\centerline{%
+            \protect\includegraphics[width=.15\linewidth]{fig/thump/evalplot3d.png}
+        }%
+    }%
+    \caption[Evaluation of CGC on 3D datasets]{%
     Evaluation on various benchmark datasets.
     \Cref{fig:plots:3d:gap} : Gap to the global optimal energy (MC-I) averaged over all instances.
     \Cref{fig:plots:3d:gap} Mean runtime of the methods.

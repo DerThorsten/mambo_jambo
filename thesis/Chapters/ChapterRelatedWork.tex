@@ -95,7 +95,15 @@ where $\delta(a) = 1$ if $a$ is true and $0$ else.
 \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_c}
     \includegraphics[width=0.25\textwidth]{fig/andres/2.png}
 }
-\caption{
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/0.png}\hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/1.png}\hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/2.png} 
+    }%
+}%
+\caption[Naive thresholding vs. multicuts]{
 This figure has been taken from \cite{andres_2011_iccv} .
 \Cref{fig:naive_thresholding_a} shows the oversegmentation of 
 an image .
@@ -121,7 +129,14 @@ iteratively until no more violated constraints are found.
 \subfloat[Corresponding Graph]{ \label{fig:ineq_1}
     \includegraphics[width=0.4\textwidth]{fig/andres/ineq_1.pdf}
 }
-\caption{
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_0.pdf}\hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_1.pdf}
+    }%
+}%
+\caption[Violated multicut constraints]{
 This figure has been taken from \cite{andres_2011_iccv} .
 \Cref{fig:mc_ineq_0} shows the oversegmentation of 
 an image .
@@ -199,7 +214,13 @@ an image .
             \end{tikzpicture}
         }
     }
-    \caption{
+    \addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+    \protect\includegraphics[width=.2\linewidth]{fig/thump/dendro.png}
+    }%
+    }%
+    \caption[Bottom-up vs. top-down hierarchical clustering]{
         Describe the difference between both
     }
     \label{fig:hc_bottom_up_top_down}
@@ -469,7 +490,13 @@ of flat learning.
             \includegraphics[width=0.2\textwidth]{fig/ucm3d.pdf}
         }
     \end{center}
-    \caption{
+    \addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.2\linewidth]{fig/thump/ucm.png} 
+    }%
+    }%
+    \caption[Ultra metric contour map saliency]{
         \Cref{fig:ucm_k0} shows the an $4x4$ grid graph which servers as initial segmentation $K_0$.
         \Cref{fig:ucm_k1} shows the segmentation $K_0$ after the contraction of a few edges.
         Contracted edges are showed dashed.
@@ -566,7 +593,27 @@ A watershed is wherever the water of two adjacent valleys is meeting (see \cref{
     \includegraphics[height=0.26\textwidth]{fig/ws2d2.png}
 }
 
-\caption{ 
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.075\linewidth]{fig/ws_no_no.pdf}  \hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/ws_no.pdf}\hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/ws3.pdf} 
+    }%
+    \vspace{0.2cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.075\linewidth]{fig/ws2.pdf}  \hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/ws1.pdf} \hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/ws0.pdf}%
+    }%
+    \vspace{0.2cm}
+    \protect\centerline{%
+        \protect\includegraphics[height=.075\linewidth]{fig/ws2d0.png}  \hspace{0.2cm}
+        \protect\includegraphics[height=.075\linewidth]{fig/ws2d1.png} \hspace{0.2cm}
+        \protect\includegraphics[height=.075\linewidth]{fig/ws2d2.png}%
+    }%
+}%
+\caption[Illustration of watershed flooding process]{ 
     Illustration of watershed flooding process.
     The water level raises, and the watersheds are at the positions where water from different catchment basins is meeting.
 } \label{fig:watersheds_1d}
