@@ -151,6 +151,11 @@ to that API.
 
 \subsection{BOOST Graph API's}\label{sec:boost_graph_apis}
 Give brief overview of boost graph api
+
+
+
+
+
 \subsection{VIGRA Graph API}
 Explain why which api is used and how it is extended
 
@@ -158,20 +163,60 @@ Explain why which api is used and how it is extended
 
 \section{Implementation}\label{sec:vigra_graph_lib_impl}
 
+The most important concept for graph based image processing
+is the \emph{region adjacency graph} (RAG) (see \cref{fig:make_rag}).
+
+A RAG is extracted from a labeled \emph{base graph}.
+In the first step of graph based image processing, the base 
+graph is usually a grid graph, and the labeling is a label image
+as in \cref{fig:make_rag} .
+To encode a RAG we need a undirected graph, 
+and a mapping from the base graphs edges and nodes to the RAG 
+needs to be stored.
+
+The implementation of grid graphs is explained in \cref{sec:graphs_grid_graph}, 
+a basic undirected graphs implementation will be discussed in \cref{sec:graphs_adjacency_list_graph}.
+The implementation details of the \emph{region adjacency graph} concept will 
+be given in  \cref{sec:graphs_rag}.
+
+For hierarchical clustering we provide a specialized graph, named \emph{merge graph}.
+
+
+To implemented structured clustering algorithms (see \cref{sec:rw_hc} we
+need a graph which supports the contraction of edges.
+Also a mechanism to merge node and edge features is needed.
+Within \cref{sec:graphs_merge_graph} we propose  a very flexible
+and concept for hierarchical clustering based on a specialized graph,
+called \emph{merge graph}.
+
+
+A generic set of algorithms which work on any graph
+implemented within the VIGRA graph api is presented 
+in \cref{sec:graph_graph_algorithms}.
+
+While the core implementation of any algorithm is in C++
+VIGRA provides python binding to make almost
+any algorithm available in Python.
+To provide a generic Python interface for any proposed
+graph, we need to introduce a few concepts 
+to make the python wrapped graph API very \emph{Pythonic}
 
 
 \section{Graphs}
 
 
-\subsection{Grid Graph}
+\subsection{Grid Graph} \label{sec:graphs_grid_graph}
 
 \missingfigure{show grid graph here}
 
     \lstinline{vigra::GridGraph<DIM,DIRECTED_TAG>}
 
-\subsection{Adjacency List Graph}
+\subsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
-\subsection{Merge Graph}
+\subsection{Region Adjacency Graph} \label{sec:graphs_rag}
+
+
+\subsection{Merge Graph} \label{sec:graphs_merge_graph}
 To implemented structured clustering algorithms (see \cref{???}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
@@ -189,6 +234,7 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
     }
     \label{fig:figlabel}
 \end{figure}
+
 
    
 
@@ -276,7 +322,7 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
     \missingfigure{show region adjacency graph here}
 
-\section{Graph Algorithms}
+\section{Graph Algorithms} \label{sec:graph_graph_algorithms}
 
     \subsection{Multicut}
 
@@ -293,6 +339,40 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
 
 \section{Python}
+
+
+
+
+\begin{flushright}{\slshape    
+(1) Beautiful is better than ugly. \\ \label{cit:line_a}
+(2) Explicit is better than implicit. \\ \label{cit:line_b}
+(3) Simple is better than complex. \\
+(4) Complex is better than complicated. \\
+(5) Flat is better than nested. \\
+(6) Sparse is better than dense. \\
+(7) Readability counts. \\
+(8) Special cases aren't special enough to break the rules. \\
+(9) Although practicality beats purity. \\
+(10) Errors should never pass silently. \\
+(11) Unless explicitly silenced. \\
+(12) In the face of ambiguity, refuse the temptation to guess. \\
+(13) There should be one-- and preferably only one --obvious way to do it. \\
+(14) Although that way may not be obvious at first unless you're Dutch. \\
+(15) Now is better than never. \\
+(16) Although never is often better than *right* now. \\
+(17) If the implementation is hard to explain, it's a bad idea. \\
+(18) If the implementation is easy to explain, it may be a good idea. \\
+(19) Namespaces are one honking great idea -- let's do more of those! } \\ \medskip
+--- The Zen of Python
+\end{flushright}
+\captionof{figure}{ 
+    The Zen of Python
+}\label{fig:zen_of_python}
+
+
+
+Since \cref{fig:zen_of_python}(2)-(3)
+
 
 On the python side, we want node-maps,edge-maps and arc-maps to be stored 
 as numpy arrays for ??? reasons.:
