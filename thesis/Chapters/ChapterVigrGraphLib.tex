@@ -150,14 +150,26 @@ to that API.
     \end{lstlisting}\end{minipage}\vspace{0.5cm}
 
 \subsection{BOOST Graph API's}\label{sec:boost_graph_apis}
-Give brief overview of boost graph api
-
+The Boost Graph Library (BGL)  \cite{software_bgl} is set of data structures and 
+algorithms for graph related computations.
+Since all algorithms are implemented within the LEMON graph interface, 
+the BGL graph API will only be described briefly.
+The graph API defined in the BGL is a collection of
+free functions and graph traits which can be specialized for
+any graph.
 
 
 
 
 \subsection{VIGRA Graph API}
-Explain why which api is used and how it is extended
+
+While the grid graph is implemented within the BGL and LEMON graph API,\
+all algorithms implemented within this thesis will
+use the LEMON graph API instead of the BGL 
+for the following reason.
+\todo{write reasons...}
+
+
 
 
 
@@ -202,16 +214,16 @@ graph, we need to introduce a few concepts
 to make the python wrapped graph API very \emph{Pythonic}
 
 
-\section{Graphs}
+\subsection{Graphs}
 
 
-\subsection{Grid Graph} \label{sec:graphs_grid_graph}
+\subsubsection{Grid Graph} \label{sec:graphs_grid_graph}
 
 \missingfigure{show grid graph here}
 
     \lstinline{vigra::GridGraph<DIM,DIRECTED_TAG>}
 
-\subsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
+\subsubsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
 
     \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
@@ -239,10 +251,17 @@ to make the python wrapped graph API very \emph{Pythonic}
 
 
 
-\subsection{Region Adjacency Graph} \label{sec:graphs_rag}
+\subsubsection{Region Adjacency Graph} \label{sec:graphs_rag}
+
+To get a region adjacency graph (RAG), a labeled graph is needed.
+The labeled graph will hereinafter be referred to as \emph{base graph} 
+$G_{\text{base}}$
+of the RAG.
+
+To map edges and nodes from the base graph
 
 
-\subsection{Merge Graph} \label{sec:graphs_merge_graph}
+\subsubsection{Merge Graph} \label{sec:graphs_merge_graph}
 To implemented structured clustering algorithms (see \cref{???}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
@@ -257,10 +276,19 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
     \addtocontents{lof}{%
         \vspace{1cm}
         \protect\centerline{%
-            \protect\includegraphics[width=.075\linewidth]{fig/contraction.pdf} 
-        }%
+            \protect\includegraphics[width=\lofthumbsize,height=\lofthumbsize,keepaspectratio=true]{fig/contraction.pdf} 
+        } 
     }%
 
+    %\addtocontents{lof}{%
+    %    $\vcenter to \lofthumbsize{\vss%
+    %        \hbox to \lofthumbsize {
+    %            \hss \protect \includegraphics[width=.075\linewidth]{fig/contraction.pdf} \hss
+    %        }
+    %    \vss}$%
+    %    \quad
+    %    \ignorespaces
+    %}%
     \caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
         Note the gray node $n$ which is connected to $u$ and $v$.
         After the contraction, edges $\{ n,u\}$ and $\{ n,v\}$ are also merged into 
@@ -307,8 +335,6 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
     \end{tikzpicture}
 \end{center}
 
-
-
 \begin{center}
     \begin{tikzpicture}
         \umlclass[template=MergeGraph]{ClusterOperatorInterface}
@@ -324,7 +350,6 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
         } 
     \end{tikzpicture}
 \end{center}
-
 
 \begin{center}
     \begin{tikzpicture}
@@ -352,21 +377,18 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
    \lstinline{vigra::MergeGraphAdaptor<DIM,DIRECTED_TAG>}
 
-\subsection{Region Adjacency Graph}
 
-    \missingfigure{show region adjacency graph here}
+\subsection{Graph Algorithms} \label{sec:graph_graph_algorithms}
 
-\section{Graph Algorithms} \label{sec:graph_graph_algorithms}
+    \subsubsection{Multicut}
 
-    \subsection{Multicut}
+    \subsubsection{Hierarchical Clustering}
 
-    \subsection{Hierarchical Clustering}
+    \subsubsection{Mst Algorithms}
 
-    \subsection{Mst Algorithms}
+    \subsubsection{Watershed Algorithms}
 
-    \subsection{Watershed Algorithms}
-
-    \subsection{Smoothing Algorithms}
+    \subsubsection{Smoothing Algorithms}
 
 
 
@@ -405,49 +427,209 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
 
 
-Since \cref{fig:zen_of_python}(2)-(3)
 
 
-On the python side, we want node-maps,edge-maps and arc-maps to be stored 
-as numpy arrays for ??? reasons.:
-\begin{compactitem}
-    \item Numpy arrays are the standard for storing multidimensional data in python.
-    The fast C implementations and a vectorized API of numpy make it very easy to write 
-    fast python code within a few lines.
-    Virtually any python user will be familiar with the numpy API and therefore it 
-    seems to be natural to store graph maps within numpy arrays.
-    \item Vigra provides an mechanism to pass numpy arrays to C++.
-    Therefore no new mechanism needs to be implemented to transfer graph
-    maps from python to C++.
-    This will not only simplify writing extension for the new vigra graph api,
-    but also it will reduce the glue code since we can use well tested existing
-    solutions.
-    \item New algorithms might be implemented in pure python with a mix of
-    existing numpy functions and new functions provided within vigras graph api.
-    As a proof of concept we implemented ??? in pure python with vigras
-    fresh graph api in \cref{???}.
-\end{compactitem}
+
+\subsection{Graph Maps}
+
+On the python side, we want node-maps, edge-maps and arc-maps to be stored 
+as numpy arrays for several reasons.
+Numpy arrays are the standard for storing multidimensional data in python.
+The fast C implementation and the highly vectorized API of numpy makes it very easy to write 
+fast python code within a few lines.
+Virtually any python user will be familiar with the numpy API and therefore it 
+seems to be natural to store graph maps within numpy arrays.
+
+In addition VIGRA provides an mechanism to pass numpy arrays to C++.
+Therefore no new mechanism needs to be implemented to transfer graph
+maps from python to C++.
+This will not only simplify writing extension for the new VIGRA graph API,
+but also it will reduce the glue code since we can use well tested existing
+solutions.
+
+New algorithms might be implemented in pure python with a mix of
+existing numpy functions and new functions provided within VIGRA's graph API.
+As a proof of concept we implemented ??? in pure python with VIGRA's
+fresh graph API in \cref{???}.
+
+
+\subsubsection{Intrinsic Graph Shape}
+
+Each graph has an \emph{intrinsic node map shape} 
+and an \emph{intrinsic edge map shape} and 
+These intrinsic shape and dimensions are used to use 
+numpy arrays with the best fitting dimension and shape.
+For a 2D grid graph the node map should also be a 2D dimensional array.
+because in this way an usual image can be used as an node map.
+To access the  intrinsic shapes of node and edge maps 
+we use a small trait class with default implementations
+for unknown graphs.
+The default implementation is given below:
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+template<class GRAPH>
+class IntrinsicGraphShape{
+private:
+    typedef GRAPH Graph;
+    typedef typename vigra::MultiArray<1,int>::difference_type DiffType1d;
+    typedef typename Graph::index_type  index_type;
+public:
+    typedef typename Graph::Node Node ;
+    typedef typename Graph::Edge Edge ;
+    typedef typename  Graph::Arc  Arc ;
+
+    typedef DiffType1d IntrinsicNodeMapShape;
+    typedef DiffType1d IntrinsicEdgeMapShape;
+    typedef DiffType1d  IntrinsicArcMapShape;
+
+    static IntrinsicNodeMapShape intrinsicNodeMapShape(const Graph & g){
+        return IntrinsicNodeMapShape(g.maxNodeId()+1);
+    }
+    static IntrinsicEdgeMapShape intrinsicEdgeMapShape(const Graph & g){
+        return IntrinsicEdgeMapShape(g.maxEdgeId()+1);
+    }
+    static IntrinsicArcMapShape intrinsicArcMapShape(const Graph & g){
+        return  IntrinsicArcMapShape(g.maxArcId()+1);
+    }
+
+    static const unsigned int IntrinsicNodeMapDimension=1;
+    static const unsigned int IntrinsicEdgeMapDimension=1;
+    static const unsigned int IntrinsicArceMapDimension=1;
+};
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+
+\subsubsection{Numpy Arrays To LEMON Maps}
+
 
 On the C++ side, numpy arrays are stored in MultiArrayViews.
-Since API of MultiArrayViews \cite{software_vigra_multiarray_api} does
-not implemented the API  of LEMON graph maps (e.g. node-maps,edge-maps and arc-maps).
- 
-
-\begin{lstlisting}[language=python]
-vigra.graphs.foobar(graph,nodeFeatures)
-\end{lstlisting}
-\section{Some Tikz stuff}
+Since the API of MultiArrayViews \cite{software_vigra_multiarray_api} does
+not implemented the API  of LEMON graph maps (e.g. node-maps, edge-maps and arc-maps), 
+a thin wrapper is used to convert the arrays to LEMON conform maps.
+These wrappers can be accessed via \lstinline{PyNodeMapTraits<Graph,T>::Array} and 
+\lstinline{PyNodeMapTraits<Graph,T>::Map}. 
 
 
+In the following we will give a brief example how to pass numpy arrays to C++
+and convert them to LEMON conform graph maps.
+
+Assuming we need a function which does something with node features as normalization.
+On the python side we want to have the following signature:
+
+\lstinline{result=vigra.graphs.normNodeFeat(graph,nodeFeatures=nodeFeatures,out=None)}.
+
+The function should work on single band node features and multi band node features
+(an arbitrary number of channels, but the same for all nodes).
+There should be a single C++ function which can be used to export
+\lstinline{normNodeFeat} for any graph within VIGRA's graph API. 
 
 
-\begin{lstlisting}[language=c++]
-static NumpyAnyArray ConverterStruct::foobar(
-    const Graph & graph , 
-    const typename PyNodeMapTraits<Graph, UInt32>::Array & nodeArray
+
+
+\begin{minipage}{\textwidth}
+
+To archive this we propose the following design:
+On the C++ side we use a function  which
+is has two templates , one for the graph, and one for the value type.
+A prototypical implementation is given below.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+template<class Graph,class T>
+NumpyAnyArray normNodeFeat(
+    const Graph & g,
+    const typename PyNodeMapTraits<Graph,T >::Array & nodeFeaturesInArray,
+    typename PyNodeMapTraits<Graph,T>::Array  outArray 
 ){
-    typename PyNodeMapTraits<Graph, UInt32>::Map nodeArrayMap(graph,nodeArray)
+    // reshape out 
+    // - last argument (outArray) will be reshaped if empty,
+    // - and #channels is taken from second argument (nodeFeaturesIn) 
+    reshapeNodeMapIfEmpty(g,nodeFeaturesIn,outArray);
 
-    // code using LEMON Map Api 
+    // numpy arrays => lemon maps 
+    // featuresInMap and outMap fulfill
+    // the concept of LEMON NODE MAPS
+    typename PyNodeMapTraits<Graph,T >::Map featuresInMap(g,nodeFeaturesInArray);
+    typename PyNodeMapTraits<Graph,T >::Map outMap(g,outArray);
+
+
+    /* call code using LEMON API*/
+
+    // return out as numpy array
+    return outArray;
 }
-\end{lstlisting}
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+The template \lstinline{T} can be instantiated with scalars as \lstinline{float}, an explicit single band scalar as \lstinline{Singleband<float>}
+or a multi band type as \lstinline{Multiband<float>}.
+
+\lstinline{PyNodeMapTraits<Graph,T >::Array} will select the correct \lstinline{vigra::NumpyArray<DIM,VALUE_TYPE>} w.r.t.
+the templates \lstinline{Graph} and \lstinline{T}.
+
+The output array will be reshaped with the corrected number of channels by calling \lstinline{reshapeNodeMapIfEmpty}.
+Equivalent functions exist for edge maps.
+
+\lstinline{PyNodeMapTraits<Graph,T >::Map} is the corresponding LEMON conform  node map 
+which is a cheap view to an numpy array. 
+\end{minipage}
+
+
+\begin{minipage}{\textwidth}
+To make the function above available in python
+we need to write wrapper code with \lstinline{boost::python}.
+We will export the function for single band floats and multi band floats.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+// single-band float32
+boost::python::def(
+    "normNodeFeat",
+     &normNodeFeat<Graph,float>,
+    (
+        boost::python::arg("graph"),
+        boost::python::arg("nodeFeatures"),
+        boost::python::arg("out")=boost::python::object() // None
+    )
+);
+
+// multi-band float32
+boost::python::def(
+    "normNodeFeat",
+     &normNodeFeat<Graph,Multiband<float> >,
+    (
+        boost::python::arg("graph"),
+        boost::python::arg("nodeFeatures"),
+        boost::python::arg("out")=boost::python::object() // None
+    )
+);
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+\end{minipage}
+
+
+On the python side we can call the function as desired.
+The array which stores the result of this
+function can be preallocated and passed explicitly.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=Python]
+// with automatically allocated outFeatures
+outFeatures = vigra.graphs.normNodeFeat(graph,nodeFeatures)
+
+// with explicitly given outFeatures
+// - here we assume single band features
+outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32)
+outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+
+
+// with multiband node features 
+// - here we assume multi band features
+//   with 3 channels per node
+outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels=3)
+outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+
+
+\subsection{Graph Hierarchy}
+    
+Explain the very nice workflow 

@@ -249,3 +249,24 @@
 %
 
 %\usepackage{savebox}
+
+\usepackage{etoolbox}
+
+\newlength{\lofthumbsize}
+\setlength{\lofthumbsize}{2cm}
+
+
+\newif\iflofimage
+\newcommand*{\lofimage}[1][]{%
+\iflofimage
+    $\vcenter to \lofthumbsize{\vss%
+        \hbox to \lofthumbsize{
+            \hss 
+            {#1}
+            \hss
+        }% 
+    \vss}$%
+    \quad
+\fi
+\ignorespaces
+}
