@@ -1,0 +1,64 @@
+% !TEX root = ../main.tex
+\chapter{Region Adjacency Graph}\label{ch:regio_adjacency_graph}
+
+    
+  \begin{MyDef}[Id-Graph]
+    A graph $G = (U, V )$ is called \emph{id-graph} if there is
+    bijective function  $\mathcal{N}_{\text{id}}: U \rightarrow \mathbb{N}_0 $ 
+    mapping any node $\in U$ to a unique non negative id.
+  \end{MyDef}
+    
+
+  \begin{MyDef}[Region Adjacency Graph]
+    Given a base graph $\baseGraph = (\baseNodes, \baseEdges)$ and 
+    a node labeling $\Labels_{i}^{base} \in  \mathbb{N}_0 \quad \forall \quad u_i \in \baseNodes$:
+
+    A region adjacency graph  is defined by an id-graph  $\ragGraph = (\ragNodes, \ragEdges)$,
+    a surjective function $ \mathcal{N}_{\text{RAG}}^{\uparrow} : \baseNodes \rightarrow \ragNodes$ which maps
+    any node from the $\baseGraph$ to exactly one node in $\ragGraph$ s.t:
+    \[
+        \quad s.t. \quad
+        \mathcal{N}_{\text{id}}^{\text{RAG}} 
+        \left(
+            \mathcal{N}_{\text{RAG}}^{\uparrow}
+            \left(
+                u_i^{\text{base}}
+            \right)
+        \right) 
+        = \Labels_i^{base}
+        \quad \forall u_i^{\text{base}} \quad \in \baseNodes
+    \]
+
+    and a function $\mathcal{E}_{\text{RAG}}^{\downarrow} \quad : \quad \ragEdges \rightarrow \{  \baseEdges \} $
+    s.t:
+    \begin{align*}
+        |\mathcal{E}_{\text{RAG}}^{\downarrow}(u_i^{\text{RAG}})| >=1 
+            \quad \forall u_i^{\text{RAG}} \quad \in \ragNodes  \\
+        %
+        \sum _{u_i^{\text{RAG}} \quad \in \ragNodes } 
+            |\mathcal{E}_{\text{RAG}}^{\downarrow}(u_i^{\text{RAG}})| = |\baseEdges|
+    \end{align*}
+
+  \end{MyDef}
+
+
+
+To get a region adjacency graph (RAG), a labeled graph is needed.
+The labeled graph will hereinafter be referred to as \emph{base graph} 
+$G_{\text{base}}=(V_{\text{base}},E_{\text{base}})$
+of the RAG $G_{\text{RAG}}=(V_{\text{RAG}},E_{\text{RAG}})$
+
+Each node $u_i \in V_{\text{base}} $ is assigned a 
+label $\Labels_{i} \in  \mathbb{N}_0$.
+For each unique label in $\Labels$ a node is added to the RAG, 
+and the id of that node is the label itself.
+
+For each $e_{ij} \in E_{\text{base}}$ where $L_i \neq L_j$ an edge is added to the RAG,
+if and if only no edge between $u_{\Labels_i}$ and $u_{\Labels_j}$ has been in 
+
+
+
+This allows an easy mapping between $V_{\text{base}}$ and $V_{\text{RAG}}$, 
+since $\Labels$  can be used as \emph{forward mapping} from $V_{\text{base}}$ to $V_{\text{RAG}}$.
+
+
