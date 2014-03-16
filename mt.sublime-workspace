@@ -4,20 +4,92 @@
 		"selected_items":
 		[
 			[
+				"al",
+				"align"
+			],
+			[
+				"u",
+				"u_i"
+			],
+			[
+				"uni",
+				"unique"
+			],
+			[
+				"exa",
+				"exactly"
+			],
+			[
 				"impl",
 				"implementation"
 			],
 			[
-				"disc",
-				"discussed"
+				"implementato",
+				"implementations"
+			],
+			[
+				"Mult",
+				"MultiArrays"
+			],
+			[
+				"Ad",
+				"AdjacencyListGraph"
 			],
 			[
 				"implem",
-				"implementation"
+				"implemented"
+			],
+			[
+				"lof",
+				"lofthumbsize"
+			],
+			[
+				"featu",
+				"features"
+			],
+			[
+				"lst",
+				"lstinline"
+			],
+			[
+				"VIGRA",
+				"VIGRA's"
+			],
+			[
+				"ls",
+				"lstinline"
+			],
+			[
+				"feature",
+				"featuresInMap"
 			],
 			[
 				"imple",
-				"implementation"
+				"implemented"
+			],
+			[
+				"Hi",
+				"HierarchicalClustering"
+			],
+			[
+				"multi",
+				"multicut"
+			],
+			[
+				"mult",
+				"multicuts"
+			],
+			[
+				"ce",
+				"centering"
+			],
+			[
+				"f",
+				"fig"
+			],
+			[
+				"disc",
+				"discussed"
 			],
 			[
 				"adja",
@@ -34,10 +106,6 @@
 			[
 				"add",
 				"addition"
-			],
-			[
-				"lst",
-				"lstinline"
 			],
 			[
 				"fote",
@@ -446,150 +514,40 @@
 			[
 				"_genGr",
 				"_genGraphSegmentationFunctions"
-			],
-			[
-				"nodeNu",
-				"nodeNumStop"
-			],
-			[
-				"Node",
-				"nodeFeatures"
-			],
-			[
-				"nod",
-				"nodeNumStop"
-			],
-			[
-				"segm",
-				"segmentation"
-			],
-			[
-				"nodeN",
-				"nodeNumStop"
-			],
-			[
-				"ver",
-				"verboseVisitor"
-			],
-			[
-				"Numpy",
-				"NumpyAnyArray"
-			],
-			[
-				"ward",
-				"wardF"
-			],
-			[
-				"outA",
-				"outArrayMap"
-			],
-			[
-				"edgeWe",
-				"edgeWeightsArrayMap"
-			],
-			[
-				"nodeSizeA",
-				"nodeSizeArrayMap"
-			],
-			[
-				"FloatN",
-				"FloatNodeArrayMap"
-			],
-			[
-				"best",
-				"bestUpper"
-			],
-			[
-				"converg",
-				"comnverged"
-			],
-			[
-				"conver",
-				"comnverged"
-			],
-			[
-				"node",
-				"nodeNumStopCond"
-			],
-			[
-				"eI",
-				"eInd"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "thesis/Chapters/ChapterCgc.tex",
+			"settings":
+			{
+				"buffer_size": 60780,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
 			"settings":
 			{
-				"buffer_size": 14672,
+				"buffer_size": 22034,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "thesis/Chapters/ChapterEdgeIndicators.tex",
+			"file": "thesis/FrontBackMatter/Contents.tex",
 			"settings":
 			{
-				"buffer_size": 285,
+				"buffer_size": 4826,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/tbeier/.config/sublime-text-3/Packages/User/LaTeXTools.sublime-settings",
+			"file": "/home/tbeier/src/vigra/include/vigra/graph_generalization.hxx",
 			"settings":
 			{
-				"buffer_size": 6180,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Package Control Messages\n========================\n\nLaTeXTools:\n----------\n\n  LaTeXTools Plugin version 2014-03-12 changelog:\n  \n  HEADLINE FEATURE: New, fully customizable build system! For now,\n  things work more or less as before, but the infrastructure is there to\n  customize things beyond your wildest dreams!\n  \n  NOTE: due to the change in the build system, I had to overhaul the preferences settings. Please READ THIS before proceeding any further:\n  \n  * From now on, LaTeXTools will use a single settings file, called\n    `LaTeXTools.sublime-settings`, which *mustexist in the `User`\n    directory. By this I mean that LaTeXTools *will not workuntil you\n    have a proper `LaTeXTools.sublime-settings` file in the `User`\n    directory. \n  \n  * Because of this, LaTeXtools provides an easy way to\n    create it, and even *automagicallymigrate your settings from any old\n    `LaTeXTools Preferences.sublime-settings` file you may have. In\n    Sublime Text, open the command palette from the Tools menu, search\n    for \"LaTeXTools: Reconfigure and migrate settings,\" and hit Return.\n    That's it! Check the README for details.\n  \n  New features:\n  \n  - New pluggable build system back-end\n  - Two standard builders: \"traditional\" (the default; same as in\n    previous releases, using latexmk/texify) and \"simple\" (invokes tex\n    and friends directly). Switch using a simple configuration setting. \n  - With the \"traditional\" builder, the TeX engine and build command can\n    be customized by editing simple options in \"LaTeXTools.sublime-settings\"\n  - Remark snippet (Ivan Canay)\n  \n  Bugs fixed:\n  \n  - Removed annoying brace-matching behavior with indented text (thanks\n    Ivan Canay for reporting this issue) \n  \n  \n    \n",
-			"settings":
-			{
-				"buffer_size": 1734,
-				"line_ending": "Unix",
-				"name": "Package Control Messages",
-				"scratch": true
-			}
-		},
-		{
-			"file": "thesis/Chapters/ChapterIntroduction.tex",
-			"settings":
-			{
-				"buffer_size": 5834,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Chapters/Chapter01.tex",
-			"settings":
-			{
-				"buffer_size": 16399,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/tikzuml-v1.0b/examples/classdiag.tex",
-			"settings":
-			{
-				"buffer_size": 2170,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Chapters/ChapterShowcase.tex",
-			"settings":
-			{
-				"buffer_size": 98,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
-			"settings":
-			{
-				"buffer_size": 42126,
+				"buffer_size": 10499,
 				"line_ending": "Unix"
 			}
 		},
@@ -597,23 +555,31 @@
 			"file": "thesis/main.tex",
 			"settings":
 			{
-				"buffer_size": 6309,
+				"buffer_size": 6341,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "thesis/Chapters/ChapterCgc.tex",
+			"file": "thesis/Chapters/ChapterRag.tex",
 			"settings":
 			{
-				"buffer_size": 59957,
+				"buffer_size": 2427,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/tbeier/Downloads/cuboid.tex",
+			"file": "thesis/Chapters/ChapterIntroduction.tex",
 			"settings":
 			{
-				"buffer_size": 3423,
+				"buffer_size": 7118,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "thesis/classicthesis-config.tex",
+			"settings":
+			{
+				"buffer_size": 10775,
 				"line_ending": "Unix"
 			}
 		},
@@ -621,31 +587,7 @@
 			"file": "thesis/my-config.tex",
 			"settings":
 			{
-				"buffer_size": 8428,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/FrontBackMatter/Acknowledgments.tex",
-			"settings":
-			{
-				"buffer_size": 1514,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Bibliography.bib",
-			"settings":
-			{
-				"buffer_size": 16357,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/cvpr/new/opengmhmc/cvpr14/paper_hmc.tex",
-			"settings":
-			{
-				"buffer_size": 60325,
+				"buffer_size": 9098,
 				"line_ending": "Unix"
 			}
 		},
@@ -741,7 +683,7 @@
 				"Snippet: main()"
 			]
 		],
-		"width": 521.0
+		"width": 602.0
 	},
 	"console":
 	{
@@ -763,16 +705,48 @@
 	},
 	"file_history":
 	[
-		"/home/tbeier/src/vigra/include/vigra/multi_array.hxx",
+		"/home/tbeier/.config/sublime-text-3/Packages/User/LaTeXTools.sublime-settings",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRag.tex",
+		"/home/tbeier/src/vigra/include/vigra/config.hxx",
+		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Contents.tex",
+		"/home/tbeier/src/vigra/doc/vigra/clustering__operator_8hxx_source.html",
+		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/cvpr.sty",
+		"/home/tbeier/src/vigra/include/vigra/clebsch-gordan.hxx",
+		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1GiniCriterion.html",
+		"/home/tbeier/src/vigra/include/vigra/graph_algorithms.hxx",
 		"/home/tbeier/src/vigra/include/vigra/graphs.hxx",
 		"/home/tbeier/src/vigra/doc/vigra/group__RGBValueAccessors.html",
 		"/home/tbeier/src/vigra/test/imagehierarchy/g++_relops_workaround.hxx",
 		"/home/tbeier/src/masterthesis/thesis/fig/grid.svg",
+		"/home/tbeier/src/masterthesis/thesis/main.lof",
+		"/home/tbeier/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
+		"/home/tbeier/src/play/layeredview/__init__.py",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWork.tex",
+		"/home/tbeier/src/vigra/include/vigra/random_forest/rf_earlystopping.hxx",
+		"/home/tbeier/src/masterthesis/README.md",
+		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1UniformIntRandomFunctor.html",
+		"/home/tbeier/src/vigra/src/examples/tutorial/invert_tutorial.cxx",
+		"/home/tbeier/src/masterthesis/thesis/fig/illustration_new.svg",
+		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/ieee.bst",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.tex",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterIntroduction.tex",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/Chapter01.tex",
+		"/home/tbeier/src/masterthesis/thesis/tikzuml-v1.0b/examples/classdiag.tex",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterShowcase.tex",
+		"/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
+		"/home/tbeier/src/masterthesis/thesis/main.tex",
+		"/home/tbeier/Downloads/cuboid.tex",
+		"/home/tbeier/src/masterthesis/thesis/my-config.tex",
+		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Acknowledgments.tex",
+		"/home/tbeier/src/masterthesis/thesis/Bibliography.bib",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgc.tex",
+		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/paper_hmc.tex",
+		"/home/tbeier/src/vigra/include/vigra/multi_array.hxx",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgcMine.tex",
 		"/home/tbeier/src/vigra/doc/doxygen_entrydb_15249.tmp",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Declaration.tex",
 		"/home/tbeier/src/vigra/docsrc/Doxyfile.in",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Acknowledgments.tex",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Abstract.tex",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Titleback.fdb_latexmk",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Titlepage.tex",
@@ -783,35 +757,19 @@
 		"/home/tbeier/src/vigra/doc/vigra/functions_rela.html",
 		"/home/tbeier/src/masterthesis/thesis/framed.sty",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterEdgeIndicators.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterShowcase.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterIntroduction.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgc.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/Chapter01.tex",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterIntroduction.fdb_latexmk",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWork.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.tex",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.fdb_latexmk",
 		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1HistogramOptions-members.html",
 		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1HDF5ImportInfo-members.html",
 		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1rf_1_1algorithms_1_1PermuteCluster.html",
-		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/cvpr.sty",
 		"/home/tbeier/src/vigra/doc/vigra/AlgebraicConcepts.html",
 		"/home/tbeier/src/masterthesis/thesis/main.synctex.gz",
-		"/home/tbeier/src/vigra/include/vigra/random_forest/rf_earlystopping.hxx",
-		"/home/tbeier/src/masterthesis/README.md",
-		"/home/tbeier/src/vigra/include/vigra/graph_algorithms.hxx",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Contents.tex",
-		"/home/tbeier/src/masterthesis/thesis/my-config.tex",
 		"/home/tbeier/.config/sublime-text-3/Packages/User/LaTeXTools Preferences.sublime-settings",
 		"/home/tbeier/src/vigra/doc/vigra/KernelArgumentObjectFactories.html",
 		"/home/tbeier/src/masterthesis/thesis/classicthesis-config.tex",
 		"/home/tbeier/src/vigra/doc/vigra/config_8hxx_source.html",
 		"/home/tbeier/src/vigra/include/vigra/configVersion.hxx",
-		"/home/tbeier/src/vigra/include/vigra/config.hxx",
-		"/home/tbeier/src/vigra/doc/vigra/clustering__operator_8hxx_source.html",
 		"/home/tbeier/src/masterthesis/thesis/main.lot",
-		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1GiniCriterion.html",
-		"/home/tbeier/src/vigra/include/vigra/clebsch-gordan.hxx",
 		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_hierarchical_clustering_visitor.hxx",
 		"/home/tbeier/src/vigra/doc/vigra/globals.html",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Notation.tex",
@@ -819,11 +777,8 @@
 		"/home/tbeier/src/pyqtgraph/examples/DataSlicing.py",
 		"/home/tbeier/src/play/layeredview/layer/base_layer.py",
 		"/home/tbeier/src/pyqtgraph/examples/GLVolumeItem.py",
-		"/home/tbeier/src/masterthesis/thesis/main.tex",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Publication.tex",
-		"/home/tbeier/src/masterthesis/thesis/Bibliography.bib",
 		"/home/tbeier/src/play/layeredview/layer/__init__.py",
-		"/home/tbeier/src/play/layeredview/__init__.py",
 		"/home/tbeier/src/pyqtgraph/examples/GLIsosurface.py",
 		"/home/tbeier/src/pyqtgraph/examples/isocurve.py",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Bibliography.tex",
@@ -833,8 +788,6 @@
 		"/home/tbeier/src/vigra/test/utilities/test.cxx",
 		"/home/tbeier/.config/sublime-text-3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
 		"/home/tbeier/src/masterthesis/thesis/main.tdo",
-		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/paper_hmc.tex",
-		"/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
 		"/home/tbeier/src/masterthesis/experiments/hc_workflow.py",
 		"/home/tbeier/src/vigra/vigranumpy/src/core/graphs.cxx",
 		"/home/tbeier/.config/sublime-text-3/Packages/BracketHighlighter/bh_core.sublime-settings",
@@ -879,18 +832,7 @@
 		"/home/tbeier/src/vigra/config/VigraConfigVersion.cmake.in",
 		"/home/tbeier/src/vigra/config/VigraConfigBuild.cmake.in",
 		"/home/tbeier/src/vigra/config/VigraConfig.cmake.in",
-		"/home/tbeier/src/vigra/config/VigraCMakeUtils.cmake",
-		"/home/tbeier/src/vigra/config/VigraAddTest.cmake",
-		"/home/tbeier/src/vigra/config/VIGRA_ADD_NUMPY_MODULE.cmake",
-		"/home/tbeier/src/vigra/config/FindVIGRANUMPY_DEPENDENCIES.cmake",
-		"/home/tbeier/src/vigra/config/FindOpenEXR.cmake",
-		"/home/tbeier/src/vigra/config/FindHDF5.cmake",
-		"/home/tbeier/src/vigra/config/FindFFTW3F.cmake",
-		"/home/tbeier/src/vigra/config/FindFFTW3.cmake",
-		"/home/tbeier/src/vigra/config/CTestConfig.cmake.template",
-		"/home/tbeier/src/vigra/config/CPackConfig.cmake",
-		"/home/tbeier/src/vigra/README.md",
-		"/home/tbeier/src/vigra/LICENSE.txt"
+		"/home/tbeier/src/vigra/config/VigraCMakeUtils.cmake"
 	],
 	"find":
 	{
@@ -911,6 +853,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"base",
+			"G_b",
+			"%\\",
+			"doSomethingWithNodeFeatures",
+			"}}.\n",
+			"vigra",
+			"Array",
+			"graph",
 			"graph_graph_algorithms",
 			"software_lemon",
 			"concept",
@@ -1030,15 +980,7 @@
 			"isGridGraph",
 			"minEdgeWeightNodeDist",
 			"g1",
-			"pyNodeWeightedWatershedsSeeds",
-			"labelsNodeWeightedB",
-			"graph1NodeWeights",
-			"graph1",
-			"graph1NodeWeights",
-			"graph1",
-			"pyNodeWeightedWatershedsSeeds",
-			"pyNodeWeightedWatershedsSegmentation",
-			"show"
+			"pyNodeWeightedWatershedsSeeds"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1184,24 +1126,24 @@
 	"groups":
 	[
 		{
-			"selected": 10,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
+					"file": "thesis/Chapters/ChapterCgc.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14672,
+						"buffer_size": 60780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13735,
-								13735
+								6130,
+								6130
 							]
 						],
 						"settings":
@@ -1209,14 +1151,22 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -1233,22 +1183,14 @@
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -1362,27 +1304,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1385.0,
+						"translation.y": 431.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "thesis/Chapters/ChapterEdgeIndicators.tex",
-					"semi_transient": true,
+					"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 285,
+						"buffer_size": 22034,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								8791,
+								8791
 							]
 						],
 						"settings":
@@ -1390,118 +1332,46 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
-							],
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/tbeier/.config/sublime-text-3/Packages/User/LaTeXTools.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6180,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1374,
-								1374
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close"
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -1608,570 +1478,33 @@
 								"Python Django": "Python"
 							},
 							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 540.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1734,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1734,
-								1734
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "thesis/Chapters/ChapterIntroduction.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5834,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "thesis/Chapters/Chapter01.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16399,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3457,
-								3457
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
 							"sublime_auto_complete": true,
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1215.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "thesis/tikzuml-v1.0b/examples/classdiag.tex",
+					"buffer": 2,
+					"file": "thesis/FrontBackMatter/Contents.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2170,
+						"buffer_size": 4826,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1283,
-								1283
+								0,
+								0
 							]
 						],
 						"settings":
@@ -2179,218 +1512,10 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "thesis/Chapters/ChapterShowcase.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 98,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								98,
-								98
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
@@ -2398,116 +1523,40 @@
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
-								"bh_round_close"
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
 							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -2517,20 +1566,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
+					"buffer": 3,
+					"file": "/home/tbeier/src/vigra/include/vigra/graph_generalization.hxx",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 42126,
+						"buffer_size": 10499,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12429,
-								12429
+								5945,
+								5945
 							]
 						],
 						"settings":
@@ -2538,38 +1587,38 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -2580,31 +1629,31 @@
 								"bh_tag_close"
 							],
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 6750.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 4,
 					"file": "thesis/main.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6309,
+						"buffer_size": 6341,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4031,
-								4031
+								4848,
+								4848
 							]
 						],
 						"settings":
@@ -2612,14 +1661,22 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -2636,22 +1693,14 @@
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -2762,27 +1811,27 @@
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2085.0,
+						"translation.y": 1279.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "thesis/Chapters/ChapterCgc.tex",
+					"buffer": 5,
+					"file": "thesis/Chapters/ChapterRag.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 59957,
+						"buffer_size": 2427,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2544,
-								2544
+								458,
+								458
 							]
 						],
 						"settings":
@@ -2790,14 +1839,22 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -2814,22 +1871,14 @@
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -2936,34 +1985,217 @@
 								"Python Django": "Python"
 							},
 							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"file": "thesis/Chapters/ChapterIntroduction.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7118,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								719,
+								719
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
+										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 912.0,
+						"translation.y": 247.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
-					"file": "/home/tbeier/Downloads/cuboid.tex",
+					"buffer": 7,
+					"file": "thesis/classicthesis-config.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3423,
+						"buffer_size": 10775,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								612,
-								612
+								1999,
+								1999
 							]
 						],
 						"settings":
@@ -2971,267 +2203,22 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close"
-							],
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "thesis/my-config.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8428,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5362,
-								5362
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
-								"bh_square_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "thesis/FrontBackMatter/Acknowledgments.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1514,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								170,
-								170
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
+								"bh_square_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -3248,130 +2235,15 @@
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
 							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -3382,20 +2254,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 14,
-					"file": "thesis/Bibliography.bib",
+					"buffer": 8,
+					"file": "thesis/my-config.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16357,
+						"buffer_size": 9098,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15403,
-								15403
+								9093,
+								9093
 							]
 						],
 						"settings":
@@ -3403,46 +2275,46 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -3549,34 +2421,33 @@
 								"Python Django": "Python"
 							},
 							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
 							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/Bibtex.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 19143.0,
+						"translation.y": 3319.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 0,
 					"file": "thesis/Chapters/ChapterCgc.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 59957,
+						"buffer_size": 60780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19005,
-								19005
+								2881,
+								2881
 							]
 						],
 						"settings":
@@ -3584,42 +2455,42 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
@@ -3737,334 +2608,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7923.0,
+						"translation.y": 1045.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
-					"file": "/home/tbeier/cvpr/new/opengmhmc/cvpr14/paper_hmc.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 60325,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3115,
-								3115
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1620.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 12,
-					"file": "thesis/my-config.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8428,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8065,
-								8065
-							],
-							[
-								8092,
-								8092
-							],
-							[
-								8124,
-								8124
-							],
-							[
-								8126,
-								8126
-							],
-							[
-								8145,
-								8145
-							],
-							[
-								8187,
-								8187
-							],
-							[
-								8200,
-								8200
-							],
-							[
-								8230,
-								8230
-							],
-							[
-								8312,
-								8312
-							],
-							[
-								8363,
-								8363
-							],
-							[
-								8367,
-								8367
-							],
-							[
-								8395,
-								8395
-							],
-							[
-								8405,
-								8405
-							],
-							[
-								8410,
-								8410
-							],
-							[
-								8425,
-								8425
-							],
-							[
-								8428,
-								8428
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3675.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
+					"buffer": 9,
 					"file": "thesis/FrontBackMatter/Dedication.tex",
 					"semi_transient": false,
 					"settings":
@@ -4132,11 +2683,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 10,
 					"file": "thesis/FrontBackMatter/Titleback.tex",
 					"semi_transient": true,
 					"settings":
@@ -4204,7 +2755,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
@@ -4238,7 +2789,7 @@
 		"cols":
 		[
 			0.0,
-			0.531113876789,
+			0.541065956367,
 			1.0
 		],
 		"rows":
@@ -4272,6 +2823,34 @@
 		"selected_items":
 		[
 			[
+				"config.tex",
+				"masterthesis/thesis/classicthesis-config.tex"
+			],
+			[
+				"chaptercg",
+				"masterthesis/thesis/Chapters/ChapterCgc.tex"
+			],
+			[
+				"graph_ge",
+				"vigra/include/vigra/graph_generalization.hxx"
+			],
+			[
+				"__i",
+				"play/layeredview/__init__.py"
+			],
+			[
+				"relate",
+				"masterthesis/thesis/Chapters/ChapterRelatedWork.tex"
+			],
+			[
+				"intro",
+				"masterthesis/thesis/Chapters/ChapterIntroduction.tex"
+			],
+			[
+				"graphl",
+				"masterthesis/thesis/Chapters/ChapterVigrGraphLib.tex"
+			],
+			[
 				"main",
 				"masterthesis/thesis/main.tex"
 			],
@@ -4304,19 +2883,11 @@
 				"masterthesis/thesis/Chapters/ChapterCgc.tex"
 			],
 			[
-				"relate",
-				"masterthesis/thesis/Chapters/ChapterRelatedWork.tex"
-			],
-			[
 				"myc",
 				"masterthesis/thesis/my-config.tex"
 			],
 			[
 				"chapterc",
-				"masterthesis/thesis/Chapters/ChapterCgc.tex"
-			],
-			[
-				"chaptercg",
 				"masterthesis/thesis/Chapters/ChapterCgc.tex"
 			],
 			[
@@ -4361,7 +2932,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 256.0,
+	"side_bar_width": 167.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
