@@ -82,7 +82,8 @@ A watershed is wherever the water of two adjacent valleys is meeting (see \cref{
 
 
 
-\citet{couprie_2011_pami} proposed an algorithm, \emph{power-watershed}, a generalization of \citep{RANDOM_WALKER, GRAPH_CUT,WATHERSHEDS,sinop_2007_iccv}.
+\citet{couprie_2011_pami} proposed an algorithm, \emph{power-watershed}, a generalization of \citep{RANDOM_WALKER, boykov_2001_pami,vinent_1991_pami,najman_1994_sp,roerdink_2000_finf,bertrand_2005_jmiv,sinop_2007_iccv,cousty_2009_pami}.
+
 They define the following model.
 \begin{align}\label{eq:power_watershed}
 \min_x \sum_{e_{ij} \in E}  w_{ip}^p |x_i-x_j|^q + \sum_{v_i } w_{Fi}^p |x_i|^q + \sum_{v_i } w_{Bi}^p |x_i-1|^q \\

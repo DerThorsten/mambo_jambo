@@ -13,14 +13,33 @@ which means that any node has the same number of labels.
 An energy function $E(x)$ can be  defined  in the following way:
 
 \begin{equation} \label{eq:gm_energy}
-E(x) = \sum_{v \in V} \phi_i(x_i) + \sum_{e=(i,j) \in E }\phi_{ij}(x_i,x_j) 
+    E(x) = 
+    \underbrace{
+        \sum_{v \in V} \phi_i(x_i)
+    }_{\text{unaries}}
+     \quad +  \quad
+    \underbrace{
+        \sum_{e=(i,j) \in E } \phi_{ij}(x_i,x_j) 
+    }_{\text{pairwise terms}}
 \end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
 
 Where the \emph{unaries} $\phi_i(x_i)$ encode local costs
 for a variable to have certain label.
 While the \emph{pairwise terms} $\phi_{ij}(x_i,x_j) $ define the interaction of adjacent nodes.
 Often they are used to introduce some smoothness prior
-into the model \citep{WHOM_TO_CITE_HERE} .
+into the model \citep{szeliski_2008_pami,MORE_HERE}.
 
 
 The vector which yields a minimum value of $E(x)$
@@ -59,7 +78,7 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
     \subfloat[$\alpha$-Expansion]{  \label{fig:eq:gm_ef_dension_ae}
         \includegraphics[width=0.25\textwidth]{fig/houseM-Expansion.png}
     }
-    \subfloat[Trws]{  \label{fig:eq:gm_ef_dension_trws}
+    \subfloat[TRWS]{  \label{fig:eq:gm_ef_dension_trws}
         \includegraphics[width=0.25\textwidth]{fig/houseM-TRW-S.png}
     }
     \caption[Energy based truncated denoising]{
@@ -68,9 +87,15 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
         Using \cref{fig:eq:gm_ef_dension_input} as input (for the black area no unaries 
         are used)
         the following
-        results are obtained: ICM \cite{TODO_ICM}  (\Cref{fig:eq:gm_ef_dension_icm} ) fails
-        to fill the in-painting area. While \cite{TODO_TRWS}  (\Cref{fig:eq:gm_ef_dension_trws} ) 
-        and \cite{TODO_ALPHA_E}  (\Cref{fig:eq:gm_ef_dension_ae} ) can fill the in-painting area
+        results are obtained:
+        ICM
+         \citep{besag_1986_icm}  (\Cref{fig:eq:gm_ef_dension_icm} ) fails
+        to fill the in-painting area. 
+        While TRWS
+        \citep{kolmogorov_2006_pami_trws}  (\Cref{fig:eq:gm_ef_dension_trws} ) 
+        and $\alpha$-Expansion
+        \citep{boykov_2001_pami}  (\Cref{fig:eq:gm_ef_dension_ae} ) 
+        can fill the in-painting area
         with meaningful values.
         The input image has been taken from \citep{szeliski_2008_pami}.
         The result images have been generated with OpenGM.
@@ -112,9 +137,9 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda \cdot \min\
         Using \cref{fig:eq:gm_ef_dension_truncated_input} as input (for the black area no unaries 
         are used)
         the following
-        results are obtained: ICM \cite{TODO_ICM}  (\Cref{fig:eq:gm_ef_dension_truncated_icm} ) fails
-        to fill the in-painting area. While \cite{TODO_TRWS}  (\Cref{fig:eq:gm_ef_dension_truncated_trws} ) 
-        and \cite{TODO_ALPHA_E}  (\Cref{fig:eq:gm_ef_dension_truncated_ae} ) can fill the in-painting area
+        results are obtained: ICM \citep{besag_1986_icm}  (\Cref{fig:eq:gm_ef_dension_truncated_icm} ) fails
+        to fill the in-painting area. While TRWS \cite{kolmogorov_2006_pami_trws}  (\Cref{fig:eq:gm_ef_dension_truncated_trws} ) 
+        and $\alpha$-expansion \cite{boykov_2001_pami}  (\Cref{fig:eq:gm_ef_dension_truncated_ae} ) can fill the in-painting area
         with meaningful values.
         The input image has been taken from \citep{szeliski_2008_pami}.
         The result images have been generated with OpenGM.
@@ -159,36 +184,116 @@ E(x)=
 
 
 
-\subsection{Graph Cut}
+\subsection{Graph Cut Based Methods}
 
 If $N_{labels}=2$ and $\phi_{ij}(x_i,x_j)$ is submodular, 
-graph cuts \cite{GRAPH_CUT_INVENTOR} can be applied to find $x_{\text{optimal}}$
+graph cuts \cite{boykov_2001_pami,kolmogorov_2004_pami} can be applied to find $x_{\text{optimal}}$
 in polynomial time.
 
-Graph cut is a optimization algorithm which reduces the energy minimizing problem
+Graph cut is a optimization algorithm which casts the energy minimizing problem
 to the maximum flow / minimum cut problem. Energy function of binary variables which
 have a form as 
 
-\begin{equation}
+\begin{equation} \label{eq:gm_graph_cut_energy}
+    E(x) = 
+    \underbrace{
+        \sum_{v \in V} \phi_i(x_i)
+    }_{\text{unaries}}
+     \quad +  \quad
+    \underbrace{
+        \sum_{e=(i,j) \in E } \phi_{ij}(x_i,x_j) 
+    }_{\text{submodular pairwise terms}}
 \end{equation}
 
 
 
+where the pairwise energy term of binary variables is submodular can be minimized with
+graph cuts. $\phi_{ij}$ is submodular if
+
+\begin{equation} \label{eq:gm_submodular_criterion}
+    \phi_{ij}(0,1) + \phi_{ij}(1,0) >  \phi_{ij}(0,0) + \phi_{ij}(1,1)
+\end{equation}
+
+To use graph cut, we have to associate each possible solution with a cut on a graph as in
+\cref{fig:graph_cut} and ensure that the capacities on the graph match our energy function 
+defined in \cref{eq:gm_graph_cut_energy}.
+Since the max flow/ min cut problem is defined on a directed graph, we have to construct
+a directed graph from the energy function we want to minimize. We add a source and a
+sink vertex and connect these terminal vertices with all variable vertices and assign
+each edge a non-negative flow capacity. The flow goes from the source vertex to the
+sink vertex. The edge capacities are constructed as described in the work of
+\citet{kolmogorov_2004_pami}.
+
+\Cref{fig:graph_cut_b} shows how the
+construction of the directed weighted graph which associate with the energy function $E(x)$.
+\citet{kohli_2007_pami} proposed a method to change some and resolve
+the problem efficiently which allows a fast computation
+of graph cut min marginal an uncertainties \citep{kohli_2006_eccv,tarlow_2012_cvpr}.
+
 
 \begin{figure}[H]
-\centering
-\subfloat[$ $]{
+\begin{center}
+\subfloat[$ $]{\label{fig:graph_cut_a}
     \includegraphics[height=0.3\textwidth]{fig/min_st.pdf}   
 }
 \hspace{1.5cm}
-\subfloat[$ $]{
+\subfloat[$ $]{\label{fig:graph_cut_b}
     \includegraphics[height=0.3\textwidth]{fig/min_st_d.pdf}   
 }
+\end{center}
+\caption{
+    \Cref{fig:graph_cut_a}: Each variable vertex is connected to the 2 terminal vertices, source s, and
+        sink t, the edges between the variables vertices and terminal vertices are
+        called t-links, the edges between variables vertices are called n-links. The
+        line dotted in green is a cut, separating the variable with state zero from
+        those with state one.
+    \Cref{fig:graph_cut_b} is a simplification of the construction of the weighted graph.
+        A constant term $\beta$ which has to be added to some capacities
+        has been omitted for simplicity. 
+        Interested readers are refereed to  the work of \citet{kolmogorov_2004_pami}.
+}\label{fig:graph_cut}
 \end{figure}
 
 
-\subsection{QPBO}
+Whenever we have a a energy function of binary variables with pairwise potentials which
+are non-submodular we cannot use graph cut. QPBO (quadratic pseudo-boolean optimization), 
+the work of \citet{rother_2007_cvpr}, 
+addresses the problem of minimizing such an energy function as the
+following:
 
-\subsection{Multilabel Methods}
+\begin{equation} \label{eq:gm_qpbo_energy}
+    E(x) = 
+    \underbrace{
+        \sum_{v \in V} \phi_i(x_i)
+    }_{\text{unaries}}
+    \quad +  \quad
+    \underbrace{
+        \sum_{e=(i,j) \in E } \phi^{s}_{ij}(x_i,x_j)
+    }_{\text{submodular pairwise terms}}
+    \quad +  \quad
+    \underbrace{
+        \sum_{e=(i,j) \in E } \phi^{\bar{s}}_{ij}(x_i,x_j)
+    }_{\text{non-submodular pairwise terms}}
+\end{equation}
 
-    cite all multilabel methods from opengm benchmark
+The basic idea of QPBO is to relax the problem by optimizing an auxiliary graphical
+model with twice as much variables as the problem we want to optimize. The
+auxiliary problem is constructed in such a way that it is submodular. The
+auxiliary problem is constructed as in \cite{rother_2007_cvpr} and optimized with graph cut. 
+The output of QPBO
+is a partial labeling $x_i \in \{ 0,1, EPT \}$. $EPT$ is interpreted as unknown state. There are several
+extension to improve which reduce the number
+of variables which have the state $EPT$ .
+
+
+If the label space is larger than 2, $\alpha$-expansion and $\alpha \beta$-swap \cite{boykov_2001_pami} can be used.
+The main idea of $\alpha$-expansionm is to iteratively
+solve binary sub-problems, where one only has to decide whether a variable should be
+flipped to the state $\alpha$ or keep the current state. The value of $\alpha$ is changed in each iteration.
+
+$\alpha \beta$-swap] is very similar  $\alpha$-expansion.
+But this time we have two labels, $\alpha$ and $\beta$. Within each iteration variables
+with the state $\alpha$ can be flipped to the state $\beta$ and visa versa. The values of $\alpha$ and $\beta$
+are changed after each iteration.
+
+If the binary sub-problems are submodular graph cut can be used, otherwise QPBO.

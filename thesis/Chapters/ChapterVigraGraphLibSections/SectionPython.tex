@@ -1,0 +1,233 @@
+% !TEX root = ../../main.tex
+\section{Python}\label{sec:graph_lib_python}
+
+\begin{flushright}{\slshape    
+(1) Beautiful is better than ugly. \\ \label{cit:line_a}
+(2) Explicit is better than implicit. \\ \label{cit:line_b}
+(3) Simple is better than complex. \\
+(4) Complex is better than complicated. \\
+(5) Flat is better than nested. \\
+(6) Sparse is better than dense. \\
+(7) Readability counts. \\
+(8) Special cases aren't special enough to break the rules. \\
+(9) Although practicality beats purity. \\
+(10) Errors should never pass silently. \\
+(11) Unless explicitly silenced. \\
+(12) In the face of ambiguity, refuse the temptation to guess. \\
+(13) There should be one-- and preferably only one --obvious way to do it. \\
+(14) Although that way may not be obvious at first unless you're Dutch. \\
+(15) Now is better than never. \\
+(16) Although never is often better than *right* now. \\
+(17) If the implementation is hard to explain, it's a bad idea. \\
+(18) If the implementation is easy to explain, it may be a good idea. \\
+(19) Namespaces are one honking great idea -- let's do more of those! } \\ \medskip
+--- The Zen of Python
+\end{flushright}
+\captionof{figure}{ 
+    The Zen of Python
+}\label{fig:zen_of_python}
+
+
+\subsection{Graph Maps}
+
+On the python side, we want node-maps, edge-maps and arc-maps to be stored 
+as numpy arrays for several reasons.
+Numpy arrays are the standard for storing multidimensional data in python.
+The fast C implementation and the highly vectorized API of numpy makes it very easy to write 
+fast python code within a few lines.
+Virtually any python user will be familiar with the numpy API and therefore it 
+seems to be natural to store graph maps within numpy arrays.
+
+In addition VIGRA provides an mechanism to pass numpy arrays to C++.
+Therefore no new mechanism needs to be implemented to transfer graph
+maps from python to C++.
+This will not only simplify writing extension for the new VIGRA graph API,
+but also it will reduce the glue code since we can use well tested existing
+solutions.
+
+New algorithms might be implemented in pure python with a mix of
+existing numpy functions and new functions provided within VIGRA's graph API.
+As a proof of concept we implemented ??? in pure python with VIGRA's
+fresh graph API in \cref{???}.
+
+
+\subsubsection{Intrinsic Graph Shape}
+
+Each graph has an \emph{intrinsic node map shape} 
+and an \emph{intrinsic edge map shape} and 
+These intrinsic shape and dimensions are used to use 
+numpy arrays with the best fitting dimension and shape.
+For a 2D grid graph the node map should also be a 2D dimensional array.
+because in this way an usual image can be used as an node map.
+To access the  intrinsic shapes of node and edge maps 
+we use a small trait class with default implementations
+for unknown graphs.
+The default implementation is given below:
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+template<class GRAPH>
+class IntrinsicGraphShape{
+private:
+    typedef GRAPH Graph;
+    typedef typename vigra::MultiArray<1,int>::difference_type DiffType1d;
+    typedef typename Graph::index_type  index_type;
+public:
+    typedef typename Graph::Node Node ;
+    typedef typename Graph::Edge Edge ;
+    typedef typename  Graph::Arc  Arc ;
+
+    typedef DiffType1d IntrinsicNodeMapShape;
+    typedef DiffType1d IntrinsicEdgeMapShape;
+    typedef DiffType1d  IntrinsicArcMapShape;
+
+    static IntrinsicNodeMapShape intrinsicNodeMapShape(const Graph & g){
+        return IntrinsicNodeMapShape(g.maxNodeId()+1);
+    }
+    static IntrinsicEdgeMapShape intrinsicEdgeMapShape(const Graph & g){
+        return IntrinsicEdgeMapShape(g.maxEdgeId()+1);
+    }
+    static IntrinsicArcMapShape intrinsicArcMapShape(const Graph & g){
+        return  IntrinsicArcMapShape(g.maxArcId()+1);
+    }
+
+    static const unsigned int IntrinsicNodeMapDimension=1;
+    static const unsigned int IntrinsicEdgeMapDimension=1;
+    static const unsigned int IntrinsicArceMapDimension=1;
+};
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+
+\subsubsection{Numpy Arrays To LEMON Maps}
+
+
+On the C++ side, numpy arrays are stored in MultiArrayViews.
+Since the API of MultiArrayViews \cite{software_vigra_multiarray_api} does
+not implemented the API  of LEMON graph maps (e.g. node-maps, edge-maps and arc-maps), 
+a thin wrapper is used to convert the arrays to LEMON conform maps.
+These wrappers can be accessed via \lstinline{PyNodeMapTraits<Graph,T>::Array} and 
+\lstinline{PyNodeMapTraits<Graph,T>::Map}. 
+
+
+In the following we will give a brief example how to pass numpy arrays to C++
+and convert them to LEMON conform graph maps.
+
+Assuming we need a function which does something with node features as normalization.
+On the python side we want to have the following signature:
+
+\lstinline{result=vigra.graphs.normNodeFeat(graph,nodeFeatures=nodeFeatures,out=None)}.
+
+The function should work on single band node features and multi band node features
+(an arbitrary number of channels, but the same for all nodes).
+There should be a single C++ function which can be used to export
+\lstinline{normNodeFeat} for any graph within VIGRA's graph API. 
+
+
+
+
+\begin{minipage}{\textwidth}
+
+To archive this we propose the following design:
+On the C++ side we use a function  which
+is has two templates , one for the graph, and one for the value type.
+A prototypical implementation is given below.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+template<class Graph,class T>
+NumpyAnyArray normNodeFeat(
+    const Graph & g,
+    const typename PyNodeMapTraits<Graph,T >::Array & nodeFeaturesInArray,
+    typename PyNodeMapTraits<Graph,T>::Array  outArray 
+){
+    // reshape out 
+    // - last argument (outArray) will be reshaped if empty,
+    // - and #channels is taken from second argument (nodeFeaturesIn) 
+    reshapeNodeMapIfEmpty(g,nodeFeaturesIn,outArray);
+
+    // numpy arrays => lemon maps 
+    // featuresInMap and outMap fulfill
+    // the concept of LEMON NODE MAPS
+    typename PyNodeMapTraits<Graph,T >::Map featuresInMap(g,nodeFeaturesInArray);
+    typename PyNodeMapTraits<Graph,T >::Map outMap(g,outArray);
+
+
+    /* call code using LEMON API*/
+
+    // return out as numpy array
+    return outArray;
+}
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+The template \lstinline{T} can be instantiated with scalars as \lstinline{float}, an explicit single band scalar as \lstinline{Singleband<float>}
+or a multi band type as \lstinline{Multiband<float>}.
+
+\lstinline{PyNodeMapTraits<Graph,T >::Array} will select the correct \lstinline{vigra::NumpyArray<DIM,VALUE_TYPE>} w.r.t.
+the templates \lstinline{Graph} and \lstinline{T}.
+
+The output array will be reshaped with the corrected number of channels by calling \lstinline{reshapeNodeMapIfEmpty}.
+Equivalent functions exist for edge maps.
+
+\lstinline{PyNodeMapTraits<Graph,T >::Map} is the corresponding LEMON conform  node map 
+which is a cheap view to an numpy array. 
+\end{minipage}
+
+
+\begin{minipage}{\textwidth}
+To make the function above available in python
+we need to write wrapper code with \lstinline{boost::python}.
+We will export the function for single band floats and multi band floats.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+// single-band float32
+boost::python::def(
+    "normNodeFeat",
+     &normNodeFeat<Graph,float>,
+    (
+        boost::python::arg("graph"),
+        boost::python::arg("nodeFeatures"),
+        boost::python::arg("out")=boost::python::object() // None
+    )
+);
+
+// multi-band float32
+boost::python::def(
+    "normNodeFeat",
+     &normNodeFeat<Graph,Multiband<float> >,
+    (
+        boost::python::arg("graph"),
+        boost::python::arg("nodeFeatures"),
+        boost::python::arg("out")=boost::python::object() // None
+    )
+);
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+\end{minipage}
+
+
+On the python side we can call the function as desired.
+The array which stores the result of this
+function can be preallocated and passed explicitly.
+
+\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=Python]
+// with automatically allocated outFeatures
+outFeatures = vigra.graphs.normNodeFeat(graph,nodeFeatures)
+
+// with explicitly given outFeatures
+// - here we assume single band features
+outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32)
+outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+
+
+// with multiband node features 
+// - here we assume multi band features
+//   with 3 channels per node
+outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels=3)
+outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+\end{lstlisting}\end{minipage}\vspace{0.5cm}
+
+
+
+
+\subsection{Graph Hierarchy}
+    
+Explain the very nice workflow 
