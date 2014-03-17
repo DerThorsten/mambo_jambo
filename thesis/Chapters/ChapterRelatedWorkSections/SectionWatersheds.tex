@@ -1,6 +1,10 @@
 % !TEX root = ../../main.tex
 \section{Watershed Methods}\label{sec:rw_watershed_methods}
 
+\todo{who invented watersheds}
+\todo{hans thesis for watersheds image}
+
+
 The idea of watersheds has been introduced by \citet{beucher_1979_workshop}.
 
 Other watersheds \citep{vinent_1991_pami,najman_1994_sp,roerdink_2000_finf,bertrand_2005_jmiv,cousty_2009_pami}.
@@ -81,20 +85,37 @@ A watershed is wherever the water of two adjacent valleys is meeting (see \cref{
 
 
 
-
 \citet{couprie_2011_pami} proposed an algorithm, \emph{power-watershed}, a generalization of \citep{RANDOM_WALKER, boykov_2001_pami,vinent_1991_pami,najman_1994_sp,roerdink_2000_finf,bertrand_2005_jmiv,sinop_2007_iccv,cousty_2009_pami}.
 
-They define the following model.
+They define the following model:
 \begin{align}\label{eq:power_watershed}
 \min_x \sum_{e_{ij} \in E}  w_{ip}^p |x_i-x_j|^q + \sum_{v_i } w_{Fi}^p |x_i|^q + \sum_{v_i } w_{Bi}^p |x_i-1|^q \\
 s.t. \hspace{0.35cm} x(F)=1, \hspace{0.5cm} x(B)=0
 \end{align}
+
+Where $w_{ip}$ are edge weights and $w_{Fi}^p$ and $w_{Bi}^p$ are unaries weights
+for foreground and background.
+
 Setting $p$ to 1 will lead to the methods proposed by \citet{sinop_2007_iccv}.
 \Citet{allene_icv_2010} pointed out when $p=1$ and $q \rightarrow \infty$, solving
 \cref{eq:power_watershed} is equivalent to applying a minimum spanning forest algorithm.
 
 
-
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|} \hline
+\backslashbox{q}{p}        & 0                              & finite & $\infty$              \\ \hline
+1           & Collaps To Seeds (?)      & Graph cuts        & Power watershed           \\ \hline 
+2           & L2 norm Voronoi           & Random Walker     & Power watershed           \\ \hline 
+$\infty$    & L1 norm Voronoi           & L1 norm Voronoi   & Shortest Path Forest      \\ \hline 
+\end{tabular}
+\end{center}
+\caption{
+    Power watershed parameterization: Different choises of parameters
+    p and q lead to different segmentation methods.
+    This table is identical to the table showed in \citet{couprie_2011_pami}.
+}
+\end{table}
 
 \citet{straehle_2011_miccai} proposed a watershed based method for interactive segmentation
 of neural volume electron  microskopy images.
@@ -102,3 +123,7 @@ They show how a background prior be be efficiently integrated into watersheds,
 and that this prior is beneficial for neuro data.
 In addition \citet{straehle_2012_cvpr} proposed an uncertainty estimator for
 guided interactive segmentation based on watersheds.
+
+
+
+\todo{relation between power watersheds and edge weighted watersheds}

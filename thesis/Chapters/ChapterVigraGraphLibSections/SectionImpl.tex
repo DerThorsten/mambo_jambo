@@ -1,5 +1,9 @@
 % !TEX root = ../../main.tex
+
+
 \section{Implementation}\label{sec:vigra_graph_lib_impl}
+
+\todo{Impl is not a good word here}
 
 The most important concept for graph based image processing
 is the \emph{region adjacency graph} (RAG) (see \cref{fig:make_rag}).
@@ -160,6 +164,34 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
             \\// get base graph                                 \\
             + graph()                       : Graph             \\
         } 
+
+
+        \umlclass[x=9,y=3,template=MergeGraph]{ClusterOperatorInterface}
+        {
+
+        }
+        {
+            \\// contract next edge and get weight              \\
+            + contractionEdge(edge : Edge)         : Edge       \\ 
+            + contractionWeight(edge : Edge)       : Edge       \\
+            \\// get base graph                                 \\
+            + mergeGraph()                  : MergeGraph        \\
+        } 
+
+
+        \umlclass[x=9,y=-5,template=ClusterOperator]{HierarchicalClustering}
+        {
+
+        }
+        {
+            + cluster()                     : void        \\
+            + reprLabels(nodeMap : NodeMap) : void        \\      
+        } 
+
+        \umldep[geometry=-|-]{MergeGraphAdpator}{ClusterOperatorInterface}
+        \umldep[geometry=-|-]{ClusterOperatorInterface}{HierarchicalClustering}
+
+
     \end{tikzpicture}
 \end{center}
 

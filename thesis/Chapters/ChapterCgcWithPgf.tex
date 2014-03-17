@@ -868,7 +868,7 @@ Results of various competitive methods.
 We evaluate the performance of our Cut, Glue \& Cut algorithm on
 two different 2D segmentation benchmarks as well as
 on a new 3D volume segmentation benchmark%
-\footnote{Models available at \url{http://hci.iwr.uni-heidelberg.de/opengm2/?l0=benchmark}}.
+\footnote{Models available at \url{http://on-publication.org}}.
 
 \paragraph{Algorithms.}
 For our CGC algorithm, we consider three variants:
@@ -998,25 +998,172 @@ algorithm, see also \cref{fig:cgc_illustration}.
     \subfloat[Evaluation on the planar model from \cite{yarkony_2012_eccv} for different boundary penalties $\gamma$, averaged over 200 instances]
     {
         \label{fig:plots:2d-yarkony-gap}
-        \includegraphics[width=\textwidth]{fig/bm/a.pdf}
+        \begin{tikzpicture}
+            \begin{semilogyaxis}[
+                xlabel = {$\gamma$},
+                ylabel = {mean gap to optimum},
+                xmin = 0,
+                xmax = 3,
+                ymin = 0,
+                ymax = 32,
+                mark size=1pt,
+                xtick       = {0, 0.5, 1, 1.5, 2, 2.5,3},
+                xticklabels = {$0$, $0.5$, $1$, $1.5$, $2$, $2.5$, $3$},
+                ytick       = {0.125,0.25,0.5,1, 2,      4,8,16},
+                yticklabels = {$0.125$,$0.25$,$0.5$,$1$, $2$,$4$,$8$,$16$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[smooth,mark=\SYMBOLplanarcc,COLOR_planarcc,line width=\thickline] table[x=th, y=PlanarCC]{data/planar-image-seg-V.data};
+                \addlegendentry{Planar-CC} 
+                \addplot[smooth,mark=\SYMBOLaexpcc,COLOR_aexpcc,line width=\thickline] table[x=th, y=AExpCC]{data/planar-image-seg-V.data};
+                \addlegendentry{\ExpAndExplore} 
+                \addplot[smooth,mark=\SYMBOLcgc,COLOR_cgc,line width=\thickline] table[x=th, y=CGC]{data/planar-image-seg-V.data};
+                \addlegendentry{CGC} 
+                \addplot[smooth,mark=\SYMBOLcgcp,yellow,line width=\thickline] table[x=th, y=CGCQPBOI]{data/planar-image-seg-V.data};
+                \addlegendentry{CGC-$\ol{P}$} 
+                \addplot[smooth,mark=\SYMBOLmcr,COLOR_mcr,line width=\thickline] table[x=th, y=MCR]{data/planar-image-seg-V.data};
+                \addlegendentry{MC-R}  
+                \addplot[smooth,mark=\SYMBOLmci,COLOR_mci,line width=\thickline] table[x=th, y=MCI]{data/planar-image-seg-V.data};
+                \addlegendentry{MC-I} 
+                \addplot[smooth,mark=\SYMBOLkl,COLOR_kl,line width=\thickline] table[x=th, y=KL]{data/planar-image-seg-V.data};
+                \addlegendentry{KL}  
+            \end{semilogyaxis}
+        \end{tikzpicture} \newline
     }
 
     \subfloat[Evaluation on the planar model from \cite{yarkony_2012_eccv} for different boundary penalties $\gamma$, averaged over 200 instances]
     {
         \label{fig:plots:2d-yarkony-time}
-        \includegraphics[width=\textwidth]{fig/bm/b.pdf}
+        \begin{tikzpicture}
+            \begin{semilogyaxis}[
+                xlabel = {$\gamma$},
+                ylabel = {mean runtime (sec.)},
+                xmin = 0,
+                xmax = 3,
+                ymin = 0,
+                ymax = 64,
+                mark size=1pt,
+                xtick       = {0, 0.5, 1, 1.5, 2, 2.5,3},
+                xticklabels = {$0$, $0.5$, $1$, $1.5$, $2$, $2.5$, $3$},
+                ytick       = {0.05,0.25, 1,4,8,32},
+                yticklabels = {$0.05$,$0.25$,$1$,$4$,$8$,$32$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[smooth,mark=\SYMBOLplanarcc,COLOR_planarcc,line width=\thickline] table[x=th, y=PlanarCC]{data/planar-image-seg-T.data};
+                \addlegendentry{Planar-CC} 
+                \addplot[smooth,mark=\SYMBOLaexpcc,COLOR_aexpcc, line width=\thickline] table[x=th, y=AExpCC]{data/planar-image-seg-T.data};
+                \addlegendentry{\ExpAndExplore} 
+                \addplot[smooth,mark=\SYMBOLcgc,COLOR_cgc, line width=\thickline] table[x=th, y=CGC]{data/planar-image-seg-T.data};
+                \addlegendentry{CGC} 
+                \addplot[smooth,mark=\SYMBOLcgcp,COLOR_cgcp, line width=\thickline] table[x=th, y=CGCQPBOI]{data/planar-image-seg-T.data};
+                \addlegendentry{CGC-$\ol{P}$} 
+                \addplot[smooth,mark=\SYMBOLmcr,COLOR_mcr, line width=\thickline] table[x=th, y=MCR]{data/planar-image-seg-T.data};
+                \addlegendentry{MC-R}  
+                \addplot[smooth,mark=\SYMBOLmci,COLOR_mci, line width=\thickline] table[x=th, y=MCI]{data/planar-image-seg-T.data};
+                \addlegendentry{MC-I} 
+                \addplot[smooth,mark=\SYMBOLkl,COLOR_kl, line width=\thickline] table[x=th, y=KL]{data/planar-image-seg-T.data};
+                \addlegendentry{KL}  
+                %\addplot[dashed,COLOR_planarcc] table[x=th, y=MedPlanarCC]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_aexpcc  ] table[x=th, y=MedAExpCC  ]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_cgc     ] table[x=th, y=MedCGC     ]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_cgcp    ] table[x=th, y=MedCGCQPBOI]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_mcr     ] table[x=th, y=MedMCR     ]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_mci     ] table[x=th, y=MedMCI     ]{data/planar-image-seg-T.data};
+                %\addplot[dashed,COLOR_kl      ] table[x=th, y=MedKL      ]{data/planar-image-seg-T.data};
+            \end{semilogyaxis}
+        \end{tikzpicture}
+        \vspace*{-0.3cm}  
     }
 
     \subfloat[Evaluation on the planar models from~\cite{andres_2011_iccv} for different boundary penalties $(\beta)$, averaged over 100 instances]
     {
         \label{fig:plots:2d-andres-gap}
-        \includegraphics[width=\textwidth]{fig/bm/c.pdf}
+        \begin{tikzpicture}
+            \begin{semilogyaxis}[
+                xlabel = {\footnotesize{$\beta$}},
+                ylabel = {mean gap to optimum},
+                xmin = 0,
+                xmax = 1,
+                ymin = 0,
+                ymax = 64,
+                mark size=1pt, 
+                xtick       = {0.1, 0.5, 0.9},
+                xticklabels = {$0.1$, $0.5$, $0.9$},
+                ytick       = {0.125,0.25,0.5,1, 2,      4,8,16,32,64},
+                yticklabels = {$0.125$,$0.25$,$0.5$,$1$, $2$,$4$,$8$,$16$,$32$,$64$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[smooth,mark=\SYMBOLplanarcc,COLOR_planarcc,line width=\thickline] table[x=th, y=PlanarCC]{data/image-seg-b-V.data};
+                \addlegendentry{Planar-CC} 
+                \addplot[smooth,mark=\SYMBOLaexpcc,COLOR_aexpcc,line width=\thickline] table[x=th, y=AExpCC]{data/image-seg-b-V.data};
+                \addlegendentry{\ExpAndExplore} 
+                \addplot[smooth,mark=\SYMBOLcgc,COLOR_cgc,line width=\thickline] table[x=th, y=CGC]{data/image-seg-b-V.data};
+                \addlegendentry{CGC} 
+                \addplot[smooth,mark=\SYMBOLcgcp,COLOR_cgcp,line width=\thickline] table[x=th, y=CGCQPBOI]{data/image-seg-b-V.data};
+                \addlegendentry{CGC-$\ol{P}$} 
+                \addplot[smooth,mark=\SYMBOLmcr,COLOR_mcr,line width=\thickline] table[x=th, y=MCR]{data/image-seg-b-V.data};
+                \addlegendentry{MC-R}  
+                \addplot[smooth,mark=\SYMBOLmci,COLOR_mci,line width=\thickline] table[x=th, y=MCI]{data/image-seg-b-V.data};
+                \addlegendentry{MC-I} 
+                \addplot[smooth,mark=\SYMBOLkl,COLOR_kl,line width=\thickline] table[x=th, y=KL]{data/image-seg-b-V.data};
+                \addlegendentry{KL} 
+            \end{semilogyaxis}
+        \end{tikzpicture} 
     }
 
     \subfloat[Evaluation on the planar models from~\cite{andres_2011_iccv} for different boundary penalties $(\beta)$, averaged over 100 instances]
     {
         \label{fig:plots:2d-andres-time}
-        \includegraphics[width=\textwidth]{fig/bm/d.pdf}
+        \begin{tikzpicture}
+            \begin{semilogyaxis}[
+                xlabel = {\footnotesize{$\beta$}},
+                ylabel = {mean runtime (sec.)},
+                xmin = 0,
+                xmax = 1,
+                ymin = 0,
+                ymax = 64,
+                mark size=1pt,
+                xtick       = {0.1, 0.5, 0.9},
+                xticklabels = {$0.1$, $0.5$, $0.9$},
+                ytick       = {0.05,0.25, 1,4,8,32},
+                yticklabels = {$0.05$,$0.25$,$1$,$4$,$8$,$32$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[smooth,mark=\SYMBOLplanarcc,COLOR_planarcc,line width=\thickline] table[x=th, y=PlanarCC]{data/image-seg-b-T.data};
+                \addlegendentry{Planar-CC} 
+                \addplot[smooth,mark=\SYMBOLaexpcc,COLOR_aexpcc,line width=\thickline] table[x=th, y=AExpCC]{data/image-seg-b-T.data};
+                \addlegendentry{\ExpAndExplore} 
+                \addplot[smooth,mark=\SYMBOLcgc,COLOR_cgc,line width=\thickline] table[x=th, y=CGC]{data/image-seg-b-T.data};
+                \addlegendentry{CGC} 
+                \addplot[smooth,mark=\SYMBOLcgcp,COLOR_cgcp,line width=\thickline] table[x=th, y=CGCQPBOI]{data/image-seg-b-T.data};
+                \addlegendentry{CGC-$\ol{P}$} 
+                \addplot[smooth,mark=\SYMBOLmcr,COLOR_mcr,line width=\thickline] table[x=th, y=MCR]{data/image-seg-b-T.data};
+                \addlegendentry{MC-R}  
+                \addplot[smooth,mark=\SYMBOLmci,COLOR_mci,line width=\thickline] table[x=th, y=MCI]{data/image-seg-b-T.data};
+                \addlegendentry{MC-I} 
+                \addplot[smooth,mark=\SYMBOLkl,COLOR_kl,line width=\thickline] table[x=th, y=KL]{data/image-seg-b-T.data};
+                \addlegendentry{KL} 
+                %\addplot[dashed,COLOR_planarcc] table[x=th, y=MedPlanarCC]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_aexpcc  ] table[x=th, y=MedAExpCC  ]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_cgc     ] table[x=th, y=MedCGC     ]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_cgcp    ] table[x=th, y=MedCGCQPBOI]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_mcr     ] table[x=th, y=MedMCR     ]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_mci     ] table[x=th, y=MedMCI     ]{data/image-seg-b-T.data};
+                %\addplot[dashed,COLOR_kl      ] table[x=th, y=MedKL      ]{data/image-seg-b-T.data};
+            \end{semilogyaxis}
+        \end{tikzpicture}
     }
     
 
@@ -1051,13 +1198,73 @@ significantly slower.
     \subfloat[Evaluation on a new 3D segmentation benchmark for different volume sizes $N^3$ averaged over 8 instances]
     {%
         \label{fig:plots:3d:gap}
-        \includegraphics[width=\textwidth]{fig/bm/3da.pdf}
+        \begin{tikzpicture}
+            \begin{axis}[
+                xlabel = {\footnotesize{$N$}},
+                ylabel = {distance to optimal energy},
+                xmin = 0,
+                xmax = 550,
+                ymin = 0,
+                ymax = 1000,
+                mark size=1pt,
+                xtick       = {90, 150, 300, 450, 550},
+                xticklabels = {$90$, $150$, $300$, $450$, $550$}, 
+                %=ytick       = {0,-1000, -10000,-100000},
+                %yticklabels = {$0$,$-10^3$,$-10^4$,$-10^5$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[mark=\SYMBOLaexpcc,COLOR_aexpcc, line width=\thickline] table[x=N, y=AExpCC]{data/knott-V2.data};
+                \addlegendentry{Expand \& Explore} 
+                \addplot[mark=\SYMBOLcgcp,COLOR_cgcp, line width=\thickline] table[x=N, y=CGCQPBOI]{data/knott-V2.data}; 
+                \addlegendentry{CGC$-{\ol{P}}$}
+                \addplot[mark=\SYMBOLmcr,COLOR_mcr, line width=\thickline] table[x=N, y=MCR]{data/knott-V2.data};
+                \addlegendentry{MC-R} 
+                \addplot[mark=\SYMBOLmci,COLOR_mci, line width=\thickline] table[x=N, y=MCI]{data/knott-V2.data};
+                \addlegendentry{MC-I} 
+                \addplot[mark=\SYMBOLkl,COLOR_kl, line width=\thickline] table[x=N, y=KL]{data/knott-V2.data};
+                \addlegendentry{KL}
+            \end{axis}
+        \end{tikzpicture} 
     }
 
     \subfloat[Evaluation on a new 3D segmentation benchmark for different volume sizes $N^3$ averaged over 8 instances]
     {%
         \label{fig:plots:3d:time}
-        \includegraphics[width=\textwidth]{fig/bm/3db.pdf}
+        \begin{tikzpicture}
+            %\begin{semilogyaxis}[ 
+            \begin{axis}[
+                xlabel = {\footnotesize{$N$}},
+                ylabel = {mean runtime (sec.)},
+                xmin = 0,
+                xmax = 550,
+                ymin = 0,
+                ymax = 1200,
+                mark size=1pt,
+                xtick       = {90, 150, 300, 450, 550},
+                xticklabels = {$90$, $150$, $300$, $450$, $550$},
+                ytick       = {0, 600,1200},
+                yticklabels = {$0$,$600$,$1200$},
+                width = 0.8\textwidth,
+                height=5cm,
+                legend style = {draw=none, at={(1.05, 0.5)}, anchor=west, font=\small},
+                legend columns = 1
+                ]
+                \addplot[smooth,mark=\SYMBOLaexpcc,COLOR_aexpcc,line width=\thickline] table[x=N, y=AExpCC]{data/knott-T2.data};
+                \addlegendentry{Expand \& Explore} 
+                \addplot[smooth,mark=\SYMBOLcgcp,COLOR_cgcp,line width=\thickline] table[x=N, y=CGCQPBOI]{data/knott-T2.data};
+                \addlegendentry{CGC$-{\ol{P}}$}
+                \addplot[smooth,mark=\SYMBOLmcr,COLOR_mcr,line width=\thickline] table[x=N, y=MCR]{data/knott-T2.data};
+                \addlegendentry{MC-R}  
+                \addplot[smooth,mark=\SYMBOLmci,COLOR_mci,line width=\thickline] table[x=N, y=MCI]{data/knott-T2.data};
+                \addlegendentry{MC-I} 
+                \addplot[smooth,mark=\SYMBOLkl,COLOR_kl,line width=\thickline] table[x=N, y=KL]{data/knott-T2.data};
+                \addlegendentry{KL} 
+                %\end{semilogyaxis}
+            \end{axis}
+        \end{tikzpicture}
     }
 
     \addtocontents{lof}{%
