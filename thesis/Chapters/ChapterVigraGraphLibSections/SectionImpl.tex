@@ -133,8 +133,9 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
    
 
 \begin{center}
-    \begin{tikzpicture}
-        \umlclass[template=Graph]{MergeGraphAdpator}
+    \begin{tikzpicture}[scale=0.7,transform shape]
+    \begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}
+        \umlclass[x=-3,template=Graph]{MergeGraphAdpator}
         {
             \\// union find data structures                     \\
             - edgeUfd               : IterablePartiton          \\
@@ -166,7 +167,7 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
         } 
 
 
-        \umlclass[x=9,y=3,template=MergeGraph]{ClusterOperatorInterface}
+        \umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorInterface}
         {
 
         }
@@ -188,42 +189,26 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
             + reprLabels(nodeMap : NodeMap) : void        \\      
         } 
 
-        \umldep[geometry=-|-]{MergeGraphAdpator}{ClusterOperatorInterface}
-        \umldep[geometry=-|-]{ClusterOperatorInterface}{HierarchicalClustering}
+        \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}
+        \umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}
 
 
-    \end{tikzpicture}
-\end{center}
-
-\begin{center}
-    \begin{tikzpicture}
-        \umlclass[template=MergeGraph]{ClusterOperatorInterface}
-        {
-
+        \umlnote[x=3,y=-3]{cb-2}{
+            ClusterOperator registers callbacks to MergeGraph
         }
-        {
-            \\// contract next edge and get weight              \\
-            + contractionEdge(edge : Edge)         : Edge       \\ 
-            + contractionWeight(edge : Edge)       : Edge       \\
-            \\// get base graph                                 \\
-            + mergeGraph()                  : MergeGraph        \\
-        } 
-    \end{tikzpicture}
-\end{center}
-
-\begin{center}
-    \begin{tikzpicture}
-        \umlclass[template=ClusterOperator]{HierarchicalClustering}
-        {
-
+        
+        \umlnote[x=12,y=2]{ClusterOperatorInterface}{
+            Responsible for feature merging.
+            Finds next edge to contract. 
         }
-        {
-            + cluster()                     : void        \\
-            + reprLabels(nodeMap : NodeMap) : void        \\      
-        } 
+        \umlnote[x=12,y=-8]{HierarchicalClustering}{
+            Encodes merge tree / dendrogram. 
+        }
+
+
+    \end{umlpackage}
     \end{tikzpicture}
 \end{center}
-
 
    We propose and implemented the following design:
    \begin{compactitem}

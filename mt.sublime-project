@@ -19,14 +19,6 @@
 		{
 			"follow_symlinks": true,
 			"path": "/home/tbeier/src/vigra"
-		},
-		{
-			"follow_symlinks": true,
-			"path": "/home/tbeier/cvpr/new/opengmhmc/cvpr14"
-		},
-		{
-			"follow_symlinks": true,
-			"path": "/home/tbeier/src/play"
 		}
 	],
 	"settings":

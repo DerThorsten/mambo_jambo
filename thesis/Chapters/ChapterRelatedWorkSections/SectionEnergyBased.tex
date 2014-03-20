@@ -25,16 +25,6 @@ An energy function $E(x)$ can be  defined  in the following way:
 
 
 
-
-
-
-
-
-
-
-
-
-
 Where the \emph{unaries} $\phi_i(x_i)$ encode local costs
 for a variable to have certain label.
 While the \emph{pairwise terms} $\phi_{ij}(x_i,x_j) $ define the interaction of adjacent nodes.
@@ -300,6 +290,158 @@ If the binary sub-problems are submodular graph cut can be used, otherwise QPBO.
 
 
 
+\subsection{Linear Programming Methods}
 
 
-\todo{ilp indicator related }
+
+An alternative formulation of the multicut objective \cref{eq:multicut_primal,eq:gm_ef_multicut} 
+is in terms of binary edge indicator variables.
+$\y \in \{0,1\}^{| E |}$:
+\begin{align}
+\argmin_{\y}
+%
+\left\{
+    \sum_{e=(i,j) \in E} \w \left(e\right) \cdot \y_{e}
+\right\}%
+%
+\;\;\text{s.t.}\;\;\y \in \MC_G.
+\label{eq:multicut_dual_a}
+\end{align}
+%
+%
+$\text{MC}_G$ is the set of all multicut
+constraints \cite{chopra_1993_mp} for graph $G$ forming
+the so called \emph{multicut polytope}.
+The objective in \cref{eq:multicut_dual_a}
+is linear w.r.t. indicator variables $\y_{e}$.
+
+In general,
+$\y \in \MC_G$ can be enforced by an exponential number of
+constraints \cite{chopra_1993_mp}, but in practice
+-- for a given objective function --
+a small subset of those are sufficient.
+Therefore, a major branch of research has focused 
+on cutting plane approaches,
+either by solving a relaxation of \eqref{eq:multicut_dual}
+by a sequence of linear programs 
+\cite{kim_2011_nips,kim_2012_ip,kappes_2013_arxiv,finley_2005_ml}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To apply linear programming methods to minimize a general discrete energy function, 
+the energy functions
+needs to be linearized.
+
+To optimize an energy functions as 
+
+\begin{equation} \label{eq:gm_nl_energy}
+    E(x) = 
+     \sum_{v \in V}
+    \underbrace{
+        \phi_i(x_i)
+    }_{\text{unaries}}
+     \quad +  \quad
+     \sum_{e=(i,j) \in E } 
+    \underbrace{
+        \phi_{ij}(x_i,x_j) 
+    }_{\text{pairwise terms}}
+\end{equation}
+
+we introduce $\mu_{i}^{l}$ as an indicator variable where $\mu_{i}^{l}=1$ indicates $x_i=l$.
+In the same manner we use $\mu_{ij}^{l_a l_b}$ to indicate pairwise 
+assignments.
+The constraints ensure that the indicator variables $\mu_{i}^{l}$ are consistent 
+with pairwise indicators $\mu_{ij}^{l_a l_b}$ .
+
+The set of these consistency constraints is 
+called \emph{local consistency constraints} \citep{sontag_2010_thesis}.
+
+\begin{align}
+    E(\mu) = \sum_{v \in V} \sum_{l=0}^{L_{\text{max}}} \label{eq:gm_lp}
+    \mu_{i}^{l} \cdot \phi_{i}( l)
+    \quad +  \quad
+    %
+    \sum_{e \in E} \sum_{l_a=0}^{L_{\text{max}}} \sum_{l_b=0}^{L_{\text{max}}}
+    \mu_{ij}^{l_a l_b} \cdot \phi_{ij}( l_a,l_b) \\
+    %
+    s.t. \quad
+    \sum_{l=0}^{L_{\text{max}}} \mu_{i}^{l} = 1 \quad \forall \quad v_i \in V \\
+    %
+    \sum_{l_b=0}^{L_{\text{max}}} \mu_{ij}^{l_a l_b} = \mu_i 
+    \quad \forall \quad e_{ij} \in E, 
+    \quad l_a \in \{ 0,1,\ldots,L_{\text{max}} \} \\ 
+    %
+    \sum_{l_a=0}^{L_{\text{max}}} \mu_{ij}^{l_a l_b} = \mu_j 
+    \quad \forall \quad e_{ij} \in E, 
+    \quad l_b \in \{ 0,1,\ldots,L_{\text{max}} \} \\ 
+    %
+    \mu_i^l \geq 0 \quad \forall \quad v_{i} \in V,
+    \quad l \in \{ 0,1,\ldots,L_{\text{max}} \}\\
+    \mu_{ij}^{l_a l_b} \geq 0 \quad \forall \quad e_{ij} \in E,
+    \quad l_a,l_b \in \{ 0,1,\ldots,L_{\text{max}} \}
+\end{align}
+
+Solving the LP in \cref{eq:gm_lp} will lead to fractional
+solutions since the \emph{local consistency constraints} 
+define a polytope which is a relaxation
+of the marginal polytope.
+In \cref{fig:local_poly} is a visualization of the local
+polytope \footnote{
+Interested readers are refereed to the doctoral
+thesis of  \citet{sontag_2010_thesis} which gives
+a great overview and introduction to linear programming
+based optimization.
+}.
+
+An additional set of constraints, \emph{integer constraint} can be added the LP in \cref{eq:gm_lp}. These constraints turn the LP into an integer LP (I-LP).
+
+\begin{align}
+    \mu_i^l \in \{0,1\} \quad \forall \quad v_{i} \in V,
+    \quad l \in \{ 0,1,\ldots,L_{\text{max}} \} \label{eq:integral_constraint}
+\end{align}
+
+Solving the I-LP yields
+global optimal solutions of the energy function defined in 
+\cref{eq:gm_nl_energy}.
+
+
+
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/frac_vert2.pdf}
+\caption{
+    A sketch of the local consistency polytope.
+    The local polytope is a relaxation
+    of the marginal polytope (red dashed lines).
+    While the marginal polytope has only integral
+    nodes (red nodes , the local polytope 
+    will introduce fractional vertices which are shown
+    in blue.
+    The figure has been taken from \citep{sontag_2010_thesis}
+    an has been modified slightly.
+    Interested readers are refereed to the doctoral
+    thesis of  \citet{sontag_2010_thesis} which gives
+    a great overview and introduction to linear programming
+    based optimization.
+}\label{fig:local_poly}
+\end{figure}
+
+
+
+
+
