@@ -45,6 +45,104 @@ to make the python wrapped graph API very \emph{Pythonic}
 
 
 \subsection{Graphs}
+    
+    
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=0.75,transform shape]
+            \begin{umlpackage}{VIGRAGraphClasses}
+            \umlclass[x=0,y=0, template=$\text{DIM,DTAG}$]{GridGraph}
+            {
+                - shape               : Shape                       \\
+            }
+            {
+                // Typedefs \usp \\
+                + Node \usp \\
+                + Edge \usp \\
+                + Arc  \usp \\
+                + NodeIt \usp \\
+                + EdgeIt \usp \\
+                + ArcIt  \usp \\
+                + IncEdgeIt \usp \\
+                + InArcIt   \usp \\
+                + OutArcIt  \\
+
+                // Nested Classes  \\
+                + NodeMap \nestedtemp{ValueType}   \\
+                +  EdgeMap \nestedtemp{ValueType}   \\
+                +  ArcMap \nestedtemp{ValueType}   \\
+
+                // LEMON API for undirected graphs                \usp \\
+                // $\ldots$ \\
+
+                // Grid Graph specific API                          \usp \\ 
+                + GridGraph(shape : Shape, nhType : NeighborhoodType ) 
+            }
+            \end{umlpackage}
+        \end{tikzpicture}
+        \caption{
+        UML class diagram of VIGRAS GridGraph
+        }\label{fig:uml_lemon_grid_graph}
+    \end{figure}
+
+
+
+
+
+
+
+
+    \begin{figure}[H]
+    \begin{center}
+        \begin{tikzpicture}[scale=0.5,transform shape]
+            \begin{umlpackage}{VIGRA Graph Classes}
+                \umlclass[x=10.5,y=0,template=Graph]{MergeGraphAdpator}
+                {
+                    \\// union find data structures                     \\
+                    - edgeUfd               : IterablePartiton          \\
+                    - nodeUfd               : IterablePartiton          \\ 
+                    - nodesAdjacency        : AdjacencySetVector        \\
+
+                    \\// callbacks                                      \\
+                    - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
+                    - mergeEdgeCallBacks    : MergeEdgeCallBackVector  \\
+                    - eraseEdgeCallBacks    : EraseEdgeCallBackVector   \\
+                }
+                {
+                    \\// LEMON API for undirected graphs                \\
+                        $\ldots$                                        \\
+                    \\// constructor                                    \\ 
+                    + MergeGraphAdpator(graph : Graph)                  \\
+                    \\// register callbacks                             \\ 
+                    + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
+                    + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
+                    + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
+
+                    \\// modify graph                                   \\
+                    + contractEdge(edge : Edge)     : Node              \\
+
+                    \\// find representatives                           \\
+                    + reprNode(node : Node)         : Node              \\
+                    + reprEdge(edge : Edge)         : Edge              \\ 
+
+                    \\// get base graph                                 \\
+                    + graph()                       : Graph             \\
+                } 
+            \end{umlpackage}
+        \end{tikzpicture}
+    \end{center}
+    \caption{
+        UML class diagram of LEMON graph maps.
+        LEMON uses a very small API for node edge and arc maps.
+        Only a constructor from the graph and \lstinline{operator[](...)}
+        needs to be implemented.
+        Since this API is very compact, custom LEMON compatible graph 
+        maps can be implemented within a few lines of code.
+    }\label{fig:uml_lemon_graph_maps}
+    \end{figure}
+
+
 
 
 \subsubsection{Grid Graph} \label{sec:graphs_grid_graph}

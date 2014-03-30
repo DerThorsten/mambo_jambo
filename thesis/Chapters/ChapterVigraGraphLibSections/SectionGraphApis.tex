@@ -34,7 +34,7 @@ to that API.
     graph algorithm we implemented within this thesis
     will work on undirected graphs.
 
-\subsubsection{Graph Items}
+\paragraph{Graph Items :}
     Any undirected graph class fulfilling the lemon API needs to define 
     the following \emph{descriptor} types to represent the graph items.
     \begin{compactitem}
@@ -44,7 +44,7 @@ to that API.
     \end{compactitem}
     These \emph{descriptor} should be cheap types which can be copied
     and passed with almost no overhead.
-    In addition, descriptor has an unique id
+    In addition, each descriptor has an unique id
     \footnote{ unique id w.r.t. the item type. 
     Therefore  multiple  nodes cannot have the same id.
     The same holds line for edges and arcs.
@@ -55,8 +55,7 @@ to that API.
 
 
 
-\subsubsection{Iterators}
-
+\paragraph{Iterators :}
     Within lemon a very convenient mechanism is used to iterate over
     nodes, edges and arcs.
     A special constant \lstinline{INVALID} is used to determine if 
@@ -82,52 +81,306 @@ to that API.
     Any iterator is convertible to the corresponding item which
     is iterated without using \lstinline{operator*()}.
 
-\subsubsection{Map Concept}
+\paragraph{Map Concept :}
+    The separation between the graph, and data which is related to
+    the graph is crucial.
+    Different algorithms which operate on the same graph will
+    need different data attached to the edge nodes and arcs. 
 
     In lemon, graph classes store only the structure of the graph itself.
     All addition data for nodes, edges and arcs is stored 
-    in \emph{maps}. 
-    Any graph has default implementations for graph maps which
-    can be accessed in the following way.
-
-    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
-    // edge map (for data as edge weights)
-    Graph::EdgeMap<float> edgeMap(g); 
-
-    // read and write data 
-    for(Graph::EdgeIt e(g); e!= lemon::INVALID; ++e){
-        // read
-        const float val = edgeMap[*e];
-        // write
-        edgeMap[*e] = std::exp(-1.0*a);
-    }
-
-    // node map (for node related data as node labelings )
-    Graph::NodeMap<usigned int> nodeMap(g);
-    for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){
-        // read
-        const unsigned int val = nodeMap[*e];
-        // write
-        nodeMap[*e] = val+1;
-    }
-    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    in \emph{maps}.
+    The API for graph maps in lemon is very small and easy to implement.
+    In fact, only a constructor and \lstinline{operator[](...)} needs
+    to be implemented (see \cref{fig:uml_lemon_graph_maps} for an UML class diagram).
 
 
-    Custom maps can be implemented very easy:
 
-    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
-    template<class Graph>
-    class ImplicitEdgeMap {
-    public:
-        typedef typename Graph::Edge Key;
-        typedef double Value;
-        Value operator[](Key edge) const { 
-            Value a;
-            /*...*/
-            return a;
+    \begin{figure}[H]
+    \begin{center}
+        \begin{tikzpicture}[scale=0.55,transform shape]
+            \begin{umlpackage}{LEMON API}
+                    \umlclass[x=-15.5,y=0]{UndirectedGraphConcept}
+                {
+                }
+                {
+                    // Typedefs \usp \\
+                    + Node \usp \\
+                    + Edge \usp \\
+                    + Arc  \usp \\
+                    + NodeIt \usp \\
+                    + EdgeIt \usp \\
+                    + ArcIt  \usp \\
+                    + IncEdgeIt \usp \\
+                    + InArcIt   \usp \\
+                    + OutArcIt  \\
+
+                    // Nested Classes  \\
+                    + NodeMap \nestedtemp{ValueType}   \\
+                    +  EdgeMap \nestedtemp{ValueType}   \\
+                    +  ArcMap \nestedtemp{ValueType}   \\
+
+                    // Member Functions
+                    + u(edge : Edge) : Node \usp \\
+                    + v(edge : Edge) : Node \usp \\
+                    + source(arc : Arc) : Node \usp \\
+                    + target(arc : Arc) : Node \usp \\
+                    + id(node : Node) : int \usp \\
+                    + id(edge : Edge) : int \usp \\
+                    + id(arc  : Arc)  : int \usp \\
+                    + nodeFromId(id : int) : Node \usp \\
+                    + edgeFromId(id : int) : Edge \usp \\
+                    + arcFromId(id  : int) : Arc  \usp \\
+                    + maxNodeId() : int \usp \\
+                    + maxEdgeId() : int \usp \\
+                    + maxArcId()  : int \usp \\
+                    + direction(arc : Arc) : bool \usp \\
+                    + direct(edge : Edge, naturalDirection : bool) :Arc \usp \\
+                    + direct(edge : Edge, node : Node) :Arc \usp \\
+                    + oppositeArc(arc : Arc) : Node \usp \\
+                    + oppositeNode(node : Node, edge : Edge) : Node \usp \\
+                    + baseNode(iter : IncEdgeIt) : Node \usp \\
+                    + runningNode(iter : IncEdgeIt) : Node \usp \\
+                    + baseNode(iter : OutArcIt) : Node \usp \\
+                    + runningNode(iter : OutArcIt) : Node \usp \\
+                    + baseNode(iter : InArcIt) : Node \usp \\
+                    + runningNode(iter : InArcIt) : Node 
+                }
+                %\begin{umlpackage}{Graph Item Concept}
+                    \umlclass[x=-6.5,y=7]{Node}
+                    {
+                    }
+                    {   
+                        + Node() \usp \\ 
+                        + Node(node : Node) \usp \\ 
+                        + Node(invalid: Invalid)  \usp \\ 
+                        + operator == (node : Node) : bool \usp \\ 
+                        + operator != (node : Node) : bool \usp \\ 
+                        + operator <  (node : Node) : bool \usp \\ 
+                        \quad
+                    } 
+                    \umlclass[x=0,y=7]{Edge}
+                    {
+                    }
+                    {  
+                        + Edge() \usp \\ 
+                        + Edge(edge : Edge) \usp \\ 
+                        + Edge(invalid: Invalid)  \usp \\ 
+                        + operator == (edge : Edge) : bool \usp \\ 
+                        + operator != (edge : Edge) : bool \usp \\ 
+                        + operator <  (edge : Edge) : bool \usp \\
+                        \quad
+                    } 
+                    \umlclass[x=6.5,y=7]{Arc}
+                    {
+                    }
+                    {   
+                        + Arc() \usp \\ 
+                        + Arc(arc : Arc) \usp \\ 
+                        + Arc(invalid: Invalid)  \usp \\ 
+                        + operator == (arc : Arc) : bool \usp \\ 
+                        + operator != (arc : Arc) : bool \usp \\ 
+                        + operator <  (arc : Arc) : bool \usp \\ 
+                        + operator Edge () : Edge 
+                    } 
+                %\end{umlpackage}
+
+
+                %\begin{umlpackage}{Graph Item Iterator Concept}
+                    \umlclass[x=-7,y=0]{NodeIt}
+                    {
+                    }
+                    {   
+                        + NodeIt() \usp \\ 
+                        + NodeIt(iter : NodeIt) \usp \\ 
+                        + NodeIt(invalid: Invalid)  \usp \\ 
+                        + NodeIt(g: Graph)  \usp \\ 
+                        + NodeIt(g: Graph, node: Node)  \usp \\ 
+                        + operator++(): NodeIt \\ 
+                    }
+                    \umlclass[x=0,y=0]{EdgeIt}
+                    {
+                    }
+                    {   
+                        + EdgeIt() \usp \\ 
+                        + EdgeIt(iter : EdgeIt) \usp \\ 
+                        + EdgeIt(invalid: Invalid)  \usp \\ 
+                        + EdgeIt(g: Graph)  \usp \\ 
+                        + EdgeIt(g: Graph, edge: Edge)  \usp \\ 
+                        + operator++(): EdgeIt \\ 
+                    }
+                    \umlclass[x=7,y=0]{ArcIt}
+                    {
+                    }
+                    {   
+                        + ArcIt() \usp \\ 
+                        + ArcIt(iter : ArcIt) \usp \\ 
+                        + ArcIt(invalid: Invalid)  \usp \\ 
+                        + ArcIt(g: Graph)  \usp \\ 
+                        + ArcIt(g: Graph, arc: Arc)  \usp \\ 
+                        + operator++(): ArcIt \\ 
+                    } 
+                %\end{umlpackage}
+
+
+                %\begin{umlpackage}{Graph Neighborhood Iterator Concept}
+                    \umlclass[x=-7.5,y=-7]{IncEdgeIt}
+                    {
+                    }
+                    {   
+                        + IncEdgeIt() \usp \\ 
+                        + IncEdgeIt(iter : IncEdgeIt) \usp \\ 
+                        + IncEdgeIt(invalid: Invalid)  \usp \\ 
+                        + IncEdgeIt(g: Graph, node: Node)  \usp \\ 
+                        + IncEdgeIt(g: Graph, node: Node, edge : Edge)  \usp \\ 
+                        + operator++(): IncEdgeIt \\ 
+                    }
+                    \umlclass[x=0,y=-7]{InArcIt}
+                    {
+                    }
+                    {   
+                        + InArcIt() \usp \\ 
+                        + InArcIt(iter : InArcIt) \usp \\ 
+                        + InArcIt(invalid: Invalid)  \usp \\ 
+                        + InArcIt(g: Graph, node: Node)  \usp \\ 
+                        + InArcIt(g: Graph, node: Node, arc : Arc)  \usp \\ 
+                        + operator++(): InArcIt \\ 
+                    }
+                    \umlclass[x=7.5,y=-7]{OutArcIt}
+                    {
+                    }
+                    {   
+                        + OutArcIt() \usp \\ 
+                        + OutArcIt(iter : OutArcIt) \usp \\ 
+                        + OutArcIt(invalid: Invalid)  \usp \\ 
+                        + OutArcIt(g: Graph, node: Node)  \usp \\ 
+                        + OutArcIt(g: Graph, node: Node, arc : Arc)  \usp \\ 
+                        + operator++(): OutArcIt \\ 
+                    }
+                    \umlclass[x=-13,y=-16]{NodeMap}
+                    {
+                    }
+                    {   
+                        // Typedefs \\
+                        + Value \\
+                        + ConstReference \\
+                        + Reference \\
+                        + Key // same as Node for NodeMap \\
+                        \\// Members \\
+                        +NodeMap(graph : Graph ) \\
+                        + operator[](edge : Key) : Reference \\
+                        + operator[](edge : Key) : ConstReference \\
+                    } 
+                    \umlclass[x=-6,y=-16]{EdgeMap}
+                    {
+                    }
+                    {   
+                        // Typedefs \\
+                        + Value \\
+                        + ConstReference \\
+                        + Reference \\
+                        + Key // same as Edge for EdgeMap \\
+                        \\// Members \\
+                        +EdgeMap(graph : Graph ) \\
+                        + operator[](edge : Key) : Reference \\
+                        + operator[](edge : Key) : ConstReference \\
+                    } 
+                    \umlclass[x=1,y=-16]{ArcMap}
+                    {
+                    }
+                    {   
+                        // Typedefs \\
+                        + Value \\
+                        + ConstReference \\
+                        + Reference \\
+                        + Key // same as Arc for ArcMap \\
+                        \\// Members \\
+                        +ArcMap(graph : Graph ) \\
+                        + operator[](arc : Key) : Reference \\
+                        + operator[](arc : Key) : ConstReference \\
+                    } 
+
+                %\end{umlpackage}
+
+
+                \umlinherit[]{NodeIt}{Node}
+                \umlinherit[]{EdgeIt}{Edge}
+                \umlinherit[]{ArcIt}{Arc}
+
+                \umlinherit[]{IncEdgeIt}{Edge}
+                \umlinherit[]{InArcIt}{Arc}
+                \umlinherit[]{OutArcIt}{Arc}
+
+            \end{umlpackage}
+        \end{tikzpicture}
+    \end{center}
+    \caption{
+        UML class diagram of most important LEMON concepts.
+    }\label{fig:uml_lemon_graph_concepts}
+    \end{figure}
+
+
+
+
+
+
+    %\begin{minipage}{\textwidth}
+        Any graph has a templated default implementations for graph maps.
+        An edge map with \lstinline{float} as value type, which might
+        be used as an edge indicator/weight, can be 
+        used in the following way.
+
+        \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+        // edge map (for data as edge weights)
+        Graph::EdgeMap<float> edgeMap(g); 
+        for(Graph::EdgeIt e(g); e!= lemon::INVALID; ++e){
+            const float val = edgeMap[*e];  // read
+            edgeMap[*e] = std::exp(-1.0*a); // write
         }
-    };
-    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+        \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    %\end{minipage}
+
+    %\begin{minipage}{\textwidth}
+        A node map with  \lstinline{unsigned int} as value type,
+        which could encode a labeling for a graph 
+        can be accessed as shown below.
+
+        \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+        // node map (for node related data as node labelings )
+        Graph::NodeMap<usigned int> nodeMap(g);
+        for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){
+            const unsigned int val = nodeMap[*v]; // read
+            nodeMap[*v] = val+1;                  // write
+        }
+        \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    %\end{minipage}
+
+
+    % %\begin{minipage}{\textwidth}
+    %     Implicit read only graph maps can be implemented very easy and 
+
+    %     \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    %     template<class Graph>
+    %     class ImplicitEdgeMap {
+    %     public:
+    %         typedef typename Graph::Edge Key;
+    %         typedef double Value;
+    %         ImplicitEdgeMap(const Graph & graph){
+    %             /*
+    %                 constructor code here
+    %             */
+    %         }
+    %         Value operator[](const Key & edge) const { 
+    %             Value a;
+    %             /*
+    %                 compute a value for the edge
+    %                 implicity here
+    %             */
+    %             return a;
+    %         }
+    %     };
+    %     \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    % %\end{minipage}
 
 \subsection{BOOST Graph API}\label{sec:boost_graph_apis}
 The Boost Graph Library (BGL)  \cite{software_bgl} is set of data structures and 
