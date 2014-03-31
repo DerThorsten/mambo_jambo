@@ -422,7 +422,7 @@ On the python side we can call the function as desired.
 The array which stores the result of this
 function can be preallocated and passed explicitly.
 
-\begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=Python]
+\begin{lstlisting}[language=Python]
 # with automatically allocated outFeatures
 outFeatures = vigra.graphs.normNodeFeat(graph,nodeFeatures)
 
@@ -437,7 +437,7 @@ outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
 #   with 3 channels per node
 outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels=3)
 outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
-\end{lstlisting}\end{minipage}\vspace{0.5cm}
+\end{lstlisting}
 
 
 \todo{write why this is so important}
