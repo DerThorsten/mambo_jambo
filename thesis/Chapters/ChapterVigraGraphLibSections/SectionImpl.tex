@@ -44,143 +44,192 @@ graph, we need to introduce a few concepts
 to make the python wrapped graph API very \emph{Pythonic}
 
 
+% \begin{tabular}{ l l l l l}
+%     Class & 
+%         Add Nodes & 
+%         Add Edges & 
+%         Contract Edges & 
+%         bla  \\
+%     Class & Add Nodes & Add Edges & Contract Edges & bla  \\
+%     Class & Add Nodes & Add Edges & Contract Edges & bla  \\ 
+% \end{tabular}
+
+
 \subsection{Graphs}
-    
-    
-
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[scale=0.75,transform shape]
-            \begin{umlpackage}{VIGRAGraphClasses}
-            \umlclass[x=0,y=0, template=$\text{DIM,DTAG}$]{GridGraph}
-            {
-                - shape               : Shape                       \\
-            }
-            {
-                // Typedefs \usp \\
-                + Node \usp \\
-                + Edge \usp \\
-                + Arc  \usp \\
-                + NodeIt \usp \\
-                + EdgeIt \usp \\
-                + ArcIt  \usp \\
-                + IncEdgeIt \usp \\
-                + InArcIt   \usp \\
-                + OutArcIt  \\
-
-                // Nested Classes  \\
-                + NodeMap \nestedtemp{ValueType}   \\
-                +  EdgeMap \nestedtemp{ValueType}   \\
-                +  ArcMap \nestedtemp{ValueType}   \\
-
-                // LEMON API for undirected graphs                \usp \\
-                // $\ldots$ \\
-
-                // Grid Graph specific API                          \usp \\ 
-                + GridGraph(shape : Shape, nhType : NeighborhoodType ) 
-            }
-            \end{umlpackage}
-        \end{tikzpicture}
-        \caption{
-        UML class diagram of VIGRAS GridGraph
-        }\label{fig:uml_lemon_grid_graph}
-    \end{figure}
-
-
-
-
-
-
-
-
-    \begin{figure}[H]
-    \begin{center}
-        \begin{tikzpicture}[scale=0.5,transform shape]
-            \begin{umlpackage}{VIGRA Graph Classes}
-                \umlclass[x=10.5,y=0,template=Graph]{MergeGraphAdpator}
-                {
-                    \\// union find data structures                     \\
-                    - edgeUfd               : IterablePartiton          \\
-                    - nodeUfd               : IterablePartiton          \\ 
-                    - nodesAdjacency        : AdjacencySetVector        \\
-
-                    \\// callbacks                                      \\
-                    - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
-                    - mergeEdgeCallBacks    : MergeEdgeCallBackVector  \\
-                    - eraseEdgeCallBacks    : EraseEdgeCallBackVector   \\
-                }
-                {
-                    \\// LEMON API for undirected graphs                \\
-                        $\ldots$                                        \\
-                    \\// constructor                                    \\ 
-                    + MergeGraphAdpator(graph : Graph)                  \\
-                    \\// register callbacks                             \\ 
-                    + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
-                    + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
-                    + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
-
-                    \\// modify graph                                   \\
-                    + contractEdge(edge : Edge)     : Node              \\
-
-                    \\// find representatives                           \\
-                    + reprNode(node : Node)         : Node              \\
-                    + reprEdge(edge : Edge)         : Edge              \\ 
-
-                    \\// get base graph                                 \\
-                    + graph()                       : Graph             \\
-                } 
-            \end{umlpackage}
-        \end{tikzpicture}
-    \end{center}
-    \caption{
-        UML class diagram of LEMON graph maps.
-        LEMON uses a very small API for node edge and arc maps.
-        Only a constructor from the graph and \lstinline{operator[](...)}
-        needs to be implemented.
-        Since this API is very compact, custom LEMON compatible graph 
-        maps can be implemented within a few lines of code.
-    }\label{fig:uml_lemon_graph_maps}
-    \end{figure}
-
-
-
 
 \subsubsection{Grid Graph} \label{sec:graphs_grid_graph}
 
-\missingfigure{show grid graph here}
+The grid graph implemented in VIGRA is N-dimensional.
+The dimension can be selected with templates, and therefore with zero
+overhead.
 
-    \lstinline{vigra::GridGraph<DIM,DIRECTED_TAG>}
+Due to the regular structure of a grid graph, it is possible to compute the edges of a given 
+node and vice versa on the fly, instead of storing these relations explicitly.
+Therefore a grid graph can be implemented with almost zero memory overhead.
+
+\paragraph{Node Descriptor/Id :}
+The node descriptor of a grid graph is implemented as a
+$N$-dimensional coordinate of the pixel which corresponds to
+that particular node. The id of a node is the scan order index
+of the corresponding pixel.
+As a consequence, node id's of a grid graph are continuous.
+\paragraph{Edge Descriptor/Id :}
+To edge descriptors are implemented as $N+1$-dimensional coordinate.
+The first $N$ axis correspond to the node which ``owns'' this edge.
+The last axis enumerates the edge w.r.t. the node.
+
+In a grid graph, all nodes have the same degree, except for nodes
+at the border of the image.
+This breaks somehow the regularity of grid graphs.
+To still have very regular structure, edge ids
+are enumerated, as if the graph would be perfectly
+regular. Therefore we enumerate some missing edges
+at the border and get non-continuous edge ids.
+\Cref{fig:grid_graph_ids} illustrates this enumeration.
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.7,transform shape]
+  % virtual nodes
+  \draw (-2*2,0) node (naa) {$\quad$};
+  \draw (-2*2,2*2) node (nbb) {$\quad$};
+  \draw (0,4*2) node (na) {$\quad$};
+  \draw (2*2,4*2) node (nb) {$\quad$};
+  \draw (4*2,4*2) node (nc) {$\quad$};
+  % real nodes
+  \draw (0,0) node[draw,circle,fill=blue!17] (n3) {$3_{(0,1)}$};
+  \draw (2*2,0) node[draw,circle,fill=green!17] (n4) {$4_{(1,1)}$};
+  \draw (4*2,0) node[draw,circle,fill=red!17] (n5) {$5_{(2,1)}$};
+  \draw (0,2*2) node[draw,circle,fill=yellow!17] (n0) {$0_{(0,0)}$};
+  \draw (2*2,2*2) node[draw,circle,fill=pink!17] (n1) {$1_{(1,0)}$};
+  \draw (4*2,2*2) node[draw,circle,fill=magenta!17] (n2) {$2_{(2,0)}$};
+  %
+  % real edges
+  \path[every node/.style={auto=false}]
+    (n0) edge node[draw,rectangle,fill=pink!17] {$7_{(1,0,1)}$} (n1) 
+    (n1) edge node[draw,rectangle,fill=magenta!17] {$8_{(2,0,1)}$} (n2) 
+    (n3) edge node[draw,rectangle,fill=green!17] {$10_{(1,1,1)}$} (n4) 
+    (n4) edge node[draw,rectangle,fill=red!17] {$11_{(2,1,1)}$} (n5);
+ \path[every node/.style={auto=false}]
+    (n0) edge node[draw,rectangle,fill=blue!17] {$3_{(0,1,0)}$} (n3) 
+    (n1) edge node[draw,rectangle,fill=green!17] {$4_{(1,1,0)}$} (n4) 
+    (n2) edge node[draw,rectangle,fill=red!17] {$5_{(2,1,0)}$} (n5) ;
+  %
+  %virtual edges x
+  \path[every node/.style={auto=false}]
+    (n0) edge[dashed] node[draw,rectangle,fill=yellow!17] {$0_{(0,0,0)}$} (na) 
+    (n1) edge[dashed] node[draw,rectangle,fill=pink!17] {$1_{(1,0,0)}$} (nb) 
+    (n2) edge[dashed] node[draw,rectangle,fill=magenta!17] {$2_{(2,0,0)}$} (nc) ;
+  \path[every node/.style={auto=false}]
+    (n0) edge[dashed] node[draw,rectangle,fill=yellow!17] {$6_{(0,0,1)}$} (nbb) 
+    (n3) edge[dashed] node[draw,rectangle,fill=blue!17] {$9_{(0,1,1)}$} (naa) ;
+   %
+   \draw (-1.0,5.0) --  (9,5.0) -- (9,-1.0) -- (-1.0,-1.0) -- cycle;
+\end{tikzpicture}
+\caption[Grid Graph Ids]{ \label{fig:grid_graph_ids}
+    Ids and descriptors for a 2D Grid graph with 4-neighborhood on a $3x2$ grid.
+    The node ids are continuous from $0$ to $5$ and the descriptors
+    are showed as subscripts of the ids.
+    Node descriptors are 2D pixel coordinates.
+    To get the edge ids, we enumerate the edge, but we ignore the fact that nodes at the
+    left and upper border do
+    not have an upper and left edge.
+    To illustrate this, these ``virtual'' edges are shown dotted.
+    The id's of the edges correspond to the enumeration.
+    As a consequence edge ids are non continuous.    
+    In this examples, 
+    the set of valid edge ids is $\{ 3,4,5,7,8,10,11 \}$.
+    Edge descriptors are 3D coordinates, where the first two
+    coordinate correspond to the node which owns this edge.
+    The third coordinate is the edge number w.r.t. the node.
+    The two edges and the node which ``owns'' them are
+    shown in the same unique color.
+
+}
+\end{figure}
+
+\paragraph{Node Map :} An regular N-dimensional image can
+be used as node map, and since node descriptors are plain
+coordinates, they can be used to access data at a
+particular pixel.
+This means, no node map needs to be allocated for a given
+image, since the image itself can be used as a node map.
+The default node map is derived from \lstinline{vigra::MultiArray<DIM,T>}.
+
+\paragraph{Edge Map :} An N+1-dimensional image is
+used as edge map.
+This image has the same as a node map, but an extra
+dimension for the edges.
+The first $N$ axis in the edge descriptor are 
+used to determine which pixel ``owns'' the edge,
+while the last axis select the w.r.t. the node.
+The default edge map is derived from \lstinline{vigra::MultiArray<DIM,Multiband<T> >}.
+
+\paragraph{Usage :}
 
 \subsubsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
+\paragraph{Node Descriptor/Id :}
+The node descriptor is implemented as a simple class
+holding a single integer which is the id 
+of the node.
+The user can explicitly choose the id of
+an node. As a consequence, node id's can 
+be sparse and continuous.
 
-    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
-    typedef AdjacencyListGraph Graph;
+\paragraph{Edge Descriptor/Id :}
+The edge descriptors are implemented exactly like
+node descriptors, but users cannot give
+edges explicit id's.
+Therefore edge id's are dense, unless
+edges are removed from the graph \footnote{Removing edges from the graph is
+not yet implemented}.
 
-    // construct graph
+\paragraph{Node Map, EdgeMap:} 
+The node and edge maps are derived from \lstinline{vigra::MultiArray<1,T>}.
+Their size is to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
+The id and the descriptors can be used to index node and edge maps.
+
+
+\paragraph{Usage :}
+    \begin{lstlisting}[language=c++]
+    typedef vigra::AdjacencyListGraph Graph;
     Graph g;
 
-    // add nodes (id will be asigned automatically)
+    // add nodes 
+    // - automatic id
+    // - explicit id
     Graph::Node n0 = g.addNode() 
-
-    // add node with an explicit id
     Graph::Node n3 = g.addNode(3)
 
     // add edges from existing nodes
-    Graph::Edge e0 = g.addEdge(n0,n1)
-
-    // add edges and nodes simultaneous 
-    Graph::Edge e1 = g.addEdge(2,3)
-
+    // and new nodes
     // no parallel edges 
+    Graph::Edge e0 = g.addEdge(n0,n1)
+    Graph::Edge e1 = g.addEdge(2,3)
     Graph::Edge e2 = g.addEdge(2,3)
     assert(e1==e2)  
-    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    \end{lstlisting}
 
+    \begin{lstlisting}[language=Python]
+    g=vigra.graphs.listGraph();
+    # add nodes 
+    # - automatic id
+    # - explicit id
+    n0 = g.addNode() 
+    n3 = g.addNode(3)
 
-
+    # add edges from existing nodes
+    # and new nodes
+    # no parallel edges 
+    e0 = g.addEdge(n0,n1)
+    e1 = g.addEdge(2,3)
+    e2 = g.addEdge(2,3)
+    assert e1==e2  
+    \end{lstlisting}
 \subsubsection{Region Adjacency Graph} \label{sec:graphs_rag}
-
 
 
 
@@ -192,6 +241,7 @@ To map edges and nodes from the base graph
 
 
 \subsubsection{Merge Graph} \label{sec:graphs_merge_graph}
+
 To implemented structured clustering algorithms (see \cref{???}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
@@ -226,6 +276,15 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
     }
     \label{fig:figlabel}
 \end{figure}
+
+
+\paragraph{Node Descriptor/Id :}
+\paragraph{Edge Descriptor/Id :}
+\paragraph{Node Map :} 
+\paragraph{Edge Map :} 
+
+
+
 
 
    
@@ -327,7 +386,83 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
     \subsubsection{Hierarchical Clustering}
 
-    \subsubsection{Mst Algorithms}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.7,transform shape]
+    \begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}
+        \umlclass[x=-3,template=Graph]{MergeGraphAdpator}
+        {
+            \\// union find data structures                     \\
+            - edgeUfd               : IterablePartiton          \\
+            - nodeUfd               : IterablePartiton          \\ 
+            - nodesAdjacency        : AdjacencySetVector        \\
+
+            \\// callbacks                                      \\
+            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
+            - mergeEdgeCallBack     : MergeEdgeCallBackVector   \\
+            - eraseEdgeCallBack     : EraseEdgeCallBackVector   \\
+        }
+        {
+            \\// LEMON API for undirected graphs                \\
+                $\ldots$                                        \\
+            \\// register callbacks                             \\ 
+            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
+            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
+            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
+
+            \\// modify graph                                   \\
+            + contractEdge(edge : Edge)     : Node              \\
+
+            \\// find representatives                           \\
+            + reprNode(node : Node)         : Node              \\
+            + reprEdge(edge : Edge)         : Edge              \\ 
+
+            \\// get base graph                                 \\
+            + graph()                       : Graph             \\
+        } 
+
+
+        \umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorInterface}
+        {
+
+        }
+        {
+            \\// contract next edge and get weight              \\
+            + contractionEdge(edge : Edge)         : Edge       \\ 
+            + contractionWeight(edge : Edge)       : Edge       \\
+            \\// get base graph                                 \\
+            + mergeGraph()                  : MergeGraph        \\
+        } 
+
+
+        \umlclass[x=9,y=-5,template=ClusterOperator]{HierarchicalClustering}
+        {
+
+        }
+        {
+            + cluster()                     : void        \\
+            + reprLabels(nodeMap : NodeMap) : void        \\      
+        } 
+
+        \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}
+        \umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}
+
+
+        \umlnote[x=3,y=-3]{cb-2}{
+            ClusterOperator registers callbacks to MergeGraph
+        }
+        
+        \umlnote[x=12,y=2]{ClusterOperatorInterface}{
+            Responsible for feature merging.
+            Finds next edge to contract. 
+        }
+        \umlnote[x=12,y=-8]{HierarchicalClustering}{
+            Encodes merge tree / dendrogram. 
+        }
+
+
+    \end{umlpackage}
+    \end{tikzpicture}
+    \end{center}
 
     \subsubsection{Watershed Algorithms}
 
