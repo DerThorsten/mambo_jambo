@@ -68,7 +68,7 @@ to make the python wrapped graph API very \emph{Pythonic}
         x & x & x & dense & sparse & 
         $\colvec{x\\y\\z}$ &  $\colvec{x\\y\\z\\e}$ & 
         3D-Array & 4D-Array   &
-        \miniscule{\detokenize{multi_gridgraph.hxx}}
+        \tiny{\detokenize{multi_gridgraph.hxx}}
     \\ \hline
     %
     4D-GridGraph & implicit graph for 3D volumes $+$ time & 
@@ -207,7 +207,7 @@ while the last axis select the w.r.t. the node.
 The default edge map is derived from \lstinline{vigra::MultiArray<DIM,Multiband<T> >}.
 
 \paragraph{Usage :}
-
+    ...write me
 \subsubsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
 \paragraph{Node Descriptor/Id :}
@@ -270,13 +270,17 @@ The id and the descriptors can be used to index node and edge maps.
     \end{lstlisting}
 \subsubsection{Region Adjacency Graph} \label{sec:graphs_rag}
 
+A region adjacency is always defined w.r.t. a labeled base graph.
+Instead of implementing a new graph for RAG, we use
+the \emph{adjacency list graph}.
+The mapping from base graph nodes and RAG nodes  is defined
+by the labeling itself. Therefore
+The labeling defines a forward mapping from base graph nodes
+to RAG Node ids.
+Edges in the RAG are mapped to multiple edges in the base graph
+via a backward mapping.
 
 
-
-
-
-
-To map edges and nodes from the base graph
 
 
 \subsubsection{Merge Graph} \label{sec:graphs_merge_graph}
