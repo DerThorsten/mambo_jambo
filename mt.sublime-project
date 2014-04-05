@@ -19,6 +19,10 @@
 		{
 			"follow_symlinks": true,
 			"path": "/home/tbeier/src/vigra"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/home/tbeier/src/pyqtgraph"
 		}
 	],
 	"settings":

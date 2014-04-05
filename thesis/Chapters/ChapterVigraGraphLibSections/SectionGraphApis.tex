@@ -18,7 +18,7 @@ to that API.
 
 
 \subsection{LEMON Graph API}\label{sec:lemon_graph_apis}
-    LEMON \citet{ software_lemon} 
+    LEMON \citet{ lemon_lib} 
     stand for  ``Library for Efficient Modeling and Optimization in Networks.''.
     It is an open source C++ library with algorithms and data structures 
     related to directed and undirected graphs.
@@ -29,7 +29,7 @@ to that API.
     API and the related concepts.
     Explaining the complete lemon graph API in detail
     is beyond the scope of this thesis.
-    Interested readers are referred to \citet{software_lemon}.
+    Interested readers are referred to \citet{lemon_lib}.
     We will only discuss the API for undirected graphs since any
     graph algorithm we implemented within this thesis
     will work on undirected graphs.
@@ -61,7 +61,7 @@ to that API.
     A special constant \lstinline{INVALID} is used to determine if 
     an iterator reached the end.
 
-    \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+    \begin{lstlisting}[language=c++]
     // iterate over nodes
     for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){/*...*/}
 
@@ -76,7 +76,7 @@ to that API.
         const Node neighborNode = g.target(a);
         /*...*/
     }
-    \end{lstlisting}\end{minipage}\vspace{0.5cm}
+    \end{lstlisting}
 
     Any iterator is convertible to the corresponding item which
     is iterated without using \lstinline{operator*()}.
@@ -330,14 +330,14 @@ to that API.
         be used as an edge indicator/weight, can be 
         used in the following way.
 
-        \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+        \begin{lstlisting}[language=c++]
         // edge map (for data as edge weights)
         Graph::EdgeMap<float> edgeMap(g); 
         for(Graph::EdgeIt e(g); e!= lemon::INVALID; ++e){
             const float val = edgeMap[*e];  // read
             edgeMap[*e] = std::exp(-1.0*a); // write
         }
-        \end{lstlisting}\end{minipage}\vspace{0.5cm}
+        \end{lstlisting}
     %\end{minipage}
 
     %\begin{minipage}{\textwidth}
@@ -345,14 +345,14 @@ to that API.
         which could encode a labeling for a graph 
         can be accessed as shown below.
 
-        \begin{minipage}{\textwidth}\vspace{-0.75cm}\begin{lstlisting}[language=c++]
+        \begin{lstlisting}[language=c++]
         // node map (for node related data as node labelings )
         Graph::NodeMap<usigned int> nodeMap(g);
         for(Graph::NodeIt v(g); v!= lemon::INVALID; ++v){
             const unsigned int val = nodeMap[*v]; // read
             nodeMap[*v] = val+1;                  // write
         }
-        \end{lstlisting}\end{minipage}\vspace{0.5cm}
+        \end{lstlisting}
     %\end{minipage}
 
 

@@ -24,12 +24,11 @@ be given in  \cref{sec:graphs_rag}.
 For hierarchical clustering we provide a specialized graph, named \emph{merge graph}.
 
 
-To implemented structured clustering algorithms (see \cref{sec:rw_hc} we
+To implemented structured clustering algorithms (see \cref{sec:rw_hc}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
-Within \cref{sec:graphs_merge_graph} we propose  a very flexible
-and concept for hierarchical clustering based on a specialized graph,
-called \emph{merge graph}.
+Within \cref{sec:graphs_merge_graph} we propose  a very flexible graph 
+called \emph{merge graph adaptor} which fulfills these requirements.
 
 
 A generic set of algorithms which work on any graph
@@ -44,17 +43,57 @@ graph, we need to introduce a few concepts
 to make the python wrapped graph API very \emph{Pythonic}
 
 
-% \begin{tabular}{ l l l l l}
-%     Class & 
-%         Add Nodes & 
-%         Add Edges & 
-%         Contract Edges & 
-%         bla  \\
-%     Class & Add Nodes & Add Edges & Contract Edges & bla  \\
-%     Class & Add Nodes & Add Edges & Contract Edges & bla  \\ 
-% \end{tabular}
+%$\surd \bullet$
 
 
+\begin{table}
+\begin{tiny}
+\begin{tabular}{|l|p{1.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.8cm}|p{0.8cm}|l|l|l|}
+    \hline 
+    Class & purpose & 
+        add nodes & add edges & contract edges & node ids & edge ids & 
+        node descriptor & edge descriptors &
+        node map & edge map  &
+        header
+    \\ \hline
+    %
+    2D-GridGraph & implicit graph for 2D images & 
+        x & x & x & dense & sparse & 
+        $\colvec{x\\y}$ &  $\colvec{x\\y\\e}$ & 
+        2D-Array & 3D-Array   &
+        \detokenize{multi_gridgraph.hxx}
+    \\ \hline
+    %
+    3D-GridGraph & implicit graph for 3D volumes & 
+        x & x & x & dense & sparse & 
+        $\colvec{x\\y\\z}$ &  $\colvec{x\\y\\z\\e}$ & 
+        3D-Array & 4D-Array   &
+        \miniscule{\detokenize{multi_gridgraph.hxx}}
+    \\ \hline
+    %
+    4D-GridGraph & implicit graph for 3D volumes $+$ time & 
+        x & x & x & dense & sparse & 
+        $\colvec{x\\y\\z\\t}$ &  $\colvec{x\\y\\z\\t\\e}$ & 
+        4D-Array & 5D-Array   &
+        \detokenize{multi_gridgraph.hxx}
+    \\ \hline
+    %
+    AdjacencyListGraph & multi purpose graph & 
+       $\bullet$  & $\bullet$ & x & maybe dense & dense & 
+       $\colvec{n}$ , same as node id &  $\colvec{e}$  , same as edge id & 
+       1D-Array & 1D-Array   &
+       \detokenize{adjacency_list_graph.hxx}
+    \\ \hline
+    %
+    MergeGraphAdpator & edge contraction with feature merging callback & 
+       x & x & $\bullet$& sparse & sparse & 
+       $\colvec{n}$ , same as node id &  $\colvec{e}$ , same as edge id & 
+       1D-Array & 1D-Array   &
+       \detokenize{merge_graph_adaptor.hxx}
+    \\ \hline
+\end{tabular}
+\end{tiny}
+\end{table}
 \subsection{Graphs}
 
 \subsubsection{Grid Graph} \label{sec:graphs_grid_graph}
@@ -242,14 +281,14 @@ To map edges and nodes from the base graph
 
 \subsubsection{Merge Graph} \label{sec:graphs_merge_graph}
 
-To implemented structured clustering algorithms (see \cref{???}) we
-need a graph which supports the contraction of edges.
-Also a mechanism to merge node and edge features is needed.
-Experiments suggest that the edge contraction is more expensive
-than feature merging an can even be a bottleneck for huge 3D data 
-(see \cref{???} ).
-Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
-\begin{figure}
+To implemented structured clustering algorithms (see \cref{sec:rw_hc} ) 
+A graph which supports edge contraction and feature merging is needed.
+Some graphs within the LEMON library support 
+edge contraction, but this is not part of LEMON undirected graph concept \footnote{
+Edge contraction cannot be a part of LEMON undirected graph concept,since some graphs
+are not mutable.}.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{fig/contraction.pdf}
 
@@ -258,30 +297,172 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
         \protect\centerline{%
             \protect\includegraphics[width=\lofthumbsize,height=\lofthumbsize,keepaspectratio=true]{fig/contraction.pdf} 
         } 
-    }%
 
-    %\addtocontents{lof}{%
-    %    $\vcenter to \lofthumbsize{\vss%
-    %        \hbox to \lofthumbsize {
-    %            \hss \protect \includegraphics[width=.075\linewidth]{fig/contraction.pdf} \hss
-    %        }
-    %    \vss}$%
-    %    \quad
-    %    \ignorespaces
-    %}%
+    }%
     \caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
         Note the gray node $n$ which is connected to $u$ and $v$.
         After the contraction, edges $\{ n,u\}$ and $\{ n,v\}$ are also merged into 
-        a single edge $\{ n, w\}$ 
+        a single edge $\{ n, w\}$.
+        The picture has been taken from \citep{wiki_edge_contraction} and has been modified slightly.
     }
     \label{fig:figlabel}
 \end{figure}
 
 
+Furthermore LEMON does not define any concept for feature merging, which
+is crucial for image processing application \citep{arbelaez_2006_cvpr}.
+As a consequence, we define a new concept / API for 
+edge contraction and feature merging within the philosophy of LEMON.
+
+We implemented the \emph{merge graph} as an LEMON  \href{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html}{graph adaptor}
+\footnote{ LEMON Graph Adaptor: \url{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html} }.
+A graph adaptor is aways a viewing to a base graph and cannot exist without one.
+A subgraph adaptor can used to get view to a subgraph w.r.t. the base graph, without
+the need to reallocate the complete subgraph.
+In a similar manner, we implement a \emph{merge graph adaptor}.
+
+Each node and edge in the merge graph adaptor corresponds to a connected component of 
+edge and nodes in the base graph.
+Two union find data structure (UFD), and edge and node ufd encode these connected components.
+
+Feature merging is done via \emph{callbacks} which can be registered to the merge graph adaptor.
+The \emph{callback API} is explained in detail below. 
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{tikzpicture}[scale=0.65,transform shape]
+        \umlclass[template=Graph]{MergeGraphAdpator}
+        {
+            - edgeUfd               : IterablePartiton          \\
+            - nodeUfd               : IterablePartiton          \\ 
+            - nodesAdjacency        : AdjacencySetVector        \\
+            - baseGraph             : Graph                     \\
+            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
+            - mergeEdgeCallBacks    : MergeEdgeCallBackVector   \\
+            - eraseEdgeCallBacks    : EraseEdgeCallBackVector   
+        }
+        {
+            // LEMON API for undirected graphs                  \\
+                $\ldots$                                        \\
+            // register callbacks                               \\ 
+            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
+            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
+            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
+            // modify graph                                     \\
+            + contractEdge(edge : Edge)     : Node              \\
+            // find representatives                             \\
+            + reprNode(node : Graph::Node)  : Node              \\
+            + reprEdge(edge : Graph::Node)  : Edge              \\ 
+            // get base graph                                   \\
+            + graph()                       : Graph             \\
+        } 
+    \end{tikzpicture}
+\end{center}\caption[Merge Graph Adaptor Class Diagram]{ \label{fig:cls_mga}
+    Merge Graph Adaptor Class Diagram.
+    Only member functions which are not part of the LEMON
+    undirected graph concept are listed. 
+    See \cref{fig:uml_lemon_graph_concepts} for all missing 
+    members.
+}
+\end{figure}
+
+
+
 \paragraph{Node Descriptor/Id :}
+The node descriptor is implemented as a simple class
+holding a single integer which is the id 
+of the node.
+Each node in the merge graph encodes a connected
+component of nodes in the base graph.
+If no edge has been contracted, the node ids
+of the merge graph are identical with the ids 
+of the base graph.
+The contraction of a single edge will invalidate
+one node id, since two nodes are merged into a single 
+node.
+The connected component membership of base graph
+nodes is stored in a union find data structure 
+and can be accessed via \lstinline{MergeGraph::reprNode(const BaseGraphNode & baseGraphNode)}.
+
+
 \paragraph{Edge Descriptor/Id :}
-\paragraph{Node Map :} 
-\paragraph{Edge Map :} 
+Edge descriptors are implemented as node descriptors.
+The contraction of a single edge will invalidate
+at least one edge id, since the contracted edge is removed
+from the graph.
+But contracting a single edge can lead to an
+unbounded number of parallel edges / multi edges.
+Multiple edges between a pair of nodes will be merged
+into single edges.
+The connected component membership of base graph
+edges is stored in a union find data structure 
+and can be accessed via \lstinline{MergeGraph::reprEdge(const BaseGraphEdge & baseGraphEdge)}.
+This is only defined if $u,v$-nodes of this edge are in different connected components.
+
+
+
+\paragraph{Node Map, EdgeMap :} 
+The node and edge maps are derived from \lstinline{vigra::MultiArray<1,T>}.
+Their size is to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
+The id and the descriptors can be used to index node and edge maps.
+The implementation is exactly the same as for the AdjacencyListGraph \Cref{sec:graphs_adjacency_list_graph}.
+The default implementation of node and edge maps does not perform 
+any feature merging since the merging strategy depends on the
+features and the application itself.
+To perform feature merging the merge graph uses a callback API which is explained below.
+
+
+\paragraph{Callback API :}
+
+To merge features the merge graph uses three different callbacks types.
+Any of these callbacks is implemented within boosts API for callbacks \citep{ boost_function}
+\footnote{
+Currently we use the boost implementation for callbacks, but 
+in the future we might use a faster implementation with the same API  \citep{code_project_function}.
+}.
+
+
+\begin{compactitem}
+\item Merge node callback :
+    A contraction of an edge merges the two nodes of the edge
+    into a single node.
+    To merge node features a callbacks with the following signature 
+    can be registered to the merge graphs merge node callback vector.
+    \\
+    \lstinline[language=c++]{void mergeNodeSignature(const Node & anchorNode,const Node & deadNode);}
+    \\
+    The first argument is the anchor node, therefore the id and descriptor of
+    \lstinline{anchorNode} are still  valid after the contraction, while
+    the  id and descriptor of \lstinline{deadNode} become invalid.
+
+
+\item Merge node callback :
+    A single edge contraction can lead to multiple parallel edges
+    which will be merged into single edges.
+    To merge features attached to edges, a callback vector
+    similar to the node callback vectors exists.
+    The signature is the same as for node callbacks, only with 
+    edge descriptors.
+    \\
+    \lstinline[language=c++]{void mergeEdgeSignature(const Edge & anchorEdge,const Edge & deadEdge);}
+    \\
+    Again, the first argument is the anchor, and ids and descriptors stay valid.
+    The id and descriptor of the second argument become invalid after the merge.
+
+\item Erase edge callback :
+    The edge which is contracted is removed from the graph.
+    This callback can be used to inform data structures 
+    that this edge has been removed.
+    \\
+    \lstinline[language=c++]{void eraseEdgeSignature(const Edge & edge);}
+    \\
+    Furthermore this callback is called at the very and of each
+    edge contraction. Therefore this callback can be used
+    to indicate that all callbacks have been called and
+    the contraction is finished.
+
+\end{compactitem}
 
 
 
@@ -289,95 +470,8 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
    
 
-\begin{center}
-    \begin{tikzpicture}[scale=0.7,transform shape]
-    \begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}
-        \umlclass[x=-3,template=Graph]{MergeGraphAdpator}
-        {
-            \\// union find data structures                     \\
-            - edgeUfd               : IterablePartiton          \\
-            - nodeUfd               : IterablePartiton          \\ 
-            - nodesAdjacency        : AdjacencySetVector        \\
-
-            \\// callbacks                                      \\
-            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
-            - mergeEdgeCallBack     : MergeEdgeCallBackVector   \\
-            - eraseEdgeCallBack     : EraseEdgeCallBackVector   \\
-        }
-        {
-            \\// LEMON API for undirected graphs                \\
-                $\ldots$                                        \\
-            \\// register callbacks                             \\ 
-            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\
-            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\
-            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\
-
-            \\// modify graph                                   \\
-            + contractEdge(edge : Edge)     : Node              \\
-
-            \\// find representatives                           \\
-            + reprNode(node : Node)         : Node              \\
-            + reprEdge(edge : Edge)         : Edge              \\ 
-
-            \\// get base graph                                 \\
-            + graph()                       : Graph             \\
-        } 
 
 
-        \umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorInterface}
-        {
-
-        }
-        {
-            \\// contract next edge and get weight              \\
-            + contractionEdge(edge : Edge)         : Edge       \\ 
-            + contractionWeight(edge : Edge)       : Edge       \\
-            \\// get base graph                                 \\
-            + mergeGraph()                  : MergeGraph        \\
-        } 
-
-
-        \umlclass[x=9,y=-5,template=ClusterOperator]{HierarchicalClustering}
-        {
-
-        }
-        {
-            + cluster()                     : void        \\
-            + reprLabels(nodeMap : NodeMap) : void        \\      
-        } 
-
-        \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}
-        \umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}
-
-
-        \umlnote[x=3,y=-3]{cb-2}{
-            ClusterOperator registers callbacks to MergeGraph
-        }
-        
-        \umlnote[x=12,y=2]{ClusterOperatorInterface}{
-            Responsible for feature merging.
-            Finds next edge to contract. 
-        }
-        \umlnote[x=12,y=-8]{HierarchicalClustering}{
-            Encodes merge tree / dendrogram. 
-        }
-
-
-    \end{umlpackage}
-    \end{tikzpicture}
-\end{center}
-
-   We propose and implemented the following design:
-   \begin{compactitem}
-       \item  A base graph is attached to a merge graph  and  a merge graph will
-            always ``view'' to
-       \item  Union find data structure for nodes
-       \item  Union find data structure for edges
-   \end{compactitem}
-
-
-
-   \lstinline{vigra::MergeGraphAdaptor<DIM,DIRECTED_TAG>}
 
 
 \subsection{Graph Algorithms} \label{sec:graph_graph_algorithms}
@@ -396,6 +490,8 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
             - nodeUfd               : IterablePartiton          \\ 
             - nodesAdjacency        : AdjacencySetVector        \\
 
+            \\// ref. to base graph                             \\
+            - baseGraph             : Graph                     \\
             \\// callbacks                                      \\
             - mergeNodeCallBacks    : MergeNodeCallBackVector   \\
             - mergeEdgeCallBack     : MergeEdgeCallBackVector   \\
@@ -413,8 +509,8 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
             + contractEdge(edge : Edge)     : Node              \\
 
             \\// find representatives                           \\
-            + reprNode(node : Node)         : Node              \\
-            + reprEdge(edge : Edge)         : Edge              \\ 
+            + reprNode(node : Graph::Node)         : Node       \\
+            + reprEdge(edge : Graph::Edge)         : Edge       \\ 
 
             \\// get base graph                                 \\
             + graph()                       : Graph             \\
@@ -445,7 +541,6 @@ Therefore it is crucial to implemented the MergeGraph (MG) very carefully.
 
         \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}
         \umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}
-
 
         \umlnote[x=3,y=-3]{cb-2}{
             ClusterOperator registers callbacks to MergeGraph
