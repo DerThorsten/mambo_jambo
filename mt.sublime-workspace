@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"Lae",
+				"LabelMap"
+			],
+			[
+				"Fea",
+				"FeatureMap"
+			],
+			[
+				"mergr",
+				"mergeGraphPtrs_"
+			],
+			[
+				"gra",
+				"graphPtrs_"
+			],
+			[
+				"use",
+				"usepackage"
+			],
+			[
+				"Ad",
+				"AdjacencyListGraph"
+			],
+			[
+				"Merge",
+				"MergeGraph"
+			],
+			[
+				"foot",
+				"footnote"
+			],
+			[
+				"descr",
+				"descriptor"
+			],
+			[
+				"lst",
+				"lstinline"
+			],
+			[
+				"mergeNodeCall",
+				"MergeNodeCallBack"
+			],
+			[
 				"modif",
 				"modified"
 			],
@@ -18,10 +62,6 @@
 			[
 				"merge",
 				"mergeGraph"
-			],
-			[
-				"lst",
-				"lstinline"
 			],
 			[
 				"adju",
@@ -102,10 +142,6 @@
 			[
 				"str",
 				"struct"
-			],
-			[
-				"foot",
-				"footnotesize"
 			],
 			[
 				"appl",
@@ -198,10 +234,6 @@
 			[
 				"const_",
 				"const_iterator"
-			],
-			[
-				"Ad",
-				"Adjacency"
 			],
 			[
 				"impl",
@@ -482,120 +514,35 @@
 			[
 				"hi",
 				"hierarchical"
-			],
-			[
-				"cite",
-				"citet"
-			],
-			[
-				"clus",
-				"clustering"
-			],
-			[
-				"struct",
-				"structured"
-			],
-			[
-				"adjacen",
-				"adjacent"
-			],
-			[
-				"cluser",
-				"clustering"
-			],
-			[
-				"Mer",
-				"MergeGraph"
-			],
-			[
-				"Alg",
-				"Algorithms"
-			],
-			[
-				"para",
-				"paragraph"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
-			"settings":
-			{
-				"buffer_size": 61262,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_visitor.hxx",
-			"settings":
-			{
-				"buffer_size": 22583,
-				"line_ending": "Unix"
-			}
-		},
-		{
+			"contents": "% !TEX root = ../../main.tex\n\n\n\\section{Implementation}\\label{sec:vigra_graph_lib_impl}\n\n\\todo{Impl is not a good word here}\n\nThe most important concept for graph based image processing\nis the \\emph{region adjacency graph} (RAG) (see \\cref{fig:make_rag}).\n\nA RAG is extracted from a labeled \\emph{base graph}.\nIn the first step of graph based image processing, the base \ngraph is usually a grid graph, and the labeling is a label image\nas in \\cref{fig:make_rag} .\nTo encode a RAG we need a undirected graph, \nand a mapping from the base graphs edges and nodes to the RAG \nneeds to be stored.\n\nThe implementation of grid graphs is explained in \\cref{sec:graphs_grid_graph}, \na basic undirected graphs implementation will be discussed in \\cref{sec:graphs_adjacency_list_graph}.\nThe implementation details of the \\emph{region adjacency graph} concept will \nbe given in  \\cref{sec:graphs_rag}.\n\nFor hierarchical clustering we provide a specialized graph, named \\emph{merge graph}.\n\n\nTo implemented structured clustering algorithms (see \\cref{sec:rw_hc}) we\nneed a graph which supports the contraction of edges.\nAlso a mechanism to merge node and edge features is needed.\nWithin \\cref{sec:graphs_merge_graph} we propose  a very flexible graph \ncalled \\emph{merge graph adaptor} which fulfills these requirements.\n\n\nA generic set of algorithms which work on any graph\nimplemented within the VIGRA graph api is presented \nin \\cref{sec:graph_graph_algorithms}.\n\nWhile the core implementation of any algorithm is in C++\nVIGRA provides python binding to make almost\nany algorithm available in Python.\nTo provide a generic Python interface for any proposed\ngraph, we need to introduce a few concepts \nto make the python wrapped graph API very \\emph{Pythonic}\n\n\n%$\\surd \\bullet$\n\n\n\\begin{table}\n\\begin{tiny}\n\\begin{tabular}{|l|p{1.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.8cm}|p{0.8cm}|l|l|l|}\n    \\hline \n    Class & purpose & \n        add nodes & add edges & contract edges & node ids & edge ids & \n        node descriptor & edge descriptors &\n        node map & edge map  &\n        header\n    \\\\ \\hline\n    %\n    2D-GridGraph & implicit graph for 2D images & \n        x & x & x & dense & sparse & \n        $\\colvec{x\\\\y}$ &  $\\colvec{x\\\\y\\\\e}$ & \n        2D-Array & 3D-Array   &\n        \\detokenize{multi_gridgraph.hxx}\n    \\\\ \\hline\n    %\n    3D-GridGraph & implicit graph for 3D volumes & \n        x & x & x & dense & sparse & \n        $\\colvec{x\\\\y\\\\z}$ &  $\\colvec{x\\\\y\\\\z\\\\e}$ & \n        3D-Array & 4D-Array   &\n        \\tiny{\\detokenize{multi_gridgraph.hxx}}\n    \\\\ \\hline\n    %\n    4D-GridGraph & implicit graph for 3D volumes $+$ time & \n        x & x & x & dense & sparse & \n        $\\colvec{x\\\\y\\\\z\\\\t}$ &  $\\colvec{x\\\\y\\\\z\\\\t\\\\e}$ & \n        4D-Array & 5D-Array   &\n        \\detokenize{multi_gridgraph.hxx}\n    \\\\ \\hline\n    %\n    AdjacencyListGraph & multi purpose graph & \n       $\\bullet$  & $\\bullet$ & x & maybe dense & dense & \n       $\\colvec{n}$ , same as node id &  $\\colvec{e}$  , same as edge id & \n       1D-Array & 1D-Array   &\n       \\detokenize{adjacency_list_graph.hxx}\n    \\\\ \\hline\n    %\n    MergeGraphAdpator & edge contraction with feature merging callback & \n       x & x & $\\bullet$& sparse & sparse & \n       $\\colvec{n}$ , same as node id &  $\\colvec{e}$ , same as edge id & \n       1D-Array & 1D-Array   &\n       \\detokenize{merge_graph_adaptor.hxx}\n    \\\\ \\hline\n\\end{tabular}\n\\end{tiny}\n\\end{table}\n\\subsection{Graphs}\n\n\\subsubsection{Grid Graph} \\label{sec:graphs_grid_graph}\n\nThe grid graph implemented in VIGRA is N-dimensional.\nThe dimension can be selected with templates, and therefore with zero\noverhead.\n\nDue to the regular structure of a grid graph, it is possible to compute the edges of a given \nnode and vice versa on the fly, instead of storing these relations explicitly.\nTherefore a grid graph can be implemented with almost zero memory overhead.\n\n\\paragraph{Node Descriptor/Id :}\nThe node descriptor of a grid graph is implemented as a\n$N$-dimensional coordinate of the pixel which corresponds to\nthat particular node. The id of a node is the scan order index\nof the corresponding pixel.\nAs a consequence, node id's of a grid graph are continuous.\n\\paragraph{Edge Descriptor/Id :}\nTo edge descriptors are implemented as $N+1$-dimensional coordinate.\nThe first $N$ axis correspond to the node which ``owns'' this edge.\nThe last axis enumerates the edge w.r.t. the node.\n\nIn a grid graph, all nodes have the same degree, except for nodes\nat the border of the image.\nThis breaks somehow the regularity of grid graphs.\nTo still have very regular structure, edge ids\nare enumerated, as if the graph would be perfectly\nregular. Therefore we enumerate some missing edges\nat the border and get non-continuous edge ids.\n\\Cref{fig:grid_graph_ids} illustrates this enumeration.\n\n\n\n\\begin{figure}[H]\n\\centering\n\\begin{tikzpicture}[scale=0.7,transform shape]\n  % virtual nodes\n  \\draw (-2*2,0) node (naa) {$\\quad$};\n  \\draw (-2*2,2*2) node (nbb) {$\\quad$};\n  \\draw (0,4*2) node (na) {$\\quad$};\n  \\draw (2*2,4*2) node (nb) {$\\quad$};\n  \\draw (4*2,4*2) node (nc) {$\\quad$};\n  % real nodes\n  \\draw (0,0) node[draw,circle,fill=blue!17] (n3) {$3_{(0,1)}$};\n  \\draw (2*2,0) node[draw,circle,fill=green!17] (n4) {$4_{(1,1)}$};\n  \\draw (4*2,0) node[draw,circle,fill=red!17] (n5) {$5_{(2,1)}$};\n  \\draw (0,2*2) node[draw,circle,fill=yellow!17] (n0) {$0_{(0,0)}$};\n  \\draw (2*2,2*2) node[draw,circle,fill=pink!17] (n1) {$1_{(1,0)}$};\n  \\draw (4*2,2*2) node[draw,circle,fill=magenta!17] (n2) {$2_{(2,0)}$};\n  %\n  % real edges\n  \\path[every node/.style={auto=false}]\n    (n0) edge node[draw,rectangle,fill=pink!17] {$7_{(1,0,1)}$} (n1) \n    (n1) edge node[draw,rectangle,fill=magenta!17] {$8_{(2,0,1)}$} (n2) \n    (n3) edge node[draw,rectangle,fill=green!17] {$10_{(1,1,1)}$} (n4) \n    (n4) edge node[draw,rectangle,fill=red!17] {$11_{(2,1,1)}$} (n5);\n \\path[every node/.style={auto=false}]\n    (n0) edge node[draw,rectangle,fill=blue!17] {$3_{(0,1,0)}$} (n3) \n    (n1) edge node[draw,rectangle,fill=green!17] {$4_{(1,1,0)}$} (n4) \n    (n2) edge node[draw,rectangle,fill=red!17] {$5_{(2,1,0)}$} (n5) ;\n  %\n  %virtual edges x\n  \\path[every node/.style={auto=false}]\n    (n0) edge[dashed] node[draw,rectangle,fill=yellow!17] {$0_{(0,0,0)}$} (na) \n    (n1) edge[dashed] node[draw,rectangle,fill=pink!17] {$1_{(1,0,0)}$} (nb) \n    (n2) edge[dashed] node[draw,rectangle,fill=magenta!17] {$2_{(2,0,0)}$} (nc) ;\n  \\path[every node/.style={auto=false}]\n    (n0) edge[dashed] node[draw,rectangle,fill=yellow!17] {$6_{(0,0,1)}$} (nbb) \n    (n3) edge[dashed] node[draw,rectangle,fill=blue!17] {$9_{(0,1,1)}$} (naa) ;\n   %\n   \\draw (-1.0,5.0) --  (9,5.0) -- (9,-1.0) -- (-1.0,-1.0) -- cycle;\n\\end{tikzpicture}\n\\caption[Grid Graph Ids]{ \\label{fig:grid_graph_ids}\n    Ids and descriptors for a 2D Grid graph with 4-neighborhood on a $3x2$ grid.\n    The node ids are continuous from $0$ to $5$ and the descriptors\n    are showed as subscripts of the ids.\n    Node descriptors are 2D pixel coordinates.\n    To get the edge ids, we enumerate the edge, but we ignore the fact that nodes at the\n    left and upper border do\n    not have an upper and left edge.\n    To illustrate this, these ``virtual'' edges are shown dotted.\n    The id's of the edges correspond to the enumeration.\n    As a consequence edge ids are non continuous.    \n    In this examples, \n    the set of valid edge ids is $\\{ 3,4,5,7,8,10,11 \\}$.\n    Edge descriptors are 3D coordinates, where the first two\n    coordinate correspond to the node which owns this edge.\n    The third coordinate is the edge number w.r.t. the node.\n    The two edges and the node which ``owns'' them are\n    shown in the same unique color.\n\n}\n\\end{figure}\n\n\\paragraph{Node Map :} An regular N-dimensional image can\nbe used as node map, and since node descriptors are plain\ncoordinates, they can be used to access data at a\nparticular pixel.\nThis means, no node map needs to be allocated for a given\nimage, since the image itself can be used as a node map.\nThe default node map is derived from \\lstinline{vigra::MultiArray<DIM,T>}.\n\n\\paragraph{Edge Map :} An N+1-dimensional image is\nused as edge map.\nThis image has the same as a node map, but an extra\ndimension for the edges.\nThe first $N$ axis in the edge descriptor are \nused to determine which pixel ``owns'' the edge,\nwhile the last axis select the w.r.t. the node.\nThe default edge map is derived from \\lstinline{vigra::MultiArray<DIM,Multiband<T> >}.\n\n\\paragraph{Usage :}\n    ...write me\n\\subsubsection{Adjacency List Graph} \\label{sec:graphs_adjacency_list_graph}\n\n\\paragraph{Node Descriptor/Id :}\nThe node descriptor is implemented as a simple class\nholding a single integer which is the id \nof the node.\nThe user can explicitly choose the id of\nan node. As a consequence, node id's can \nbe sparse and continuous.\n\n\\paragraph{Edge Descriptor/Id :}\nThe edge descriptors are implemented exactly like\nnode descriptors, but users cannot give\nedges explicit id's.\nTherefore edge id's are dense, unless\nedges are removed from the graph \\footnote{Removing edges from the graph is\nnot yet implemented}.\n\n\\paragraph{Node Map, EdgeMap:} \nThe node and edge maps are derived from \\lstinline{vigra::MultiArray<1,T>}.\nTheir size is to \\lstinline{maxNodeId()+1} and  \\lstinline{maxEdgeId()+1}.\nThe id and the descriptors can be used to index node and edge maps.\n\n\n\\paragraph{Usage :}\n    \\begin{lstlisting}[language=c++]\n    typedef vigra::AdjacencyListGraph Graph;\n    Graph g;\n\n    // add nodes \n    // - automatic id\n    // - explicit id\n    Graph::Node n0 = g.addNode() \n    Graph::Node n3 = g.addNode(3)\n\n    // add edges from existing nodes\n    // and new nodes\n    // no parallel edges \n    Graph::Edge e0 = g.addEdge(n0,n1)\n    Graph::Edge e1 = g.addEdge(2,3)\n    Graph::Edge e2 = g.addEdge(2,3)\n    assert(e1==e2)  \n    \\end{lstlisting}\n\n    \\begin{lstlisting}[language=Python]\n    g=vigra.graphs.listGraph();\n    # add nodes \n    # - automatic id\n    # - explicit id\n    n0 = g.addNode() \n    n3 = g.addNode(3)\n\n    # add edges from existing nodes\n    # and new nodes\n    # no parallel edges \n    e0 = g.addEdge(n0,n1)\n    e1 = g.addEdge(2,3)\n    e2 = g.addEdge(2,3)\n    assert e1==e2  \n    \\end{lstlisting}\n\\subsubsection{Region Adjacency Graph} \\label{sec:graphs_rag}\n\nA region adjacency is always defined w.r.t. a labeled base graph.\nInstead of implementing a new graph for RAG, we use\nthe \\emph{adjacency list graph}.\nThe mapping from base graph nodes and RAG nodes  is defined\nby the labeling itself. Therefore\nThe labeling defines a forward mapping from base graph nodes\nto RAG Node ids.\nA dense labeling \nEdges in the RAG are mapped to multiple edges in the base graph\nvia a backward mapping.\n\n\n\n\n\\subsubsection{Merge Graph} \\label{sec:graphs_merge_graph}\n\nTo implemented structured clustering algorithms (see \\cref{sec:rw_hc} ) \nA graph which supports edge contraction and feature merging is needed.\nSome graphs within the LEMON library support \nedge contraction, but this is not part of LEMON undirected graph concept \\footnote{\nEdge contraction cannot be a part of LEMON undirected graph concept,since some graphs\nare not mutable.}.\n\n\\begin{figure}[H]\n    \\centering\n    \\includegraphics[width=0.35\\textwidth]{fig/contraction.pdf}\n\n    \\addtocontents{lof}{%\n        \\vspace{1cm}\n        \\protect\\centerline{%\n            \\protect\\includegraphics[width=\\lofthumbsize,height=\\lofthumbsize,keepaspectratio=true]{fig/contraction.pdf} \n        } \n\n    }%\n    \\caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.\n        Note the gray node $n$ which is connected to $u$ and $v$.\n        After the contraction, edges $\\{ n,u\\}$ and $\\{ n,v\\}$ are also merged into \n        a single edge $\\{ n, w\\}$.\n        The picture has been taken from \\citep{wiki_edge_contraction} and has been modified slightly.\n    }\n    \\label{fig:figlabel}\n\\end{figure}\n\n\nFurthermore LEMON does not define any concept for feature merging, which\nis crucial for image processing application \\citep{arbelaez_2006_cvpr}.\nAs a consequence, we define a new concept / API for \nedge contraction and feature merging within the philosophy of LEMON.\n\nWe implemented the \\emph{merge graph} as an LEMON  \\href{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html}{graph adaptor}\n\\footnote{ LEMON Graph Adaptor: \\url{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html} }.\nA graph adaptor is aways a viewing to a base graph and cannot exist without one.\nA subgraph adaptor can used to get view to a subgraph w.r.t. the base graph, without\nthe need to reallocate the complete subgraph.\nIn a similar manner, we implement a \\emph{merge graph adaptor}.\n\nEach node and edge in the merge graph adaptor corresponds to a connected component of \nedge and nodes in the base graph.\nTwo union find data structure (UFD), and edge and node ufd encode these connected components.\n\nFeature merging is done via \\emph{callbacks} which can be registered to the merge graph adaptor.\nThe \\emph{callback API} is explained in detail below. \n\n\n\\begin{figure}[H]\n\\begin{center}\n    \\begin{tikzpicture}[scale=0.65,transform shape]\n        \\umlclass[template=Graph]{MergeGraphAdpator}\n        {\n            - edgeUfd               : IterablePartiton          \\\\\n            - nodeUfd               : IterablePartiton          \\\\ \n            - nodesAdjacency        : AdjacencySetVector        \\\\\n            - baseGraph             : Graph                     \\\\\n            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\\\\n            - mergeEdgeCallBacks    : MergeEdgeCallBackVector   \\\\\n            - eraseEdgeCallBacks    : EraseEdgeCallBackVector   \n        }\n        {\n            // LEMON API for undirected graphs                  \\\\\n                $\\ldots$                                        \\\\\n            // register callbacks                               \\\\ \n            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\\\\n            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\\\\n            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\\\\n            // modify graph                                     \\\\\n            + contractEdge(edge : Edge)     : Node              \\\\\n            // find representatives                             \\\\\n            + reprNode(node : Graph::Node)  : Node              \\\\\n            + reprEdge(edge : Graph::Node)  : Edge              \\\\ \n            // get base graph                                   \\\\\n            + graph()                       : Graph             \\\\\n        } \n    \\end{tikzpicture}\n\\end{center}\\caption[Merge Graph Adaptor Class Diagram]{ \\label{fig:cls_mga}\n    Merge Graph Adaptor Class Diagram.\n    Only member functions which are not part of the LEMON\n    undirected graph concept are listed. \n    See \\cref{fig:uml_lemon_graph_concepts} for all missing \n    members.\n}\n\\end{figure}\n\n\n\n\\paragraph{Node Descriptor/Id :}\nThe node descriptor is implemented as a simple class\nholding a single integer which is the id \nof the node.\nEach node in the merge graph encodes a connected\ncomponent of nodes in the base graph.\nIf no edge has been contracted, the node ids\nof the merge graph are identical with the ids \nof the base graph.\nThe contraction of a single edge will invalidate\none node id, since two nodes are merged into a single \nnode.\nThe connected component membership of base graph\nnodes is stored in a union find data structure \nand can be accessed via \\lstinline{MergeGraph::reprNode(const BaseGraphNode & baseGraphNode)}.\n\n\n\\paragraph{Edge Descriptor/Id :}\nEdge descriptors are implemented as node descriptors.\nThe contraction of a single edge will invalidate\nat least one edge id, since the contracted edge is removed\nfrom the graph.\nBut contracting a single edge can lead to an\nunbounded number of parallel edges / multi edges.\nMultiple edges between a pair of nodes will be merged\ninto single edges.\nThe connected component membership of base graph\nedges is stored in a union find data structure \nand can be accessed via \\lstinline{MergeGraph::reprEdge(const BaseGraphEdge & baseGraphEdge)}.\nThis is only defined if $u,v$-nodes of this edge are in different connected components.\n\n\n\n\\paragraph{Node Map, EdgeMap :} \nThe node and edge maps are derived from \\lstinline{vigra::MultiArray<1,T>}.\nTheir size is to \\lstinline{maxNodeId()+1} and  \\lstinline{maxEdgeId()+1}.\nThe id and the descriptors can be used to index node and edge maps.\nThe implementation is exactly the same as for the AdjacencyListGraph \\Cref{sec:graphs_adjacency_list_graph}.\nThe default implementation of node and edge maps does not perform \nany feature merging since the merging strategy depends on the\nfeatures and the application itself.\nTo perform feature merging the merge graph uses a callback API which is explained below.\n\n\n\\paragraph{Callback API :}\n\nTo merge features the merge graph uses three different callbacks types.\nAny of these callbacks is implemented within boosts API for callbacks \\citep{ boost_function}\n\\footnote{\nCurrently we use the boost implementation for callbacks, but \nin the future we might use a faster implementation with the same API  \\citep{code_project_function}.\n}.\n\n\n\\begin{compactitem}\n\\item Merge node callback :\n    A contraction of an edge merges the two nodes of the edge\n    into a single node.\n    To merge node features a callbacks with the following signature \n    can be registered to the merge graphs merge node callback vector.\n    \\\\\n    \\lstinline[language=c++]{void mergeNodeSignature(const Node & anchorNode,const Node & deadNode);}\n    \\\\\n    The first argument is the anchor node, therefore the id and descriptor of\n    \\lstinline{anchorNode} are still  valid after the contraction, while\n    the  id and descriptor of \\lstinline{deadNode} become invalid.\n\n\n\\item Merge node callback :\n    A single edge contraction can lead to multiple parallel edges\n    which will be merged into single edges.\n    To merge features attached to edges, a callback vector\n    similar to the node callback vectors exists.\n    The signature is the same as for node callbacks, only with \n    edge descriptors.\n    \\\\\n    \\lstinline[language=c++]{void mergeEdgeSignature(const Edge & anchorEdge,const Edge & deadEdge);}\n    \\\\\n    Again, the first argument is the anchor, and ids and descriptors stay valid.\n    The id and descriptor of the second argument become invalid after the merge.\n\n\\item Erase edge callback :\n    The edge which is contracted is removed from the graph.\n    This callback can be used to inform data structures \n    that this edge has been removed.\n    \\\\\n    \\lstinline[language=c++]{void eraseEdgeSignature(const Edge & edge);}\n    \\\\\n    Furthermore this callback is called at the very and of each\n    edge contraction. Therefore this callback can be used\n    to indicate that all callbacks have been called and\n    the contraction is finished.\n\n\\end{compactitem}\n\n\n\n\n\n   \n\n\n\n\n\n\\subsection{Graph Algorithms} \\label{sec:graph_graph_algorithms}\n\n    \\subsubsection{Multicut}\n\n    \\subsubsection{Hierarchical Clustering}\n\n    \\begin{center}\n    \\begin{tikzpicture}[scale=0.7,transform shape]\n    \\begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}\n        \\umlclass[x=-3,template=Graph]{MergeGraphAdpator}\n        {\n            \\\\// union find data structures                     \\\\\n            - edgeUfd               : IterablePartiton          \\\\\n            - nodeUfd               : IterablePartiton          \\\\ \n            - nodesAdjacency        : AdjacencySetVector        \\\\\n\n            \\\\// ref. to base graph                             \\\\\n            - baseGraph             : Graph                     \\\\\n            \\\\// callbacks                                      \\\\\n            - mergeNodeCallBacks    : MergeNodeCallBackVector   \\\\\n            - mergeEdgeCallBack     : MergeEdgeCallBackVector   \\\\\n            - eraseEdgeCallBack     : EraseEdgeCallBackVector   \\\\\n        }\n        {\n            \\\\// LEMON API for undirected graphs                \\\\\n                $\\ldots$                                        \\\\\n            \\\\// register callbacks                             \\\\ \n            + registerMergeNodeCallBack(f : MergeNodeCallBack)  \\\\\n            + registerMergeEdgeCallBack(f : MergeEdgeCallBack)  \\\\\n            + registerEraseEdgeCallBack(f : EraseEdgeCallBack)  \\\\\n\n            \\\\// modify graph                                   \\\\\n            + contractEdge(edge : Edge)     : Node              \\\\\n\n            \\\\// find representatives                           \\\\\n            + reprNode(node : Graph::Node)         : Node       \\\\\n            + reprEdge(edge : Graph::Edge)         : Edge       \\\\ \n\n            \\\\// get base graph                                 \\\\\n            + graph()                       : Graph             \\\\\n        } \n\n\n        \\umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorInterface}\n        {\n\n        }\n        {\n            \\\\// contract next edge and get weight              \\\\\n            + contractionEdge(edge : Edge)         : Edge       \\\\ \n            + contractionWeight(edge : Edge)       : Edge       \\\\\n            \\\\// get base graph                                 \\\\\n            + mergeGraph()                  : MergeGraph        \\\\\n        } \n\n\n        \\umlclass[x=9,y=-5,template=ClusterOperator]{HierarchicalClustering}\n        {\n\n        }\n        {\n            + cluster()                     : void        \\\\\n            + reprLabels(nodeMap : NodeMap) : void        \\\\      \n        } \n\n        \\umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}\n        \\umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}\n\n        \\umlnote[x=3,y=-3]{cb-2}{\n            ClusterOperator registers callbacks to MergeGraph\n        }\n        \n        \\umlnote[x=12,y=2]{ClusterOperatorInterface}{\n            Responsible for feature merging.\n            Finds next edge to contract. \n        }\n        \\umlnote[x=12,y=-8]{HierarchicalClustering}{\n            Encodes merge tree / dendrogram. \n        }\n\n\n    \\end{umlpackage}\n    \\end{tikzpicture}\n    \\end{center}\n\n    \\subsubsection{Watershed Algorithms}\n\n    \\subsubsection{Smoothing Algorithms}\n\n",
 			"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionImpl.tex",
+			"file_size": 22258,
+			"file_write_time": 130411903216535786,
 			"settings":
 			{
-				"buffer_size": 18742,
+				"buffer_size": 22275,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionGraphApis.tex",
+			"file": "thesis/Chapters/ChapterVigraGraphLibSections/graph_learning.hxx",
 			"settings":
 			{
-				"buffer_size": 16000,
+				"buffer_size": 1544,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
+			"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex",
 			"settings":
 			{
-				"buffer_size": 42126,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/super_forest.py",
-			"settings":
-			{
-				"buffer_size": 577,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/vigra/vigranumpy/examples/graph_smoothing_play.py",
-			"settings":
-			{
-				"buffer_size": 2308,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/tikz-uml.sty",
-			"settings":
-			{
-				"buffer_size": 211430,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
-			"settings":
-			{
-				"buffer_size": 1201,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/vigra/vigranumpy/src/core/adjacencyListGraph.cxx",
-			"settings":
-			{
-				"buffer_size": 3922,
+				"buffer_size": 16248,
 				"line_ending": "Unix"
 			}
 		},
@@ -603,63 +550,7 @@
 			"file": "thesis/my-config.tex",
 			"settings":
 			{
-				"buffer_size": 10143,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_algorithm_visitor.hxx",
-			"settings":
-			{
-				"buffer_size": 26686,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Chapters/ChapterCgc.tex",
-			"settings":
-			{
-				"buffer_size": 48288,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/Bibliography.bib",
-			"settings":
-			{
-				"buffer_size": 20691,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "thesis/tikzuml-v1.0b/examples/classdiag.tex",
-			"settings":
-			{
-				"buffer_size": 2170,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/tbeier/Downloads/kappes.bib",
-			"settings":
-			{
-				"buffer_size": 363,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "rapport.bib",
-			"settings":
-			{
-				"buffer_size": 12580,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "thesis/main.tex",
-			"settings":
-			{
-				"buffer_size": 6415,
+				"buffer_size": 10218,
 				"line_ending": "Unix"
 			}
 		}
@@ -751,7 +642,7 @@
 				"Snippet: main()"
 			]
 		],
-		"width": 565.0
+		"width": 521.0
 	},
 	"console":
 	{
@@ -773,17 +664,60 @@
 	},
 	"file_history":
 	[
-		"/home/tbeier/src/vigra/include/vigra/graph_generalization.hxx",
+		"/home/tbeier/src/vigra/LICENSE.txt",
+		"/home/tbeier/src/pyqtgraph/examples/Legend.py",
+		"/home/tbeier/src/vigra/vigranumpy/src/core/learning.cxx",
+		"/home/tbeier/src/vigra/vigranumpy/src/core/adjacencyListGraph.cxx",
+		"/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
+		"/home/tbeier/src/pyqtgraph/examples/Arrow.py",
+		"/home/tbeier/src/vigra/include/vigra/multi_array.hxx",
+		"/home/tbeier/src/pyqtgraph/examples/multiprocess.py",
+		"/home/tbeier/src/vigra/include/vigra/multi_labeling.hxx",
+		"/home/tbeier/src/vigra/include/vigra/slanted_edge_mtf.hxx",
+		"/home/tbeier/src/pyqtgraph/setup.py",
+		"/home/tbeier/src/pyqtgraph/doc/source/widgets/pathbutton.rst",
+		"/home/tbeier/src/pyqtgraph/pyqtgraph/widgets/PathButton.py",
+		"/home/tbeier/src/vigra/doc/vigra/cgp__python_8hxx_source.html",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex",
+		"/home/tbeier/src/vigra/doc/vigra/python__graph__maps_8hxx_source.html",
+		"/home/tbeier/src/vigra/doc/vigra/python__graph__generalization_8hxx_source.html",
+		"/home/tbeier/src/vigra/doc/vigra/python__clustering__operator_8hxx_source.html",
+		"/home/tbeier/src/vigra/doc/vigra/python__utility_8hxx_source.html",
+		"/home/tbeier/src/vigra/doc/vigra/python__map_8hxx_source.html",
+		"/home/tbeier/src/vigra/doc/vigra/PythonBindingsTutorial.html",
+		"/home/tbeier/src/vigra/vigranumpy/src/core/pythonaccumulator.hxx",
+		"/home/tbeier/src/vigra/include/vigra/python_utility.hxx",
+		"/home/tbeier/src/vigra/include/vigra/python_graph.hxx",
+		"/home/tbeier/src/pyqtgraph/pyqtgraph/python2_3.py",
+		"/home/tbeier/src/pyqtgraph/tools/py2exe.bat",
+		"/home/tbeier/src/vigra/docsrc/post.py",
+		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_visitor.hxx",
+		"/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
+		"/home/tbeier/src/masterthesis/thesis/Bibliography.bib",
+		"/home/tbeier/src/masterthesis/thesis/tikzuml-v1.0b/examples/classdiag.tex",
+		"/home/tbeier/Downloads/kappes.bib",
+		"/home/tbeier/src/masterthesis/rapport.bib",
+		"/home/tbeier/src/masterthesis/thesis/my-config.tex",
+		"/home/tbeier/src/masterthesis/thesis/main.tex",
+		"/home/tbeier/src/pyqtgraph/examples/GLVolumeItem.py",
+		"/home/tbeier/src/pyqtgraph/examples/__main__.py",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/graph_learner.hxx",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionGraphApis.tex",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgc.tex",
+		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_algorithm_visitor.hxx",
+		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.tex",
+		"/home/tbeier/src/masterthesis/thesis/tikz-uml.sty",
+		"/home/tbeier/src/super_forest.py",
+		"/home/tbeier/src/vigra/vigranumpy/examples/graph_smoothing_play.py",
 		"/home/tbeier/src/vigra/docsrc/image_processing.dxx",
 		"/home/tbeier/src/vigra/doc/vigra/implicit__maps_8hxx_source.html",
 		"/home/tbeier/src/vigra/docsrc/index.dxx",
+		"/home/tbeier/src/vigra/include/vigra/graph_generalization.hxx",
 		"/home/tbeier/src/masterthesis/thesis/uml/mergeGraph.xmi",
 		"/home/tbeier/src/vigra/doc/vigra/mirror_tutorial_8cxx-example.html",
 		"/home/tbeier/src/vigra/vigranumpy/examples/graph_smoothing.py",
 		"/home/tbeier/.config/sublime-text-3/Packages/pep8_autoformat.sublime-settings",
 		"/home/tbeier/src/vigra/vigranumpy/examples/graph_rag_workflow.py",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionGraphApis.tex",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterShowcase.tex",
 		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_rag_visitor.hxx",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWorkSections/SectionWatersheds.tex",
@@ -792,10 +726,7 @@
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWorkSections/SectionHCluster.tex",
 		"/home/tbeier/src/masterthesis/thesis/slashbox.sty",
 		"/home/tbeier/src/masterthesis/thesis/main-blx.bib",
-		"/home/tbeier/src/masterthesis/thesis/main.tex",
-		"/home/tbeier/src/vigra/LICENSE.txt",
 		"/home/tbeier/src/vigra/src/examples/lenna.bmp",
-		"/home/tbeier/src/vigra/vigranumpy/src/core/learning.cxx",
 		"/home/tbeier/src/vigra/src/matlab/vigraLeastAngleRegression.cpp",
 		"/home/tbeier/src/masterthesis/thesis/main.pdf",
 		"/home/tbeier/src/vigra/config/winsetup.iss",
@@ -803,29 +734,21 @@
 		"/home/tbeier/.config/sublime-text-3/Packages/User/pep8_autoformat.sublime-settings",
 		"/home/tbeier/.config/sublime-text-3/Packages/Python PEP8 Autoformat/Default (Linux).sublime-keymap",
 		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_hierarchical_clustering_visitor.hxx",
-		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_algorithm_visitor.hxx",
-		"/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_visitor.hxx",
 		"/home/tbeier/src/vigra/include/vigra/adjacency_list_graph.hxx",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Abstract.tex",
-		"/home/tbeier/src/masterthesis/rapport.bib",
 		"/home/tbeier/src/vigra/include/vigra/graph_item_impl.hxx",
 		"/home/tbeier/src/masterthesis/thesis/fig/grid.svg",
 		"/home/tbeier/src/masterthesis/thesis/fig/grid_save.svg",
 		"/home/tbeier/src/vigra/vigranumpy/examples/grid_graph_shortestpath.py",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.fdb_latexmk",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgcWithPgf.tex",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgc.tex",
 		"/home/tbeier/src/masterthesis/thesis/classicthesis-config.tex",
 		"/home/tbeier/src/vigra/docsrc/examples.dxx",
 		"/home/tbeier/src/masterthesis/thesis/main.aux",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterVigrGraphLib.tex",
 		"/home/tbeier/src/vigra/doc/vigranumpy/objects.inv",
 		"/home/tbeier/src/vigra/test/classifier/data/oldsetTest.log",
 		"/home/tbeier/src/vigra/include/vigra/multi_histogram.hxx",
-		"/home/tbeier/src/masterthesis/thesis/my-config.tex",
-		"/home/tbeier/src/vigra/docsrc/post.py",
 		"/home/tbeier/src/vigra/src/examples/pyramid.cxx",
-		"/home/tbeier/src/vigra/include/vigra/python_graph.hxx",
 		"/home/tbeier/src/vigra/src/matlab/vigraPredictIndividually.cpp",
 		"/home/tbeier/src/vigra/doc/vigra/group__RangesAndPoints.html",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWorkSections/SectionEnergyBased.tex",
@@ -861,7 +784,6 @@
 		"/home/tbeier/src/masterthesis/README.md",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWorkSections/SectionRandomWalker.tex",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRelatedWorkSections/SectionMulticut.tex",
-		"/home/tbeier/src/masterthesis/thesis/Bibliography.bib",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterIntroduction.tex",
 		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Dedication.tex",
 		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterRag.tex",
@@ -869,38 +791,7 @@
 		"/home/tbeier/src/vigra/include/vigra/random_forest/rf_earlystopping.hxx",
 		"/home/tbeier/.config/sublime-text-3/Packages/User/LaTeXTools.sublime-settings",
 		"/home/tbeier/src/vigra/include/vigra/config.hxx",
-		"/home/tbeier/src/vigra/doc/vigra/clustering__operator_8hxx_source.html",
-		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/cvpr.sty",
-		"/home/tbeier/src/vigra/include/vigra/clebsch-gordan.hxx",
-		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1GiniCriterion.html",
-		"/home/tbeier/src/vigra/include/vigra/graph_algorithms.hxx",
-		"/home/tbeier/src/vigra/include/vigra/graphs.hxx",
-		"/home/tbeier/src/vigra/doc/vigra/group__RGBValueAccessors.html",
-		"/home/tbeier/src/vigra/test/imagehierarchy/g++_relops_workaround.hxx",
-		"/home/tbeier/src/masterthesis/thesis/main.lof",
-		"/home/tbeier/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
-		"/home/tbeier/src/play/layeredview/__init__.py",
-		"/home/tbeier/src/vigra/doc/vigra/classvigra_1_1UniformIntRandomFunctor.html",
-		"/home/tbeier/src/vigra/src/examples/tutorial/invert_tutorial.cxx",
-		"/home/tbeier/src/masterthesis/thesis/fig/illustration_new.svg",
-		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/ieee.bst",
-		"/home/tbeier/src/masterthesis/thesis/tikzuml-v1.0b/examples/classdiag.tex",
-		"/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
-		"/home/tbeier/Downloads/cuboid.tex",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Acknowledgments.tex",
-		"/home/tbeier/cvpr/new/opengmhmc/cvpr14/paper_hmc.tex",
-		"/home/tbeier/src/vigra/include/vigra/multi_array.hxx",
-		"/home/tbeier/src/masterthesis/thesis/Chapters/ChapterCgcMine.tex",
-		"/home/tbeier/src/vigra/doc/doxygen_entrydb_15249.tmp",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Declaration.tex",
-		"/home/tbeier/src/vigra/docsrc/Doxyfile.in",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Titleback.fdb_latexmk",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Titlepage.tex",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Titleback.tex",
-		"/home/tbeier/src/masterthesis/thesis/FrontBackMatter/Colophon.tex",
-		"/home/tbeier/src/vigra/include/vigra/random_forest/rf_decisionTree.hxx",
-		"/home/tbeier/src/vigra/include/vigra/random_forest/rf_online_prediction_set.hxx"
+		"/home/tbeier/src/vigra/doc/vigra/clustering__operator_8hxx_source.html"
 	],
 	"find":
 	{
@@ -921,6 +812,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Graph",
+			"6cm",
+			"\\}",
+			"8cm",
+			"5cm",
+			"\\\\\n",
+			"href",
+			"newAnchor",
 			"linalg",
 			"vals",
 			"numpy",
@@ -1040,15 +939,7 @@
 			"VIGRA_GRAPH_MAP_ALGORITHMS_HXX",
 			"}\n",
 			"grid",
-			"blue",
-			"thin",
-			"very",
-			"blue",
-			"5",
-			"hc_linkage_types",
-			"illustration",
-			"cgc_illustration",
-			"itemize"
+			"blue"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1194,385 +1085,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/tbeier/src/vigra/vigranumpy/lib/__init__.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 61262,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								54991,
-								54991
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 25008.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_visitor.hxx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 22583,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								17942,
-								17942
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1295.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionImpl.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18742,
+						"buffer_size": 22275,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10188,
-								10188
+								10633,
+								10633
 							]
 						],
 						"settings":
@@ -1580,10 +1110,206 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
+										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4639.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "thesis/Chapters/ChapterVigraGraphLibSections/graph_learning.hxx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1544,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								638,
+								638
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
@@ -1592,214 +1318,18 @@
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4692.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionGraphApis.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16000,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								575,
-								575
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
-								"bh_round_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
+								"bh_round_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -1907,32 +1437,30 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/home/tbeier/src/vigra/include/vigra/merge_graph_adaptor.hxx",
+					"buffer": 2,
+					"file": "thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 42126,
+						"buffer_size": 16248,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16298,
-								16298
+								6319,
+								6319
 							]
 						],
 						"settings":
@@ -1940,14 +1468,26 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
@@ -1956,2257 +1496,50 @@
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close"
 							],
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 9522.0,
+						"translation.y": 2712.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/tbeier/src/super_forest.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 577,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								465,
-								465
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/tbeier/src/vigra/vigranumpy/examples/graph_smoothing_play.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2308,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								376,
-								376
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 153.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "thesis/tikz-uml.sty",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 211430,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12201,
-								12201
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close"
-							],
-							"syntax": "Packages/LaTeX/TeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1248.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "thesis/Chapters/ChapterVigrGraphLib.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1201,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1201,
-								1201
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/home/tbeier/src/vigra/vigranumpy/src/core/adjacencyListGraph.cxx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3922,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3387,
-								3387
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 546.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "thesis/my-config.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10143,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								689,
-								689
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 186.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "/home/tbeier/src/vigra/vigranumpy/src/core/export_graph_algorithm_visitor.hxx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26686,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								49,
-								49
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 119.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "thesis/Chapters/ChapterCgc.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 48288,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7529,
-								7529
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"history_list_is_closing": true,
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2905.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "thesis/Bibliography.bib",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 20691,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								20176,
-								20176
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/Bibtex.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 16392.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "thesis/tikzuml-v1.0b/examples/classdiag.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2170,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2039,
-								2039
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close"
-							],
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 391.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "/home/tbeier/Downloads/kappes.bib",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 363,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								363,
-								363
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/Bibtex.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "rapport.bib",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12580,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6475,
-								6475
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close"
-							],
-							"history_list_is_closing": true,
-							"syntax": "Packages/LaTeX/Bibtex.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 555.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "thesis/my-config.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10143,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6614,
-								6614
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 460.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "thesis/main.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6415,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5240,
-								5240
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-										"PATH": "/usr/local/bin:/usr/local/sbin:$PATH",
-										"PYTHONPATH": "/usr/local/lib/python2.7/site-packages:/usr/local/lib/python:$PYTHONPATH"
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2837.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 13,
-					"file": "thesis/Bibliography.bib",
+					"buffer": 3,
+					"file": "thesis/my-config.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20691,
+						"buffer_size": 10218,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								20688,
-								20688
+								9993,
+								9993
 							]
 						],
 						"settings":
@@ -4218,6 +1551,26 @@
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -4226,34 +1579,14 @@
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
+								"bh_double_quote_close"
 							],
 							"codeintel": true,
 							"codeintel_config":
@@ -4361,15 +1694,15 @@
 							},
 							"codeintel_tooltips": "popup",
 							"sublime_auto_complete": true,
-							"syntax": "Packages/LaTeX/Bibtex.tmLanguage",
+							"syntax": "Packages/LaTeX/LaTeX.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 13290.0,
+						"translation.y": 7620.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -4377,7 +1710,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -4403,7 +1736,7 @@
 		"cols":
 		[
 			0.0,
-			0.491441737986,
+			0.657340355497,
 			1.0
 		],
 		"rows":
@@ -4415,7 +1748,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 289.0
+		"height": 266.0
 	},
 	"output.find_results":
 	{
@@ -4428,7 +1761,7 @@
 	"project": "mt.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -4437,16 +1770,32 @@
 		"selected_items":
 		[
 			[
+				"my",
+				"masterthesis/thesis/my-config.tex"
+			],
+			[
+				"sectionp",
+				"masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex"
+			],
+			[
+				"merge_gra",
+				"vigra/include/vigra/merge_graph_adaptor.hxx"
+			],
+			[
+				"impl",
+				"masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionImpl.tex"
+			],
+			[
+				"adaptr",
+				"vigra/include/vigra/merge_graph_adaptor.hxx"
+			],
+			[
 				"graphapi",
 				"masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionGraphApis.tex"
 			],
 			[
 				"bib",
 				"masterthesis/thesis/Bibliography.bib"
-			],
-			[
-				"impl",
-				"masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionImpl.tex"
 			],
 			[
 				"merge",
@@ -4491,10 +1840,6 @@
 			[
 				"graphlib",
 				"masterthesis/thesis/Chapters/ChapterVigraGraphLibSections/SectionPython.tex"
-			],
-			[
-				"my",
-				"masterthesis/thesis/my-config.tex"
 			],
 			[
 				"apis",
