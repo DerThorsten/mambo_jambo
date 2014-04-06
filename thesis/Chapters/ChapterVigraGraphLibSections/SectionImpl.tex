@@ -481,8 +481,6 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
 \subsection{Graph Algorithms} \label{sec:graph_graph_algorithms}
 
-    \subsubsection{Multicut}
-
     \subsubsection{Hierarchical Clustering}
 
     \begin{center}
@@ -567,4 +565,22 @@ in the future we might use a faster implementation with the same API  \citep{cod
     \subsubsection{Watershed Algorithms}
 
     \subsubsection{Smoothing Algorithms}
+
+
+    \subsubsection{Multicut}
+        In contrast to rest of this thesis, the \emph{Cut Glue \& Cut} algorithms
+        is not implemented within VIGRA, but within \emph{OpenGM} \citep{opengm_paper}.
+        To interface with OpenGM, especially with multicut algorithms, we provide
+        a set of functions to convert a weighted graph w.r.t. VIGRA's graph api
+        into OpenGM compatible datastructures.
+        \footnote{
+            Currently, functions to interface with OpenGM are only prodived
+            on the Python side.
+        }
+
+    
+
+
+
+
 
