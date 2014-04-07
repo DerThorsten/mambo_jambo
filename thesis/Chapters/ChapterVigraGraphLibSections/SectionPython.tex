@@ -316,7 +316,7 @@ public:
 
 
 On the C++ side, numpy arrays are stored in MultiArrayViews.
-Since the API of MultiArrayViews \cite{software_vigra_multiarray_api} does
+Since the API of MultiArrayViews does
 not implemented the API  of LEMON graph maps (e.g. node-maps, edge-maps and arc-maps), 
 a thin wrapper is used to convert the arrays to LEMON conform maps.
 These wrappers can be accessed via \lstinline{PyNodeMapTraits<Graph,T>::Array} and 

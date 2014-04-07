@@ -300,7 +300,6 @@ When the formulation as a complete graph
 with $| E | \sim O(| V|^2)$
 is feasible, \eqref{eq:multicut_dual} can be solved by an integer linear program with
 $| V|^3$ triangle constraints \cite{chopra_1993_mp,alush_2012_pami,finley_2005_ml}.
-\todo{check chopra ref}.
 For image segmentation problems, however, the size of the complete graph is
 prohibitively large.
 %\fi
@@ -813,8 +812,8 @@ the above would not be correct and the internal edges have to be marked dirty.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\iffalse
-\begin{figure*}
+%\iffalse
+\begin{figure}
 \centering
 \subfloat[original image]{\includegraphics[width=0.17\textwidth]{%
 fig/visualcompare/69015.jpg%
@@ -848,7 +847,8 @@ fig/visualcompare/69015_aexpcc.png%
 \subfloat[Kerninghan-Lin]{\includegraphics[width=0.17\textwidth]{%
 fig/visualcompare/69015_KL.png%
 }}
-\caption{Comparison of the different multicut algorithms for a model
+\caption[Comparison of the different multicut algorithms]{ \label{fig:cgc_illustration}
+Comparison of the different multicut algorithms for a model
 from \cite{andres_2011_iccv}, based on the superpixel segmentation in (b).
 %
 The colored boundaries indicate true positives (yellow), false negatives (red),
@@ -860,9 +860,10 @@ A single two-coloring leads to (c) and the cut phase ends with (d).
 The final output of the CGC algorithm is (e).
 \textbf{Bottom:} %
 Results of various competitive methods.
-\label{fig:cgc_illustration}}
-\end{figure*}
-\fi
+
+}
+\end{figure}
+%\fi
 
 \section{Experiments\label{sec:experiments}}
 We evaluate the performance of our Cut, Glue \& Cut algorithm on
@@ -1039,6 +1040,7 @@ Only Integer Multicut (MC-I) gives better partitions in terms of energy but is
 significantly slower.
 }
 
+
 \end{figure*}
 \end{center}
 
@@ -1046,7 +1048,7 @@ significantly slower.
 
 
 \begin{center}
-\begin{figure*}\label{fig:experiments-cgc-3d}
+\begin{figure}
 
     \subfloat[Evaluation on a new 3D segmentation benchmark for different volume sizes $N^3$ averaged over 8 instances]
     {%
@@ -1066,7 +1068,7 @@ significantly slower.
             \protect\includegraphics[width=.15\linewidth]{fig/thump/evalplot3d.png}
         }%
     }%
-    \caption[Evaluation of CGC on 3D datasets]{%
+    \caption[Evaluation of CGC on 3D datasets]{ \label{fig:experiments-cgc-3d}
     Evaluation on various benchmark datasets.
     \Cref{fig:plots:3d:gap} : Gap to the global optimal energy (MC-I) averaged over all instances.
     \Cref{fig:plots:3d:gap} Mean runtime of the methods.
@@ -1076,7 +1078,7 @@ significantly slower.
     the approximate MC-R method beats CGC, though at significant 
     runtime cost.
     }
-\end{figure*}
+\end{figure}
 \end{center}
 
 
@@ -1161,15 +1163,15 @@ the authors of \cite{kroeger_2012_eccv} kindly provided us
 with a more comprehensive set of instances
 over a range of different problem sizes from volumes of $30^3$ up to 
 $450^3$ voxels.
-%
+
 Results are shown
-in Fig.~\ref{fig:plots:3d}
+in Fig.~\ref{fig:experiments-cgc-3d}
 and for volumes of $400^3$ are detailed in 
 Tab.~\ref{tab:smalltable-knott-3d-400}.
 
 Based on the energy difference of CGC and CGC-$\ol{P}$ for the planar models,
 we expect reduced performance for the non-planar case of 3D volume image
-segmentation (Fig.~\ref{fig:plots:3d}). Still, with a runtime
+segmentation (Fig.~\ref{fig:experiments-cgc-3d}). Still, with a runtime
 as fast as KL (the fastest algorithm considered),
 CGC-$\ol{P}$ is able to obtain much lower-energy solutions and
 lies between MC-I, MC-R and Expand \& Explore.

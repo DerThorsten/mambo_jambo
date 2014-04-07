@@ -17,6 +17,12 @@ The water level is raised as shown in \cref{fig:ws_a} - \cref{fig:ws_f}.
 A watershed is wherever the water of two adjacent valleys is meeting (see \cref{fig:ws_e},\cref{fig:ws_f} and \cref{fig:ws_2d_lines}).
 
 
+An image may be interpreted as a node weighted graph,where the node weights
+are given by the pixels gray value.
+Furthermore  watershed may be applied to an edge weighted graph, where the nodes are unweighted 
+and the edges connecting neighboring nodes encode the height map.
+
+
 % watersheds illustrated
 \begin{figure}
     \centering
@@ -79,24 +85,16 @@ A watershed is wherever the water of two adjacent valleys is meeting (see \cref{
     \caption[Illustration of watershed flooding process]{ 
         Illustration of watershed flooding process.
         The water level raises, and the watersheds are at the positions where water from different catchment basins is meeting.
-        CITE WIKIPEDIA!!!!
+        \Cref{ws_2d_map} to \cref{ws_2d_lines} have been taken from \citep{ wiki_watersheds}.
     } \label{fig:watersheds_1d}
 \end{figure}
 
 
 
-\begin{tikzpicture}
-    \foreach \x in {1,2,3,4,5}
-         \draw (\x,0) -- (\x+4,0) -- (\x+4,4) -- (\x,4) -- cycle; 
-\end{tikzpicture}
 
 
 
-
-
-
-
-\citet{couprie_2011_pami} proposed an algorithm, \emph{power-watershed}, a generalization of \citep{RANDOM_WALKER, boykov_2001_pami,vinent_1991_pami,najman_1994_sp,roerdink_2000_finf,bertrand_2005_jmiv,sinop_2007_iccv,cousty_2009_pami}.
+\citet{couprie_2011_pami} proposed an algorithm, \emph{power-watershed}, a generalization of \citep{ boykov_2001_pami,vinent_1991_pami,najman_1994_sp,roerdink_2000_finf,bertrand_2005_jmiv,sinop_2007_iccv,cousty_2009_pami}.
 
 They define the following model:
 \begin{align}\label{eq:power_watershed}
@@ -135,6 +133,3 @@ and that this prior is beneficial for neuro data.
 In addition \citet{straehle_2012_cvpr} proposed an uncertainty estimator for
 guided interactive segmentation based on watersheds.
 
-
-
-\todo{relation between power watersheds and edge weighted watersheds}
