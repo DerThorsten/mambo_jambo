@@ -44,8 +44,6 @@ to make the python wrapped graph API very \emph{Pythonic}
 
 
 %$\surd \bullet$
-
-
 \begin{table}
 \begin{tiny}
 \begin{tabular}{|l|p{1.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.8cm}|p{0.8cm}|l|l|l|}
@@ -93,7 +91,23 @@ to make the python wrapped graph API very \emph{Pythonic}
     \\ \hline
 \end{tabular}
 \end{tiny}
+\caption[VIGRA's graph classes]{
+    An overview of the graph classes implemented in VIGRA.
+    For each class the main purpose is showed.
+    For node and edge id's we distinguish between dense id's
+    which are continuous and sparse descriptors.
+    Node and edge descriptors which are showed as vectors 
+    are implemented as \lstinline{vigra::TinyVector<T,N>}.
+    Any other descriptor is implemented as a class holding
+    a single scalar, which is identical to the id.
+    The letters x,y,z correspond to spatial coordinates, t to a time coordinate
+    and n and e enumerate nodes and edges.
+    These letters are also the short name for the axis-tags attached to the
+    graph (see \cref{sec:graph_lib_python} for details on axis-tags).
+}
 \end{table}
+
+
 \subsection{Graphs}
 
 \subsubsection{Grid Graph} \label{sec:graphs_grid_graph}
@@ -483,6 +497,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
     \subsubsection{Hierarchical Clustering}
 
+    \begin{figure}
     \begin{center}
     \begin{tikzpicture}[scale=0.7,transform shape]
     \begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}
@@ -519,8 +534,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
             + graph()                       : Graph             \\
         } 
 
-
-        \umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorInterface}
+        \umlclass[x=6,y=3,template=MergeGraph]{ClusterOperatorConcept}
         {
 
         }
@@ -532,7 +546,6 @@ in the future we might use a faster implementation with the same API  \citep{cod
             + mergeGraph()                  : MergeGraph        \\
         } 
 
-
         \umlclass[x=9,y=-5,template=ClusterOperator]{HierarchicalClustering}
         {
 
@@ -542,14 +555,14 @@ in the future we might use a faster implementation with the same API  \citep{cod
             + reprLabels(nodeMap : NodeMap) : void        \\      
         } 
 
-        \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorInterface}
-        \umldep[geometry=-|-,name=dep2]{ClusterOperatorInterface}{HierarchicalClustering}
+        \umldep[geometry=-|-,name=cb]{MergeGraphAdpator}{ClusterOperatorConcept}
+        \umldep[geometry=-|-,name=dep2]{ClusterOperatorConcept}{HierarchicalClustering}
 
         \umlnote[x=3,y=-3]{cb-2}{
             ClusterOperator registers callbacks to MergeGraph
         }
         
-        \umlnote[x=12,y=2]{ClusterOperatorInterface}{
+        \umlnote[x=12,y=2]{ClusterOperatorConcept}{
             Responsible for feature merging.
             Finds next edge to contract. 
         }
@@ -561,7 +574,16 @@ in the future we might use a faster implementation with the same API  \citep{cod
     \end{umlpackage}
     \end{tikzpicture}
     \end{center}
+    \caption[Hierarchical Clustering Class Design]{Hierarchical Clustering Class Design:
+        The merge graph is used to encode the current graph structure during clustering.
+        The user implements a custom class within the ClusterOperatorConcept.
+        These classes are responsible for feature merging, and selecting the edge
+        which needs to be contracted.
+        The HierarchicalClustering class is used to perform the actual 
+        hierarchical clustering and encodes the dendrogram of the clustering.
 
+    }
+    \end{figure}
     \subsubsection{Watershed Algorithms}
 
     \subsubsection{Smoothing Algorithms}

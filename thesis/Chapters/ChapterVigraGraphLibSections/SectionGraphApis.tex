@@ -53,7 +53,8 @@ to that API.
     important for an efficient handling of grid graph edge ids.
 
 
-
+\phantomsection
+\label{par:lemon_iterators}
 \paragraph{Iterators :}
     Within lemon a very convenient mechanism is used to iterate over
     nodes, edges and arcs.
@@ -315,6 +316,22 @@ to that API.
     \end{center}
     \caption{
         UML class diagram of most important LEMON concepts.
+        UndirectedGraphConcept shows LEMON's API for undirected 
+        graphs. Any graph implemented within LEMON's API 
+        needs to implemented all methods and typedefs showed 
+        within in the UML diagram.
+        To implemented a graph class within the API one needs 
+        to implemented descriptor classes for nodes, edges and arcs.
+        These descriptor classes have almost no API.
+        The graph itself is responsible to deal with them.
+        The descriptors are usually implemented as cheap classes,
+        and are used to \emph{describe} a node, and not implemented
+        functionality for nodes.
+        The functionality comes from the graph class itself.
+        Iterators in LEMON are somehow different from usual 
+        iterators, instead of an end iterator, lemon used a special
+        class \lstinline{lemon::INVALID}, and all iterators
+        need to comparable with \lstinline{lemon::INVALID} (see \cref{par:lemon_iterators}).
     }\label{fig:uml_lemon_graph_concepts}
     \end{figure}
 
