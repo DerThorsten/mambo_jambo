@@ -497,7 +497,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
     \subsubsection{Hierarchical Clustering}
 
-    \begin{figure}
+    \begin{figure}[H]
     \begin{center}
     \begin{tikzpicture}[scale=0.7,transform shape]
     \begin{umlpackage}{Hierarchical Clustering Class Design / Class Hierarchy}
@@ -574,7 +574,8 @@ in the future we might use a faster implementation with the same API  \citep{cod
     \end{umlpackage}
     \end{tikzpicture}
     \end{center}
-    \caption[Hierarchical Clustering Class Design]{Hierarchical Clustering Class Design:
+    \caption[Hierarchical Clustering Class Design]{ \label{fig:hc_class_design}
+        Hierarchical Clustering Class Design:
         The merge graph is used to encode the current graph structure during clustering.
         The user implements a custom class within the ClusterOperatorConcept.
         These classes are responsible for feature merging, and selecting the edge
@@ -584,6 +585,27 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
     }
     \end{figure}
+
+    To implement hierarchical clustering for graphs, 
+    we make use of the \emph{MergeGraphAdaptor}, in combination 
+    with an \emph{cluster operator} implemented within the 
+    \emph{ClusterOperatorConcept}.
+
+    The cluster operator is connected to the merge
+    graph via callbacks and is resposible for feature
+    merging.
+    Any edge contraction in the merge graph will call
+    members of a cluster operator to merge node and edge features.
+    From these merge features, the cluster operator needs
+    to find the edge which needs to be contracted next.
+    Often this is implemented with a 
+    dynamic priority queue \footnote{
+        A dynamic priority queue is usualy implemented as min 
+        heap
+    } where the edge with minimal weight can be accessed  and for any edge, the weight can be changed
+    efficient.
+
+
     \subsubsection{Watershed Algorithms}
 
     \subsubsection{Smoothing Algorithms}
