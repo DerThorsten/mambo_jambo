@@ -63,18 +63,17 @@ well studied graph-theoretical approaches can be applied to analyze and segment 
 %\end{figure}
 
 Many algorithm have been generalized to N-Dimension images.
-And since an N-Dimension image itself can be treaded as an \emph{grid graph} or \emph{lattice graph} (see \cref{fig:grid_graph}) any graph based algorithm can be applied to images if they are interpreted as a grid graphs.
+And since a N-Dimension image itself can be treaded as an \emph{grid graph} or \emph{lattice graph} (see \cref{fig:grid_graph}) any graph based algorithm can be applied to images if they are interpreted as grid graphs.
 
 Therefore \emph{graph based image analyses} can be viewed as a generalization of \emph{image analyses}.
 From a theoretical and  point of view such a generalization is very desirable.
-Well studied graph-theoretical approaches as clustering can often directly be applied 
+Well studied graph-theoretical approaches as clustering can be applied 
 to  \emph{image analyses} \cite{vlachos_1993_csv,arbelaez_2006_cvpr,ohlander_1978_cgip}.
 
 From an algorithmic point of view such a generalization can help to reduce 
 code redundancy.
 Generic graph algorithm can be written once, and might be applied 
-to images (2D, 3D ,3D+t , N-Dimensional Images ) and graphs (grid graphs, 
-regions adjacency graphs, nearest neighbor graphs).
+to grid graph images (2D, 3D, 3D+t, N-Dimensional Images ) and irregular graphs (regions adjacency graphs, nearest neighbor graphs).
 
 In addition, many graph based algorithms are build on top of
 very simple building blocks 
@@ -147,11 +146,12 @@ Within this thesis we make the following contributions:
 
 \begin{compactitem}
     \item We propose and implemented a framework for graph based image analysis 
-        build on top of  \emph{vigra} library \cite{koethe_2000_phd_thesis,software_vigra}. We provide implementations for important graph based algorithms based on the proposed framework.All data structures and algorithm are implemented in fast C++, 
+        build on top of  \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. We provide implementations for important graph based algorithms based on the proposed framework.
+
+        All data structures and algorithm are implemented in fast C++, 
         but can be used from Python for rapid prototyping.
         Ready to use examples are given within this thesis, and will be 
-        provided within the branch of \emph{vigra} corresponding to 
-        this thesis.
+        with \emph{VIGRA's} source code.
 
 
 
@@ -171,20 +171,22 @@ Within this thesis we make the following contributions:
 
 This work is organized in the following way.
 In \cref{ch:reated_work} related work will be presented and  discussed.
-
-
-
 In \cref{ch:cgc} we propose a new algorithm for the multicut objective.
 A detailed related work w.r.t. multicuts is given in \cref{sec:gcg_related_work}.
 In \cref{sec:experiments} we show an extensive comparison  with existing solvers.
-
-
-
 In \cref{ch:vigra_graph_lib} we will propose an implementation of
 a graph based framework. 
-Design choices will be compared and discussed and most 
+Different existing graph APIs will be reviewed in \cref{sec:graph_apis}.
+The different graph classes implemented within VIGRA
+will be discussed in \cref{sec:impl_graphs}.
+Design choices will be discussed and most 
 important implementation details will be explained.
+All design choices related to \emph{Python} will
+be discussed separately within \cref{sec:graph_lib_python}.
 Ready to use code examples will be given in \cref{ch:the_showcase}.
+In \cref{ch:conclusion} the presented work will be concluded
+and future work will be discussed.
+
 
 
 

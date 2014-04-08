@@ -29,7 +29,7 @@ Where the \emph{unaries} $\phi_i(x_i)$ encode local costs
 for a variable to have certain label.
 While the \emph{pairwise terms} $\phi_{ij}(x_i,x_j) $ define the interaction of adjacent nodes.
 Often they are used to introduce some smoothness prior
-into the model \citep{szeliski_2008_pami,MORE_HERE}.
+into the model \citep{szeliski_2008_pami}.
 
 
 The vector which yields a minimum value of $E(x)$
@@ -144,13 +144,134 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda \cdot \min\
     WRITE ME
 
 \paragraph{Multicut Energy Function:}
+
+
+Segmentation is an important problem in computer vision as a first step
+towards understanding an image. Many algorithms start with an over-segmentation
+into superpixels, which are then clustered into ``perceptually meaningful''
+regions.
+Usually, the number of these regions is not known beforehand.
+
+Recently, the multicut formulation~\cite{chopra_1993_mp} 
+(sometimes called \emph{correlation clustering}, \cite{bansal_2004_ml}) 
+has become increasingly popular for unsupervised
+image segmentation \cite{andres_2011_iccv,yarkony_2012_eccv,alush_2013_simbad}.
+
+In this section we will give a brief overview of methods using multicut objectives
+and will briefly introduce the multicut formulation.
+The multicut and related work will be discussed extensively in \cref{ch:cgc} where
+we propose a new approximative solver for the such problems.
+
+
+Given an edge-weighted region adjacency graph,
+the problem is to find the segmentation which
+minimizes the cost of the cut edges.
+Therefore multicuts can be viewed as \emph{thresholding} w.r.t. close contours, while
+naive thresholding will lead to inconsistencies 
+(see \cref{fig:naive_thresholding,fig:mc_ineq} ).
+
+
+\begin{figure}[h]
+    \centering
+    \subfloat[Oversegmentation]{ \label{fig:naive_thresholding_a}
+        \includegraphics[width=0.25\textwidth]{fig/andres/0.png}
+    }
+    \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_b}
+        \includegraphics[width=0.25\textwidth]{fig/andres/1.png}
+    }
+    \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_c}
+        \includegraphics[width=0.25\textwidth]{fig/andres/2.png}
+    }
+    \addtocontents{lof}{%
+        \vspace{1cm}
+        \protect\centerline{%
+            \protect\includegraphics[width=.075\linewidth]{fig/andres/0.png}\hspace{0.2cm}
+            \protect\includegraphics[width=.075\linewidth]{fig/andres/1.png}\hspace{0.2cm}
+            \protect\includegraphics[width=.075\linewidth]{fig/andres/2.png} 
+        }%
+    }%
+    \caption[Naive thresholding vs. multicuts]{
+    This figure has been taken from \cite{andres_2011_iccv} .
+    \Cref{fig:naive_thresholding_a} shows the oversegmentation of 
+    an image .
+    \Cref{fig:naive_thresholding_b} shows the result of naive thresholding..
+    Any inconsistent boundary is shown in red while consistent
+    boundaries are shown in yellow. 
+    \Cref{fig:naive_thresholding_c} shows the result with the multicut
+    constraints which lead to a meaningful segmentation.
+    } \label{fig:naive_thresholding}
+\end{figure}
+
+
+
+Let $G=(V,E, \w)$ be a weighted region adjacency graph of
+nodes $V$, representing superpixels,
+and edges $E$.
+%
+The function $\w : E \rightarrow \mathbb{R}$ assigns a weight to each edge.
+A positive weight expresses the desire that two adjacent nodes should
+be merged, whereas a negative weight indicates
+that these nodes should be separated into two different regions.
+
+
+The \emph{multicut problem} can be written as a node labeling problem
+\cite{bagon_2011_arxiv}:
+%
+\begin{align}
+\argmin_{\Labels}
+    \left\{
+    \sum_{ e=(i,j) \in E}
+        \w(e)
+        \cdot \delta( \Labels_i \neq \Labels_j )
+    \right\},
+    \label{eq:multicut_primal_a}
+\end{align}
+%
+where $\delta(a) = 1$ if $a$ is true and $0$ else.
+
+
 Removing all unaries from \cref{eq:gm_energy} and 
 setting $\phi_{ij}(x_i,x_j) =   \w_e \cdot \delta( x_i \neq x_j )$ 
-will lead to the multicut objective (see \cref{sec:rw_multicut} and \cref{ch:cgc}) .
+will lead to the multicut objective (see \cref{ch:cgc}) .
 
 For planar problems  $N_{labels}$ can be set to 4 since any planar map is 4 colorable \citep{appel_1977_4color}.
 For non planar problems we need to set $N_{labels}$ to $|V|$.
 
+
+\citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr} use a
+cutting plane approach where violated constraints are added
+iteratively until no more violated constraints are found.
+
+\begin{figure}[h]
+\centering
+\subfloat[Superpixel Segmentation]{ \label{fig:mc_ineq_0}
+    \includegraphics[width=0.4\textwidth]{fig/andres/ineq_0.pdf}
+}
+\subfloat[Corresponding Graph]{ \label{fig:mc_ineq_1}
+    \includegraphics[width=0.4\textwidth]{fig/andres/ineq_1.pdf}
+}
+\addtocontents{lof}{%
+    \vspace{1cm}
+    \protect\centerline{%
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_0.pdf}\hspace{0.2cm}
+        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_1.pdf}
+    }%
+}%
+\caption[Violated multicut constraints]{
+This figure has been taken from \cite{andres_2011_iccv}.
+
+
+
+\Cref{fig:mc_ineq_0} shows the oversegmentation of 
+an image .
+\Cref{fig:mc_ineq_1} shows the corresponding graph.
+Thresholding each edge individually will lead to inconsistencies.
+The current state of the edges  labeled as active (blue) or inactive (gray) is
+inconsistent: Some nodes should be separated, since the edge between them is
+active (blue), but there exists a path over inactive edges 
+which connects these two nodes (showed in green).
+} \label{fig:mc_ineq}
+\end{figure}
 
 
 \begin{align}
