@@ -6,7 +6,7 @@
 Segmentation is an important problem in computer vision as a first step
 towards understanding an image. Many algorithms start with an over-segmentation
 into superpixels.
-The superpixel segmentation can be treated as an \emph{region adjacency graph} (see \cref{fig:make_rag}) and
+The superpixel segmentation can be interpreted as an \emph{region adjacency graph} (see \cref{fig:make_rag}) and
 well studied graph-theoretical approaches can be applied to analyze and segment such a graph \cite{vlachos_1993_csv}.
 
 
@@ -47,7 +47,7 @@ well studied graph-theoretical approaches can be applied to analyze and segment 
     }%
   }%
   \caption[An image treaded as grid graph]{
-  An image \Cref{fig:gg_33} can be treated as a grid graph. 
+  An image \Cref{fig:gg_33} can be interpreted as a grid graph. 
   Two different types of grid graphs can be defined for an image.
   \Cref{fig:gg_33_4} shows a grid graph w.r.t. 4-neighborhood , while
   \cref{fig:gg_33_8} shows a grid graph w.r.t. 8-neighborhood.  
@@ -63,7 +63,7 @@ well studied graph-theoretical approaches can be applied to analyze and segment 
 %\end{figure}
 
 Many algorithm have been generalized to N-Dimension images.
-And since a N-Dimension image itself can be treaded as an \emph{grid graph} or \emph{lattice graph} (see \cref{fig:grid_graph}) any graph based algorithm can be applied to images if they are interpreted as grid graphs.
+And since a N-Dimension image itself can be interpreted as an \emph{grid graph} or \emph{lattice graph} (see \cref{fig:grid_graph}) any graph based algorithm can be applied to images if they are interpreted as grid graphs.
 
 Therefore \emph{graph based image analyses} can be viewed as a generalization of \emph{image analyses}.
 From a theoretical and  point of view such a generalization is very desirable.
@@ -145,9 +145,8 @@ the usage of a single framework is desirable.
 Within this thesis we make the following contributions:
 
 \begin{compactitem}
-    \item We propose and implemented a framework for graph based image analysis 
-        build on top of  \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. We provide implementations for important graph based algorithms based on the proposed framework.
-
+    \item We propose and implemented a library for graph based image analysis 
+        implemented within the \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. We provide implementations for important graph based algorithms based on the proposed framework.
         All data structures and algorithm are implemented in fast C++, 
         but can be used from Python for rapid prototyping.
         Ready to use examples are given within this thesis, and will be 

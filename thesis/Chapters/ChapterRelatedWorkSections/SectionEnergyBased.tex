@@ -3,7 +3,7 @@
 
 Energy based methods have become very popular recently.
 
-Given a graph $G = (U,V)$ we 
+Given a graph $G = (E,V)$ we 
 associate  a variable $ x_i \forall \quad u_i \in V$ with any node.
 Within this thesis we focus on discrete energy function.
 Therefore use discrete variables $x$.
@@ -34,6 +34,7 @@ into the model \citep{szeliski_2008_pami}.
 
 The vector which yields a minimum value of $E(x)$
 is called $x_{\text{optimal}}$.
+
 
 \begin{equation} \label{eq:gm_argmin}
 x_{\text{optimal}} = \argmin_{x}  E(x)
@@ -73,7 +74,7 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
     }
     \caption[Energy based truncated denoising]{
         Finding $x_{\text{optimal}} $ for the energy function given
-        in \cref{eq:gm_ef_dension} we show result of approximative solvers.
+        in \cref{eq:gm_ef_dension} is NP hard, we show result of approximative solvers.
         Using \cref{fig:eq:gm_ef_dension_input} as input (for the black area no unaries 
         are used)
         the following
@@ -133,15 +134,63 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda \cdot \min\
         with meaningful values.
         The input image has been taken from \citep{szeliski_2008_pami}.
         The result images have been generated with OpenGM.
+        In contrast to the result of \cref{eq:gm_ef_dension}, this model
+        allows sharp edges.
     }\label{fig:gm_ef_dension_truncated}
 \end{figure}
 
 
-\paragraph{Ising Model}
-    WRITE ME
+\paragraph{Ferromagnetic Ising model}
+The ferromagnetic ising model consists 
+of binary variables.
+The unaries encode local costs for a variable
+to take label $0$ or $1$.
+The pairwise term is a smoothness prior, which penalizes
+adjacent variables with different states.
 
-\paragraph{Power Watersheds:}
-    WRITE ME
+\begin{equation} \label{eq:gm_ising}
+    E(x) = 
+    \underbrace{
+        \sum_{v \in V} \phi_i(x_i)
+    }_{\text{unaries}}
+     \quad +  \quad
+    \underbrace{
+        \beta \cdot \sum_{e=(i,j) \in E }  \delta(\cdot x_i\neq x_j) 
+    }_{\text{pairwise potts terms}}
+\end{equation}
+Where $\detla(a)=1$ if $a$ is true and $0$ else
+and $\beta>0$.
+A large value of $\beta$
+
+This model is also known as potts model and is often
+used for binary segmentation (\eg foreground background segmentation).
+
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Input Image $I$]{ \label{fig:eq:gm_ef_ising_input}
+        \includegraphics[width=0.25\textwidth]{fig/sponge.png}
+    }
+    \subfloat[ICM]{ \label{fig:eq:gm_ef_ising_icm}
+        \includegraphics[width=0.25\textwidth]{fig/s_icm.png}
+    }
+    \subfloat[BP]{  \label{fig:eq:gm_ef_ising_bp}
+        \includegraphics[width=0.25\textwidth]{fig/s_bp.png}
+    }
+    \subfloat[Graph Cut]{  \label{fig:eq:gm_ef_ising_cg}
+        \includegraphics[width=0.25\textwidth]{fig/s_gc.png}
+    }
+    \caption[Potts Model]{
+        Optimization results for the model defined in \cref{eq:gm_ising}.
+        \Cref{fig:eq:gm_ef_ising_input} shows the input image.
+        The unaries are based on a Gaussian mixture color models of foreground and background seeds defined by the user.
+ 
+    }\label{fig:gm_ef_ising}
+\end{figure}
+
+
+
+
 
 \paragraph{Multicut Energy Function:}
 
