@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 %dendrogram
 %%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
+\begin{figure}[H]
     \centering
     \subfloat[Bottom-Up: Nodes are merged with increasing time]{\label{fig:hc_bottom_up}
         {
@@ -364,4 +364,11 @@ of single scale learning.
 
 
 
-\todo{fredreciks methods for findig cuts in hcluster tree}
+\Citet{najman_1994_sp} showed, that there is a
+strong connection between hierarchical segmentations
+and watersheds.
+They prove that there exists a bijection between
+the set of ultrametric watersheds\citep{najman_2010_corr} and the set of hierarchical segmentations.
+Furthermore, a recursive application of the watershed transformation  can
+be used to generate hierarchy of nested segmentations.
+This transformation is called \emph{waterfall transformation} \citep{beuchner_1994_waterfall} .

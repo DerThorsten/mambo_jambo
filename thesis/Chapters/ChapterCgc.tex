@@ -84,37 +84,8 @@ rely on suitable edge weights (such that the problem decomposes naturally
 into independent subproblems) 
 or yield an approximate solution possibly far away from the optimum.
 
-\vspace{0.1cm}
-\noindent
-\textbf{Contribution.}
-In this work we consider 
-\begin{inparaenum}[(i)]
-\item
-a new perspective on solving the multicut problem by
-\emph{local} move making methods together with
-%
-\item
-a new approximate multicut solver called
-\emph{Cut, Glue \& Cut (CGC)}. Furthermore,
-%
-\item our method avoids re-solving the same moves
-by tracking their ``dirtyness'', which decreases the runtime. 
-%
-\item
-An extensive evaluation on existing and new benchmark datasets shows
-that CGC provides results close to optimality
-and equal application performance significantly faster than all its
-competitors, both exact
-and approximative methods, and gives new insights concerning the applicability
-of competing methods.
-%
-\item
-Our C++ implementation of CGC will be made available with release of this paper.
-\end{inparaenum}
 
-\vspace{0.1cm}
-\noindent
-\textbf{Organization.}
+
 In Sec.~\ref{sec:problem_formulation} we review two common formulations
 of the multicut problem. After discussing related work in
 \cref{sec:gcg_related_work} and 
@@ -869,7 +840,7 @@ Results of various competitive methods.
 We evaluate the performance of our Cut, Glue \& Cut algorithm on
 two different 2D segmentation benchmarks as well as
 on a new 3D volume segmentation benchmark%
-\footnote{Models available at \url{http://hci.iwr.uni-heidelberg.de/opengm2/?l0=benchmark}}.
+\footnote{Models available at \url{http://hci.iwr.uni-heidelberg.de/opengm2/?l0=benchmark2}}.
 
 \paragraph{Algorithms.}
 For our CGC algorithm, we consider three variants:

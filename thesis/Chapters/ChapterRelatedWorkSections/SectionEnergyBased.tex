@@ -231,14 +231,6 @@ naive thresholding will lead to inconsistencies
     \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_c}
         \includegraphics[width=0.25\textwidth]{fig/andres/2.png}
     }
-    \newline
-    \centering
-    \subfloat[Superpixel Segmentation]{ \label{fig:mc_ineq_0}
-        \includegraphics[width=0.4\textwidth]{fig/andres/ineq_0.pdf}
-    }
-    \subfloat[Corresponding Graph]{ \label{fig:mc_ineq_1}
-        \includegraphics[width=0.4\textwidth]{fig/andres/ineq_1.pdf}
-    }
     \addtocontents{lof}{%
         \vspace{1cm}
         \protect\centerline{%
@@ -311,26 +303,19 @@ we propose a new approximative solver for the such an objective.
 \subfloat[Corresponding Graph]{ \label{fig:mc_ineq_1}
     \includegraphics[width=0.4\textwidth]{fig/andres/ineq_1.pdf}
 }
-\addtocontents{lof}{%
-    \vspace{1cm}
-    \protect\centerline{%
-        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_0.pdf}\hspace{0.2cm}
-        \protect\includegraphics[width=.075\linewidth]{fig/andres/ineq_1.pdf}
-    }%
-}%
 \caption[Violated multicut constraints]{
 This figure has been taken from \cite{andres_2011_iccv}.
 \Cref{fig:mc_ineq_0} shows the oversegmentation of 
 an image .
 \Cref{fig:mc_ineq_1} shows the corresponding graph.
-Thresholding each edge individually will lead to inconsistencies.
+Thresholding each edge individually will lead to violated constraints.
 The current state of the edges  labeled as active (blue) or inactive (gray) is
 inconsistent: Some nodes should be separated, since the edge between them is
 active (blue), but there exists a path over inactive edges 
 which connects these two nodes (showed in green).
-For each such inconsistency, \citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr}
-add a constraint to the linear program, until no more violated constraints 
-are 
+\citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr} use a
+cutting plane approach where these violated constraints are added
+iteratively until no more violated constraints are found.
 } \label{fig:mc_ineq}
 \end{figure}
 
@@ -340,18 +325,6 @@ E(x)=
     \sum_{ e=(i,j) \in E}
         \w_e \cdot \delta( x_i \neq x_j )
     \label{eq:gm_ef_multicut}
-\end{align}
-
-
-The \emph{max-cut} objective and  the multicut objective
-are almost the same, 
-but within max-cut problem we have only binary variable $x_i=\{0,1\}$ .
-
-\begin{align}
-E(x)=
-    \sum_{ e=(i,j) \in E}
-        \w_e \cdot \delta( x_i \neq x_j )
-    \label{eq:gm_ef_max_cut}
 \end{align}
 
 
@@ -365,7 +338,7 @@ in polynomial time.
 
 Graph cut is a optimization algorithm which casts the energy minimizing problem
 to the maximum flow / minimum cut problem. Energy function of binary variables which
-have a form as 
+have a form as
 
 \begin{equation} \label{eq:gm_graph_cut_energy}
     E(x) = 
@@ -380,8 +353,10 @@ have a form as
 
 
 
-where the pairwise energy term of binary variables is submodular can be minimized with
-graph cuts. $\phi_{ij}$ is submodular if
+where the pairwise energy term of binary variables is submodular, can be minimized with
+graph cuts. 
+
+$\phi_{ij}$ is submodular if:
 
 \begin{equation} \label{eq:gm_submodular_criterion}
     \phi_{ij}(0,1) + \phi_{ij}(1,0) >  \phi_{ij}(0,0) + \phi_{ij}(1,1)
@@ -397,10 +372,10 @@ each edge a non-negative flow capacity. The flow goes from the source vertex to 
 sink vertex. The edge capacities are constructed as described in the work of
 \citet{kolmogorov_2004_pami}.
 
-\Cref{fig:graph_cut_b} shows how the
-construction of the directed weighted graph which associate with the energy function $E(x)$.
-\citet{kohli_2007_pami} proposed a method to change some and resolve
-the problem efficiently which allows a fast computation
+\Cref{fig:graph_cut_b} shows the
+construction of  the directed max flow  graph, which is associated with the energy function $E(x)$.
+\citet{kohli_2007_pami} proposed a method, where min-st-cut can be recomputed in an efficiently manner,
+if some capacities / energies can be changed. This allows an efficient computation of 
 of graph cut min marginal an uncertainties \citep{kohli_2006_eccv,tarlow_2012_cvpr}.
 
 
@@ -517,16 +492,10 @@ by a sequence of linear programs
 
 
 
-
-
-
-
-
-To apply linear programming methods to minimize a general discrete energy function, 
-the energy functions
-needs to be linearized.
-
-To optimize an energy functions as 
+Linear  programming methods methods can be used to optimize 
+any discrete energy function, if the energy function is 
+linearized.
+To optimize an energy functions as the following,
 
 \begin{equation} \label{eq:gm_nl_energy}
     E(x) = 
@@ -544,12 +513,12 @@ To optimize an energy functions as
 we introduce $\mu_{i}^{l}$ as an indicator variable where $\mu_{i}^{l}=1$ indicates $x_i=l$.
 In the same manner we use $\mu_{ij}^{l_a l_b}$ to indicate pairwise 
 assignments.
-The constraints ensure that the indicator variables $\mu_{i}^{l}$ are consistent 
-with pairwise indicators $\mu_{ij}^{l_a l_b}$ .
 
-The set of these consistency constraints is 
+The  constraints in \crefrange{eq:gm_lp_s}{eq:gm_lp_e} are
 called \emph{local consistency constraints} \citep{sontag_2010_thesis}.
 
+The constraints ensure that the indicator variables $\mu_{i}^{l}$ are consistent 
+with pairwise indicators $\mu_{ij}^{l_a l_b}$ .
 \begin{align}
     E(\mu) = \sum_{v \in V} \sum_{l=0}^{L_{\text{max}}} \label{eq:gm_lp}
     \mu_{i}^{l} \cdot \phi_{i}( l)
@@ -558,7 +527,7 @@ called \emph{local consistency constraints} \citep{sontag_2010_thesis}.
     \sum_{e \in E} \sum_{l_a=0}^{L_{\text{max}}} \sum_{l_b=0}^{L_{\text{max}}}
     \mu_{ij}^{l_a l_b} \cdot \phi_{ij}( l_a,l_b) \\
     %
-    s.t. \quad
+    s.t. \quad  \label{eq:gm_lp_s}
     \sum_{l=0}^{L_{\text{max}}} \mu_{i}^{l} = 1 \quad \forall \quad v_i \in V \\
     %
     \sum_{l_b=0}^{L_{\text{max}}} \mu_{ij}^{l_a l_b} = \mu_i 
@@ -572,7 +541,7 @@ called \emph{local consistency constraints} \citep{sontag_2010_thesis}.
     \mu_i^l \geq 0 \quad \forall \quad v_{i} \in V,
     \quad l \in \{ 0,1,\ldots,L_{\text{max}} \}\\
     \mu_{ij}^{l_a l_b} \geq 0 \quad \forall \quad e_{ij} \in E,
-    \quad l_a,l_b \in \{ 0,1,\ldots,L_{\text{max}} \}
+    \quad l_a,l_b \in \{ 0,1,\ldots,L_{\text{max}} \} \label{eq:gm_lp_e}
 \end{align}
 
 Solving the LP in \cref{eq:gm_lp} will lead to fractional
@@ -587,14 +556,14 @@ a great overview and introduction to linear programming
 based optimization.
 }.
 
-An additional set of constraints, \emph{integer constraint} can be added the LP in \cref{eq:gm_lp}. These constraints turn the LP into an integer LP (I-LP).
+An additional set of constraints, \emph{integer constraint} as defined in \cref{eq:integral_constraint}, can be added the LP in \cref{eq:gm_lp}. These constraints turn the LP into an integer LP (I-LP).
 
 \begin{align}
     \mu_i^l \in \{0,1\} \quad \forall \quad v_{i} \in V,
     \quad l \in \{ 0,1,\ldots,L_{\text{max}} \} \label{eq:integral_constraint}
 \end{align}
 
-Solving the I-LP yields
+Solving the I-LP to optimality, will lead to 
 global optimal solutions of the energy function defined in 
 \cref{eq:gm_nl_energy}.
 

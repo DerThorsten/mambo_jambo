@@ -143,26 +143,40 @@ the usage of a single framework is desirable.
 
 Within this thesis we make the following contributions:
 
-\begin{compactitem}
-    \item We propose and implemented a library for graph based image analysis 
-        implemented within the \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. We provide implementations for important graph based algorithms based on the proposed framework.
-        All data structures and algorithm are implemented in fast C++, 
-        but can be used from Python for rapid prototyping.
-        Ready to use examples are given within this thesis, and will be 
-        with \emph{VIGRA's} source code.
-
-
-
+\begin{inparaenum}[(i)]
     \item 
-        We propose a new algorithm for the multicut objective based on the move
-        making paradigm, the \emph{Cut Glue and Cut} algorithm (CGC). We compared the 
-        the proposed algorithm on various existing solvers and show
-        that CGC outperforms approximative solvers w.r.t. to runtime and still yields
-        results very closed to global optimal solutions. We provide an implementation of CGC within the OpenGM framework.
+    We propose and implemented a library for graph based image analysis 
+        implemented within the \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. 
+    \item 
+        We provide implementations for important graph based algorithms based on the proposed framework.
+        All data structures and algorithm are implemented in fast C++.
+    \item All algorithms and datastructures can be used from Python for rapid prototyping.
+    \item Ready to use examples are given within this thesis.
 
 
 
-\end{compactitem}
+
+    \item
+      A new perspective on solving the multicut problem by
+      \emph{local} move making methods together with
+      %
+      \item
+      a new approximate multicut solver called
+      \emph{Cut, Glue \& Cut (CGC)}. Furthermore,
+      %
+      \item our method avoids re-solving the same moves
+      by tracking their ``dirtyness'', which decreases the runtime. 
+      %
+      \item
+      An extensive evaluation on existing and new benchmark datasets shows
+      that CGC provides results close to optimality
+      and equal application performance significantly faster than all its
+      competitors, both exact
+      and approximative methods, and gives new insights concerning the applicability
+      of competing methods.
+\end{inparaenum}
+
+
 
 
 \section{Organization}
@@ -171,6 +185,14 @@ This work is organized in the following way.
 In \cref{ch:reated_work} related work will be presented and  discussed.
 In \cref{ch:cgc} we propose a new algorithm for the multicut objective.
 A detailed related work w.r.t. multicuts is given in \cref{sec:gcg_related_work}.
+In Sec.~\ref{sec:problem_formulation} we review two common formulations
+of the multicut problem. 
+Based on a general formulation of local partition moves on segmentations in
+\cref{sec:cut_moves},
+we describe our new Cut, Glue \& Cut algorithm
+in \cref{sec:cut_glue_cut_algorithm}. Extensive experiments
+on benchmark datasets are presented in \cref{sec:experiments}.
+
 In \cref{sec:experiments} we show an extensive comparison  with existing solvers.
 In \cref{ch:vigra_graph_lib} we will propose an implementation of
 a graph based framework. 
