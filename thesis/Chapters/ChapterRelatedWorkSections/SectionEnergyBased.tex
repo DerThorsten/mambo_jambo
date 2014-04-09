@@ -231,6 +231,14 @@ naive thresholding will lead to inconsistencies
     \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_c}
         \includegraphics[width=0.25\textwidth]{fig/andres/2.png}
     }
+    \newline
+    \centering
+    \subfloat[Superpixel Segmentation]{ \label{fig:mc_ineq_0}
+        \includegraphics[width=0.4\textwidth]{fig/andres/ineq_0.pdf}
+    }
+    \subfloat[Corresponding Graph]{ \label{fig:mc_ineq_1}
+        \includegraphics[width=0.4\textwidth]{fig/andres/ineq_1.pdf}
+    }
     \addtocontents{lof}{%
         \vspace{1cm}
         \protect\centerline{%
@@ -289,7 +297,7 @@ For non planar problems we need to set $N_{labels}$ to $|V|$.
 
 \citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr} use a
 cutting plane approach where violated constraints are added
-iteratively until no more violated constraints are found.
+iteratively until no more violated constraints are found (see fig \cref{fig:mc_ineq})
 
 The multicut and related work will be discussed extensively in \cref{ch:cgc} where
 we propose a new approximative solver for the such an objective.
@@ -312,9 +320,6 @@ we propose a new approximative solver for the such an objective.
 }%
 \caption[Violated multicut constraints]{
 This figure has been taken from \cite{andres_2011_iccv}.
-
-
-
 \Cref{fig:mc_ineq_0} shows the oversegmentation of 
 an image .
 \Cref{fig:mc_ineq_1} shows the corresponding graph.
@@ -323,6 +328,9 @@ The current state of the edges  labeled as active (blue) or inactive (gray) is
 inconsistent: Some nodes should be separated, since the edge between them is
 active (blue), but there exists a path over inactive edges 
 which connects these two nodes (showed in green).
+For each such inconsistency, \citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr}
+add a constraint to the linear program, until no more violated constraints 
+are 
 } \label{fig:mc_ineq}
 \end{figure}
 
