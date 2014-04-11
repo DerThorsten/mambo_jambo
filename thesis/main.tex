@@ -103,7 +103,7 @@
 
 \include{FrontBackMatter/Titleback} % Back of the title page
 
-\cleardoublepage\include{FrontBackMatter/Dedication} % Dedication page
+%\cleardoublepage\include{FrontBackMatter/Dedication} % Dedication page
 
 %\cleardoublepage\include{FrontBackMatter/Foreword} % Uncomment and create a Foreword.tex to include a foreword
 
@@ -130,19 +130,14 @@
 %----------------------------------------------------------------------------------------
 
 
-\ctparttext{
-    Write the introduction here
-}
+
 \part{Introduction}
-\ctparttext{after intro}
 \include{Chapters/ChapterIntroduction} 
 
 
-\ctparttext{
-    Write the introduction to graph based image processing here
-}
+
 \part{Graph Based Image Analysis} % First part of the thesis
-\include{Chapters/ChapterRag} 
+%\include{Chapters/ChapterRag} 
 \include{Chapters/ChapterRelatedWork} 
 %\include{Chapters/ChapterEdgeIndicators} 
 \include{Chapters/ChapterCgc} 
@@ -154,7 +149,15 @@
 %------------------------------------------------
 
 \ctparttext{
-    Introduction to software
+    \begin{center}{\slshape    
+    We have seen that computer programming is an art, \\ 
+    because it applies accumulated knowledge to the world, \\ 
+    because it requires skill and ingenuity, and especially \\
+    because it produces objects of beauty.} \\ \medskip
+    --- \defcitealias{knuth:1974}{Donald E. Knuth}\citetalias{knuth:1974} \citep{knuth:1974}
+    \end{center}
+
+    \bigskip
 }
 \part{Software} % Second part of the thesis
 

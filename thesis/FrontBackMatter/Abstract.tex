@@ -52,3 +52,50 @@ The main aspects of the graph framework is usability and extendability.
 \endgroup			
 
 \vfill
+
+
+
+\cleardoublepage
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+
+\chapter*{Abstract} % Abstract name
+
+Un\"uberwachte Bildsegmentierung 
+ist von grosser Bedeutung in der Bildverarbeitung.
+Ein kantengewichteter Graph, erzeugt aus einer
+Superpixel \"ubersegmentierung  ist der Ausgangspunkt.
+Von allen Segmentierungen des Graphs, 
+wird die Segmentierungen gew\"ahlt,
+bei der die Summe der geschnittenen Kanten 
+minimal ist.
+Da das problem Np-Hart ist, schlagen wir 
+ein neuen n\"aherungsweisen Algorithmus vor.
+Zun\"achst wird der Graph rekursiv partitioniert.
+Dann werden fuer alle paare von benachbarten
+Regionen neu partitioniert, solange
+bis sich die Energy nichtmehr verbessern l\"asst.
+Wir evaluieren den vorgeschlagenen Algorithmus
+auf existierenden und neuen Datens\"atzen.
+Der vorgeschlagenen Algorithmus 
+ist signifikant schneller als 
+andere exisitrende  n\"aherungsweisen Algorithmen.
+Die Qualit\"at der gefundenen L\"osungen 
+ist nah an global optimalen L\"osungen .
+
+
+Des weiteren implemtierten wir eine 
+Programmbibliothek f\"ur  die Graph basierte  Bildverarbeitung.
+Die Programmbibliothek ist eine Erweiterung der VIGRA Programmbibliothek.
+Der Hauptaspekt der vorgeschlagenen Programmbibliothek
+ist die einfache Benutzbarkeit und Erweiterbarkeit.
+
+
+
+
+\endgroup           
+
+\vfill

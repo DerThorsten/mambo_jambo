@@ -399,22 +399,46 @@ to that API.
     % %\end{minipage}
 
 \subsection{BOOST Graph API}\label{sec:boost_graph_apis}
-The Boost Graph Library (BGL)  \cite{software_bgl} is set of data structures and 
+The Boost Graph Library (BGL)  \citep{boost_bgl} is set of data structures and 
 algorithms for graph related computations.
-Since all algorithms are implemented within the LEMON graph interface, 
+Since all  datastructures and algorithms presented within this thesis  are implemented within the LEMON graph interface, 
 the BGL graph API will only be described briefly.
-The graph API defined in the BGL is a collection of
-free functions and graph traits which can be specialized for
-any graph.
+
+The main difference between the LEMON graph API and the BGL,
+is the massive usage of trait classes and free functions within the BGL.
+While LEMON classes use typedefs and member functions, 
+the BGL uses trait classes and free functions which need 
+to be implemented or specialized for a particular graph.
+This allows for very flexible implementations.
+
+Node and edge descriptors are used in the same way as in LEMON's
+graph API \footnote{within BGL these descriptors are called \lstinline{vertex_descriptor} and 
+\lstinline{node_descriptor}}.
+There are no restriction who these descriptors can be implemented.
+
+For most graph algorithms, the BGL expects a list of dense integers for
+nodes and edges.
+With this requirement, any flexibility of custom edge and node descriptors is lost.
+We belief that this is a poor design choices, since sparse ids
+are crucial for most graphs (see \cref{sec:impl_graphs}).
 
 
 
 
 \subsection{VIGRA Graph API}
 
-While the grid graph is implemented within the BGL and LEMON graph API,\
-all algorithms implemented within this thesis will
+While the grid graph is implemented within the BGL and LEMON graph API,
+all algorithms and datastructures implemented within this thesis will
 use the LEMON graph API instead of the BGL 
 for the following reason.
-\todo{write reasons...}
+\begin{inparaenum}[(i)]
+\item Algorithms using the BGL API expect not only the graph, but also 
+a list of these integers, while LEMON allows for sparse id's which 
+are part of the graph itself.
+\item LEMON seems to be well maintained and under active development,
+while for the BGL there is no current development at all.
+\item The documentation of LEMON is excellent, while the BGL is
+documented in a very confusing way.
+  
+\end{inparaenum}
 

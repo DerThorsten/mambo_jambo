@@ -262,14 +262,13 @@ how graph maps can be passed from python to C++ and vice versa.
 
 
 
-\subsubsection{Intrinsic Graph Shape}
+\subsubsection{Graph Shape}
 
-\todo{AXISTAGS}
 
-Each graph has an \emph{intrinsic node map shape} 
-and an \emph{intrinsic edge map shape} and 
-These intrinsic shape and dimensions are used to use 
-numpy arrays with the best fitting dimension and shape.
+Each graph has an \emph{tagged node map shape} 
+and an \emph{tagged edge map shape} and 
+These tagged shapes are used to get numpy arrays with 
+the correct shape and ordering of axis.
 For a 2D grid graph the node map should also be a 2D dimensional array.
 because in this way an usual image can be used as an node map.
 To access the  intrinsic shapes of node and edge maps 
@@ -278,34 +277,32 @@ for unknown graphs.
 The default implementation is given below:
 
 \begin{lstlisting}[language=c++]
-template<class GRAPH>
-class IntrinsicGraphShape{
-private:
-    typedef GRAPH Graph;
-    typedef typename vigra::MultiArray<1,int>::difference_type DiffType1d;
-    typedef typename Graph::index_type  index_type;
+template<class G>
+class TaggedGraphShape{
 public:
-    typedef typename Graph::Node Node ;
-    typedef typename Graph::Edge Edge ;
-    typedef typename  Graph::Arc  Arc ;
-
-    typedef DiffType1d IntrinsicNodeMapShape;
-    typedef DiffType1d IntrinsicEdgeMapShape;
-    typedef DiffType1d  IntrinsicArcMapShape;
-
-    static IntrinsicNodeMapShape intrinsicNodeMapShape(const Graph & g){
-        return IntrinsicNodeMapShape(g.maxNodeId()+1);
+    typedef G Graph;
+    const static unsigned int ND = IntrinsicGraphShape<Graph>::IntrinsicNodeMapDimension;
+    const static unsigned int ED = IntrinsicGraphShape<Graph>::IntrinsicEdgeMapDimension;
+    const static unsigned int AD = IntrinsicGraphShape<Graph>::IntrinsicArcMapDimension;
+    static TaggedShape  taggedNodeMapShape(const Graph & graph){
+        return NumpyArray<ND,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicNodeMapShape(graph),"n");
     }
-    static IntrinsicEdgeMapShape intrinsicEdgeMapShape(const Graph & g){
-        return IntrinsicEdgeMapShape(g.maxEdgeId()+1);
+    static TaggedShape  taggedEdgeMapShape(const Graph & graph){
+        return NumpyArray<ED,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicEdgeMapShape(graph),"e");
     }
-    static IntrinsicArcMapShape intrinsicArcMapShape(const Graph & g){
-        return  IntrinsicArcMapShape(g.maxArcId()+1);
+    static TaggedShape  taggedArcMapShape(const Graph & graph){
+        return NumpyArray<AD,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicArcMapShape(graph),"e");
     }
 
-    static const unsigned int IntrinsicNodeMapDimension=1;
-    static const unsigned int IntrinsicEdgeMapDimension=1;
-    static const unsigned int IntrinsicArceMapDimension=1;
+    static AxisInfo  axistagsNodeMap(const Graph & graph){
+        return AxisInfo("n");
+    }
+    static AxisInfo  axistagsEdgeMap(const Graph & graph){
+        return AxisInfo("e");
+    }
+    static AxisTags  axistagsArcMap(const Graph & graph){
+        return AxisInfo("e");
+    }
 };
 \end{lstlisting}
 
@@ -353,9 +350,13 @@ NumpyAnyArray normNodeFeat(
     typename PyNodeMapTraits<Graph,T>::Array  outArray 
 ){
     // reshape out 
-    // - last argument (outArray) will be reshaped if empty,
-    // - and #channels is taken from second argument (nodeFeaturesIn) 
-    reshapeNodeMapIfEmpty(g,nodeFeaturesIn,outArray);
+    TaggedShape inShape = nodeFeaturesInArray.taggedShape();
+    TaggedShape nodeMapShape = TaggedGraphShape<Graph>::taggedNodeMapShape(graph);
+    if(inShape.hasChannelAxis()){
+        nodeMapShape.setChannelCount(inShape.channelCount());
+    }
+    outArray.reshapeIfEmpty(nodeMapShape);
+
 
     // numpy arrays => lemon maps 
     // featuresInMap and outMap fulfill
@@ -377,9 +378,8 @@ or a multi band type as \lstinline{Multiband<float>}.
 \lstinline{PyNodeMapTraits<Graph,T >::Array} will select the correct \lstinline{vigra::NumpyArray<DIM,VALUE_TYPE>} w.r.t.
 the templates \lstinline{Graph} and \lstinline{T}.
 
-The output array will be reshaped with the corrected number of channels by calling \lstinline{reshapeNodeMapIfEmpty}.
-Equivalent functions exist for edge maps.
-
+The output array will be reshaped with the corrected number of channels by calling \lstinline{setChannelCount}
+and \lstinline{reshapeIfEmpty}.
 \lstinline{PyNodeMapTraits<Graph,T >::Map} is the corresponding LEMON conform  node map 
 which is a cheap view to an numpy array. 
 \end{minipage}
@@ -437,10 +437,6 @@ outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
 outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels=3)
 outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
 \end{lstlisting}
-
-
-\todo{write why this is so important}
-\todo{distinguish between map and map view}
 
 \subsection{Graph Hierarchy}
     

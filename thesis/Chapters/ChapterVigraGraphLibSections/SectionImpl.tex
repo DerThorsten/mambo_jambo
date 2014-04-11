@@ -1,29 +1,19 @@
 % !TEX root = ../../main.tex
 
 
-\section{Implementation}\label{sec:vigra_graph_lib_impl}
+\section{Design \& Implementation}\label{sec:vigra_graph_lib_impl}
 
-\todo{Impl is not a good word here}
 
-The most important concept for graph based image processing
-is the \emph{region adjacency graph} (RAG) (see \cref{fig:make_rag}).
+In the following, we will explain the design and 
+implementation of the different graph classes and algorithms
+implemented within VIGRA's graph library.
 
-A RAG is extracted from a labeled \emph{base graph}.
-In the first step of graph based image processing, the base 
-graph is usually a grid graph, and the labeling is a label image
-as in \cref{fig:make_rag} .
-To encode a RAG we need a undirected graph, 
-and a mapping from the base graphs edges and nodes to the RAG 
-needs to be stored.
 
 The implementation of grid graphs is explained in \cref{sec:graphs_grid_graph}, 
 a basic undirected graphs implementation will be discussed in \cref{sec:graphs_adjacency_list_graph}.
 The implementation details of the \emph{region adjacency graph} concept will 
 be given in  \cref{sec:graphs_rag}.
-
 For hierarchical clustering we provide a specialized graph, named \emph{merge graph}.
-
-
 To implemented structured clustering algorithms (see \cref{sec:rw_hc}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
@@ -40,11 +30,22 @@ VIGRA provides python binding to make almost
 any algorithm available in Python.
 To provide a generic Python interface for any proposed
 graph, we need to introduce a few concepts 
-to make the python wrapped graph API very \emph{Pythonic}
+to make the python wrapped graph API very \emph{Pythonic}.
 
+
+
+
+
+
+\subsection{Graphs} \label{sec:impl_graphs}
+
+In the following we will discuss the design and implementation
+of VIRGS's graph classes.
+And overview of the different classes and their main properties
+is given in \cref{tab:graph_classes}.
 
 %$\surd \bullet$
-\begin{table}
+\begin{table}[H]
 \begin{tiny}
 \begin{tabular}{|l|p{1.5cm}|p{0.5cm}|p{0.5cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.8cm}|p{0.8cm}|l|l|l|}
     \hline 
@@ -91,7 +92,7 @@ to make the python wrapped graph API very \emph{Pythonic}
     \\ \hline
 \end{tabular}
 \end{tiny}
-\caption[VIGRA's graph classes]{
+\caption[VIGRA's graph classes]{ \label{tab:graph_classes}
     An overview of the graph classes implemented in VIGRA.
     For each class the main purpose is showed.
     For node and edge id's we distinguish between dense id's
@@ -107,8 +108,6 @@ to make the python wrapped graph API very \emph{Pythonic}
 }
 \end{table}
 
-
-\subsection{Graphs} \label{sec:impl_graphs}
 
 \subsubsection{Grid Graph} \label{sec:graphs_grid_graph}
 
@@ -220,9 +219,18 @@ used to determine which pixel ``owns'' the edge,
 while the last axis select the w.r.t. the node.
 The default edge map is derived from \lstinline{vigra::MultiArray<DIM,Multiband<T> >}.
 
-\paragraph{Usage :}
-    ...write me
+%\paragraph{Usage :}
+%    ...write me
+
+
 \subsubsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
+
+The adjacency list graph is  multipurpose graph.
+Region adjacency graphs, nearest neighbor graph,
+and  any undirected graph with arbitrary structure can 
+be implemented with this graph.
+
+
 
 \paragraph{Node Descriptor/Id :}
 The node descriptor is implemented as a simple class
@@ -246,55 +254,65 @@ Their size is to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
 The id and the descriptors can be used to index node and edge maps.
 
 
-\paragraph{Usage :}
-    \begin{lstlisting}[language=c++]
-    typedef vigra::AdjacencyListGraph Graph;
-    Graph g;
+%\paragraph{Usage :}
+%    \begin{lstlisting}[language=c++]
+%    typedef vigra::AdjacencyListGraph Graph;
+%    Graph g;
+%
+%    // add nodes 
+%    // - automatic id
+%    // - explicit id
+%    Graph::Node n0 = g.addNode() 
+%    Graph::Node n3 = g.addNode(3)
+%
+%    // add edges from existing nodes
+%    // and new nodes
+%    // no parallel edges 
+%    Graph::Edge e0 = g.addEdge(n0,n1)
+%    Graph::Edge e1 = g.addEdge(2,3)
+%    Graph::Edge e2 = g.addEdge(2,3)
+%    assert(e1==e2)  
+%    \end{lstlisting}
+%
+%    \begin{lstlisting}[language=Python]
+%    g=vigra.graphs.listGraph();
+%    # add nodes 
+%    # - automatic id
+%    # - explicit id
+%    n0 = g.addNode() 
+%    n3 = g.addNode(3)
+%
+%    # add edges from existing nodes
+%    # and new nodes
+%    # no parallel edges 
+%    e0 = g.addEdge(n0,n1)
+%    e1 = g.addEdge(2,3)
+%    e2 = g.addEdge(2,3)
+%    assert e1==e2  
+%\end{lstlisting}
 
-    // add nodes 
-    // - automatic id
-    // - explicit id
-    Graph::Node n0 = g.addNode() 
-    Graph::Node n3 = g.addNode(3)
 
-    // add edges from existing nodes
-    // and new nodes
-    // no parallel edges 
-    Graph::Edge e0 = g.addEdge(n0,n1)
-    Graph::Edge e1 = g.addEdge(2,3)
-    Graph::Edge e2 = g.addEdge(2,3)
-    assert(e1==e2)  
-    \end{lstlisting}
-
-    \begin{lstlisting}[language=Python]
-    g=vigra.graphs.listGraph();
-    # add nodes 
-    # - automatic id
-    # - explicit id
-    n0 = g.addNode() 
-    n3 = g.addNode(3)
-
-    # add edges from existing nodes
-    # and new nodes
-    # no parallel edges 
-    e0 = g.addEdge(n0,n1)
-    e1 = g.addEdge(2,3)
-    e2 = g.addEdge(2,3)
-    assert e1==e2  
-    \end{lstlisting}
 \subsubsection{Region Adjacency Graph} \label{sec:graphs_rag}
 
 A region adjacency is always defined w.r.t. a labeled base graph.
 Instead of implementing a new graph for RAG, we use
 the \emph{adjacency list graph}.
+
+A free function, \lstinline[language=c++]{makeRegionAdjacenyGraph} is used to generate the RAG from a given labeling.
 The mapping from base graph nodes and RAG nodes  is defined
 by the labeling itself. Therefore
 The labeling defines a forward mapping from base graph nodes
 to RAG Node ids.
-A dense labeling 
 Edges in the RAG are mapped to multiple edges in the base graph
 via a backward mapping.
+This is implemented as an edge map of RAG with
+\lstinline[language=c++]{std::vector<BaseGraphEdge>} as value type.
+The backward mapping of edges is returned by \lstinline[language=c++]{makeRegionAdjacenyGraph}.
 
+
+Since the ids of the region adjacency graph can be 
+sparse, the labeling of the base graph does not need to be dense.
+\footnote{Also disjoint labeling are allowed}.
 
 
 
