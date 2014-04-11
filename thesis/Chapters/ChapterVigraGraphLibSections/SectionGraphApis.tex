@@ -4,43 +4,45 @@
 
 
 
-We strongly belief is is beneficial to use an existing API's for
-graphs instead of inventing an own graph API for VIGRA \citep{software_vigra,koethe_2000_phd_thesis}.
+We strongly belief is is beneficial to use an existing graph API,
+instead of inventing an own graph API for VIGRA.
 Coming up with a new API is not straight forward
 since one might to think of any future use case this API.
 In addition, users became accustomed with existing API as 
 the LEMON or Boost graph API.
-Existing algorithms of a particular API can be reused if we stick
-to that API.
+Existing algorithms might be reused, as \cite{straehle_2011_miccai} which is implemented 
+within LEMON's API.
+
+
 
 
 
 
 \subsection{LEMON Graph API}\label{sec:lemon_graph_apis}
-    LEMON \citet{ lemon_lib} 
+    LEMON \citep{ lemon_lib} 
     stand for  ``Library for Efficient Modeling and Optimization in Networks.''.
     It is an open source C++ library with algorithms and data structures 
     related to directed and undirected graphs.
     The extensive usage of templates make this library very flexible.
-    While lemon provides a huge set of graph algorithms,
+    While LEMON provides a huge set of graph algorithms,
     we are mostly interested in the graph API itself.
     In the following we will give a brief overview of lemons graph 
     API and the related concepts.
-    Explaining the complete lemon graph API in detail
+    Explaining the complete  API in detail
     is beyond the scope of this thesis.
-    Interested readers are referred to \citet{lemon_lib}.
+    Interested readers are referred to work of \citet{lemon_lib}.
     We will only discuss the API for undirected graphs since any
     graph algorithm we implemented within this thesis
     will work on undirected graphs.
 
 \paragraph{Graph Items :}
-    Any undirected graph class fulfilling the lemon API needs to define 
-    the following \emph{descriptor} types to represent the graph items.
-    \begin{compactitem}
-    \item \lstinline{Graph::Edge}
-    \item \lstinline{Graph::Arc}
-    \item \lstinline{Graph::Node}
-    \end{compactitem}
+    Any undirected graph class fulfilling the LEMON API needs to define 
+    the following \emph{descriptor} types to represent the graph items:
+    \begin{inparaenum}[(i)]
+    \item \lstinline{Graph::Node},
+    \item \lstinline{Graph::Edge} and
+    \item \lstinline{Graph::Arc}.
+    \end{inparaenum}
     These \emph{descriptor} should be cheap types which can be copied
     and passed with almost no overhead.
     In addition, each descriptor has an unique id
@@ -56,7 +58,7 @@ to that API.
 \phantomsection
 \label{par:lemon_iterators}
 \paragraph{Iterators :}
-    Within lemon a very convenient mechanism is used to iterate over
+    Within LEMON a very convenient mechanism is used to iterate over
     nodes, edges and arcs.
     A special constant \lstinline{INVALID} is used to determine if 
     an iterator reached the end.
