@@ -27,8 +27,6 @@
 \end{scriptsize}
 
 
-\todo{tiny motivation for python usage}
-
 To create bindings for C++ classes and free functions glue code needs to 
 be written. VIGRA\citep{ software_vigra,koethe_2000_phd_thesis} uses \emph{BOOST Python}\citep{ boost_python}  to create those Python bindings.
 \Cref{lst:boost_python} shows how a  class and free functions can
@@ -48,7 +46,7 @@ BOOST_PYTHON_MODULE(my_module) @\label{lst:boost_python_modname}@
 {   
    class_<Graph>("PyGraph",init<>()) @\label{lst:boost_python_class}@
        .def("foo", &Graph::foo) @\label{lst:boost_python_mf}@
-       .def("foo", &bar)  @\label{lst:boost_python_emf}@
+       .def("bar", &bar)  @\label{lst:boost_python_emf}@
    ;                                      
    
    def("foobar", &foobar); @\label{lst:boost_python_ff}@
@@ -61,7 +59,7 @@ BOOST_PYTHON_MODULE(my_module) @\label{lst:boost_python_modname}@
     \Cref{lst:boost_python_modname} defines the name of the python module.
     In \cref{lst:boost_python_class} we use boost 
     python to export the class \lstinline{Graph} with an empty
-    constructor to python, where the class is named \lstinline{PyGraph}.
+    constructor to Python, where the class is named \lstinline{PyGraph}.
     The member function \lstinline{foo} of  \lstinline{Graph}
     is exported in \cref{lst:boost_python_mf}.
     A free function can be turned into a member function
@@ -72,22 +70,22 @@ BOOST_PYTHON_MODULE(my_module) @\label{lst:boost_python_modname}@
 On the C++ side, the VIGRA graph library is a set of classes (\ie grid graph, adjacency list graph) 
 which share a common API, 
 and generic template algorithms which use that API (\ie Watersheds, hierarchical clustering).
-As a result algorithms can be applied to any graph which implements VIGRA's graph API.
+As a result, algorithms can be applied to any graph which implements VIGRA's graph API.
 To archive the same genericity on the Python side, one
 needs to write glue code for any combination of graphs and algorithms.
 This meas a single algorithm needs to be exported separately for any
 graph type. 
-Luckily boost python glue code can be written in a generic fashion.
+Luckily, BOOST Python glue code can be written in a generic fashion.
 The glue code itself can be templated, and therefore 
 glue code for a particular algorithm needs to be written once, 
 and can be reused for different graph types.
-Boost Pythons ``def-visitor'' concept \footnote{\url{http://www.boost.org/doc/libs/1_55_0/libs/python/doc/v2/def_visitor.html}}
+The B OOST Pythons ``def-visitor'' concept \footnote{\url{http://www.boost.org/doc/libs/1_55_0/libs/python/doc/v2/def_visitor.html}}
 provides a way to bundle glue code for multiple functions / algorithms within a simple struct called def-visitor.
 This def-visitor can be reused for multiple classes.
 A brief example of Boost Pythons def-visitor concept is given in \cref{lst:def_visitor}.
 To get a very modular design, we provide a set of different def-visitors,
 each responsible for a different set of member functions and algorithms.
-The most important def-visitor is the ``Core'' def-visitors.
+The most important def-visitor is the \emph{Core} def-visitors (see \cref{tab:graph_exporter}).
 which exports the graph API for undirected graphs.
 In \cref{tab:graph_exporter} we give an overview of 
 the different def-visitors, and briefly explain the main purpose
@@ -155,7 +153,6 @@ BOOST_PYTHON_MODULE(my_module)
         &   
             Exports the graph API for undirected graphs.
             (\ie member functions, iterator classes):
-            Basic member functions:
             \begin{compactitem}
                 \item nodeNum, edgeNum, arcNum
                 \item u, v, source, target, $\ldots$
@@ -175,7 +172,7 @@ BOOST_PYTHON_MODULE(my_module)
         &   \detokenize{export_graph_visitor.hxx} \\ \hline 
     Algorithm 
         &   
-            Basic graph based image processing  graph algorithms
+            Basic graph based image processing algorithms
             and functions to set up OpenGM compatible
             data-structures:
             \begin{compactitem}
@@ -240,10 +237,10 @@ BOOST_PYTHON_MODULE(my_module)
 
 On the python side, we want node-maps, edge-maps and arc-maps to be stored 
 as numpy arrays for several reasons.
-Numpy arrays are the standard for storing multidimensional data in python.
+Numpy arrays are the standard for storing multidimensional data in Python.
 The fast C implementation and the highly vectorized API of numpy makes it very easy to write 
 fast python code within a few lines.
-Virtually any python user will be familiar with the numpy API and therefore it 
+Virtually any Python user will be familiar with the numpy API, and therefore it 
 seems to be natural to store graph maps within numpy arrays.
 
 In addition VIGRA provides an mechanism to pass numpy arrays to C++.
@@ -259,14 +256,15 @@ existing numpy functions and new functions provided within VIGRA's graph API.
 
 Within the following sections we will explain in detail
 how graph maps can be passed from python to C++ and vice versa.
-
+This is important, since any future extension of this graph library
+should use the proposed mechanisms.
 
 
 \subsubsection{Graph Shape}
 
 
 Each graph has an \emph{tagged node map shape} 
-and an \emph{tagged edge map shape} and 
+and an \emph{tagged edge map shape}. 
 These tagged shapes are used to get numpy arrays with 
 the correct shape and ordering of axis.
 For a 2D grid graph the node map should also be a 2D dimensional array.
@@ -274,7 +272,9 @@ because in this way an usual image can be used as an node map.
 To access the  intrinsic shapes of node and edge maps 
 we use a small trait class with default implementations
 for unknown graphs.
+This class can be specialized for user defined graphs.
 The default implementation is given below:
+
 
 \begin{lstlisting}[language=c++]
 template<class G>
@@ -375,19 +375,20 @@ NumpyAnyArray normNodeFeat(
 The template \lstinline{T} can be instantiated with scalars as \lstinline{float}, an explicit single band scalar as \lstinline{Singleband<float>}
 or a multi band type as \lstinline{Multiband<float>}.
 
-\lstinline{PyNodeMapTraits<Graph,T >::Array} will select the correct \lstinline{vigra::NumpyArray<DIM,VALUE_TYPE>} w.r.t.
+\lstinline{PyNodeMapTraits<Graph,T >::Array} will select the numpy array w.r.t.
 the templates \lstinline{Graph} and \lstinline{T}.
 
-The output array will be reshaped with the corrected number of channels by calling \lstinline{setChannelCount}
+The output array will be reshaped with the corrected number of channels,
+and the correct axis ordering \footnote{The axis ordering is defined by the axis tags}, by calling \lstinline{setChannelCount}
 and \lstinline{reshapeIfEmpty}.
-\lstinline{PyNodeMapTraits<Graph,T >::Map} is the corresponding LEMON conform  node map 
+\lstinline{PyNodeMapTraits<Graph,T >::Map} is the corresponding LEMON conform  node map,
 which is a cheap view to an numpy array. 
 \end{minipage}
 
 
 \begin{minipage}{\textwidth}
 To make the function above available in python
-we need to write wrapper code with \lstinline{boost::python}.
+we need to write wrapper code with BOOST Python.
 We will export the function for single band floats and multi band floats.
 
 \begin{lstlisting}[language=c++]
@@ -417,9 +418,12 @@ boost::python::def(
 \end{minipage}
 
 
-On the python side we can call the function as desired.
+On the Python side we can call the function as desired.
 The array which stores the result of this
-function can be preallocated and passed explicitly.
+function can be preallocated and passed explicitly,
+otherwise an array with the correct shape and axis will be
+allocated.
+
 
 \begin{lstlisting}[language=Python]
 # with automatically allocated outFeatures
@@ -438,6 +442,3 @@ outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels
 outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
 \end{lstlisting}
 
-\subsection{Graph Hierarchy}
-    
-Explain the very nice workflow 

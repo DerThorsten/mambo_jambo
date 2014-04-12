@@ -1,8 +1,8 @@
 % !TEX root = ../../main.tex
 \section{Watershed Methods}\label{sec:rw_watershed_methods}
 
-The watershed is a powerful tool for image segmentation.
-It has been used for image segmentation since the work of
+The watershed is a powerful tool for image segmentation and
+has been used for this purpose since the work of
 \citet{beucher_1979_workshop}.
 The literature on watersheds is huge an 
 a lot of definitions and algorithms exist
@@ -16,12 +16,12 @@ Recent watershed algorithms are discussed in \citep{meyer_2012_corr2}.
 The watershed algorithm can be often described with the following  \emph{water flooding} analogy:
 A grayscale  image can be interpreted as hight map (see \cref{fig:ws_2d_map}, \cref{fig:ws_2d_map3d}).
 The water level is raised as shown in \crefrange{fig:ws_a}{fig:ws_f}.
-A watershed is wherever the water of two adjacent valleys is meeting (see \cref{fig:ws_e},\cref{fig:ws_f} and \cref{fig:ws_2d_lines}).
+A watershed is wherever the water of two adjacent valleys is meeting (see \cref{fig:ws_e}, \cref{fig:ws_f} and \cref{fig:ws_2d_lines}).
 
 
 An image may be interpreted as a node weighted graph,where the node weights
-are given by the pixels gray value.
-Watershed can also be applied to edge weighted graphs, where the nodes are unweighted 
+are given by the pixels gray values.
+Watersheds can also be applied to edge weighted graphs, where the nodes are unweighted 
 and the edges connecting neighboring nodes encode the height between the pass points of two valleys.
 \citet{meyer_2012_corr2} showed the relations between node and edge weighted watersheds. 
 
@@ -109,11 +109,11 @@ They define the following model:
 s.t. \hspace{0.35cm} x(F)=1, \hspace{0.5cm} x(B)=0
 \end{align}
 
-Where $w_{ip}$ are edge weights and $w_{Fi}^p$ and $w_{Bi}^p$ are unaries weights
+Where $w_{ip}$ are edge weights and $w_{Fi}^p$ and $w_{Bi}^p$ are unary weights
 for foreground and background.
 
 Setting $p$ to 1 will lead to the methods proposed by \citet{sinop_2007_iccv}.
-\Citet{allene_icv_2010} pointed out when $p=1$ and $q \rightarrow \infty$, solving
+\Citet{allene_icv_2010} pointed out, when $p=1$ and $q \rightarrow \infty$, solving
 \cref{eq:power_watershed} is equivalent to applying a minimum spanning forest algorithm.
 \Cref{tab:power_ws} gives an overview how different choices $p$ and $q$ lead
 to different well known segmentation methods, and to a new method, named \emph{power watershed}.
@@ -145,8 +145,8 @@ This idea has been generalized to different viscous fluids in \citep{vachier_200
 
 \citet{straehle_2011_miccai} proposed a watershed based method for interactive segmentation
 of neural volume electron  microscopy images.
-They show how a background prior be be efficiently integrated into watersheds,
-and that this prior is beneficial for neuro data.
+They show, how a background prior can be  integrated efficiently into watersheds,
+and that such a prior is beneficial for the segmentation of neuro data.
 In addition \citet{straehle_2012_cvpr} proposed an uncertainty estimator for
 guided interactive segmentation based on watersheds.
 

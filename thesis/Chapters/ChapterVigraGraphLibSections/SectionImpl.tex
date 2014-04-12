@@ -13,7 +13,6 @@ The implementation of grid graphs is explained in \cref{sec:graphs_grid_graph},
 a basic undirected graphs implementation will be discussed in \cref{sec:graphs_adjacency_list_graph}.
 The implementation details of the \emph{region adjacency graph} concept will 
 be given in  \cref{sec:graphs_rag}.
-For hierarchical clustering we provide a specialized graph, named \emph{merge graph}.
 To implemented structured clustering algorithms (see \cref{sec:rw_hc}) we
 need a graph which supports the contraction of edges.
 Also a mechanism to merge node and edge features is needed.
@@ -25,13 +24,13 @@ A generic set of algorithms which work on any graph
 implemented within the VIGRA graph api is presented 
 in \cref{sec:graph_graph_algorithms}.
 
-While the core implementation of any algorithm is in C++
-VIGRA provides python binding to make almost
+While the core implementation of any algorithm is in C++,
+we provide Python binding to make almost
 any algorithm available in Python.
 To provide a generic Python interface for any proposed
 graph, we need to introduce a few concepts 
 to make the python wrapped graph API very \emph{Pythonic}.
-
+These concepts are explained in \cref{sec:graph_lib_python}.
 
 
 
@@ -41,7 +40,7 @@ to make the python wrapped graph API very \emph{Pythonic}.
 
 In the following we will discuss the design and implementation
 of VIRGS's graph classes.
-And overview of the different classes and their main properties
+An overview of the different classes and their main properties
 is given in \cref{tab:graph_classes}.
 
 %$\surd \bullet$
@@ -95,8 +94,8 @@ is given in \cref{tab:graph_classes}.
 \caption[VIGRA's graph classes]{ \label{tab:graph_classes}
     An overview of the graph classes implemented in VIGRA.
     For each class the main purpose is showed.
-    For node and edge id's we distinguish between dense id's
-    which are continuous and sparse descriptors.
+    For node and edge id's we distinguish between dense ids
+    which are continuous and sparse ids.
     Node and edge descriptors which are showed as vectors 
     are implemented as \lstinline{vigra::TinyVector<T,N>}.
     Any other descriptor is implemented as a class holding
@@ -114,7 +113,8 @@ is given in \cref{tab:graph_classes}.
 The grid graph implemented in VIGRA is N-dimensional.
 The dimension can be selected with templates, and therefore with zero
 overhead.
-
+VIGRA's grid graph can encode directed and undirected grid graphs.
+We will  discuss only the undirected case.
 Due to the regular structure of a grid graph, it is possible to compute the edges of a given 
 node and vice versa on the fly, instead of storing these relations explicitly.
 Therefore a grid graph can be implemented with almost zero memory overhead.
@@ -122,13 +122,13 @@ Therefore a grid graph can be implemented with almost zero memory overhead.
 \paragraph{Node Descriptor/Id :}
 The node descriptor of a grid graph is implemented as a
 $N$-dimensional coordinate of the pixel which corresponds to
-that particular node. The id of a node is the scan order index
+a particular node. The id of a node is the scan order index
 of the corresponding pixel.
 As a consequence, node id's of a grid graph are continuous.
 \paragraph{Edge Descriptor/Id :}
-To edge descriptors are implemented as $N+1$-dimensional coordinate.
+Edge descriptors are implemented as $N+1$-dimensional coordinate.
 The first $N$ axis correspond to the node which ``owns'' this edge.
-The last axis enumerates the edge w.r.t. the node.
+The last axis enumerates the edges w.r.t. the owner node.
 
 In a grid graph, all nodes have the same degree, except for nodes
 at the border of the image.
@@ -188,7 +188,7 @@ at the border and get non-continuous edge ids.
     To get the edge ids, we enumerate the edge, but we ignore the fact that nodes at the
     left and upper border do
     not have an upper and left edge.
-    To illustrate this, these ``virtual'' edges are shown dotted.
+    To illustrate this, these ``virtual'' edges are showed dotted.
     The id's of the edges correspond to the enumeration.
     As a consequence edge ids are non continuous.    
     In this examples, 
@@ -197,7 +197,7 @@ at the border and get non-continuous edge ids.
     coordinate correspond to the node which owns this edge.
     The third coordinate is the edge number w.r.t. the node.
     The two edges and the node which ``owns'' them are
-    shown in the same unique color.
+    showed in the same unique color.
 
 }
 \end{figure}
@@ -212,12 +212,12 @@ The default node map is derived from \lstinline{vigra::MultiArray<DIM,T>}.
 
 \paragraph{Edge Map :} An N+1-dimensional image is
 used as edge map.
-This image has the same as a node map, but an extra
+This image has the same dimension as a node map, but an extra
 dimension for the edges.
 The first $N$ axis in the edge descriptor are 
 used to determine which pixel ``owns'' the edge,
-while the last axis select the w.r.t. the node.
-The default edge map is derived from \lstinline{vigra::MultiArray<DIM,Multiband<T> >}.
+while the last axis selects the endge index the w.r.t. the node.
+The default edge map is derived from \lstinline{vigra::MultiArray<DIM+1,Multiband<T> >}.
 
 %\paragraph{Usage :}
 %    ...write me
@@ -228,7 +228,7 @@ The default edge map is derived from \lstinline{vigra::MultiArray<DIM,Multiband<
 The adjacency list graph is  multipurpose graph.
 Region adjacency graphs, nearest neighbor graph,
 and  any undirected graph with arbitrary structure can 
-be implemented with this graph.
+be encoded with this graph.
 
 
 
@@ -236,8 +236,8 @@ be implemented with this graph.
 The node descriptor is implemented as a simple class
 holding a single integer which is the id 
 of the node.
-The user can explicitly choose the id of
-an node. As a consequence, node id's can 
+Users can explicitly choose the ids of
+an nodes while adding them to the graph . As a consequence, node ids can 
 be sparse and continuous.
 
 \paragraph{Edge Descriptor/Id :}
@@ -250,8 +250,8 @@ not yet implemented}.
 
 \paragraph{Node Map, EdgeMap:} 
 The node and edge maps are derived from \lstinline{vigra::MultiArray<1,T>}.
-Their size is to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
-The id and the descriptors can be used to index node and edge maps.
+Their size is equal to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
+The ids and the descriptors can be used to index node and edge maps.
 
 
 %\paragraph{Usage :}
@@ -299,7 +299,7 @@ Instead of implementing a new graph for RAG, we use
 the \emph{adjacency list graph}.
 
 A free function, \lstinline[language=c++]{makeRegionAdjacenyGraph} is used to generate the RAG from a given labeling.
-The mapping from base graph nodes and RAG nodes  is defined
+The mapping from base graph nodes to RAG nodes  is defined
 by the labeling itself. Therefore
 The labeling defines a forward mapping from base graph nodes
 to RAG Node ids.
@@ -321,9 +321,9 @@ sparse, the labeling of the base graph does not need to be dense.
 To implemented structured clustering algorithms (see \cref{sec:rw_hc} ) 
 A graph which supports edge contraction and feature merging is needed.
 Some graphs within the LEMON library support 
-edge contraction, but this is not part of LEMON undirected graph concept \footnote{
-Edge contraction cannot be a part of LEMON undirected graph concept,since some graphs
-are not mutable.}.
+edge contraction, but this is not part of LEMON's undirected graph concept \footnote{
+Edge contraction cannot be a part of LEMON's undirected graph concept, since some graphs
+are not mutable (\eg a grid graph)}.
 
 \begin{figure}[H]
     \centering
@@ -360,7 +360,7 @@ In a similar manner, we implement a \emph{merge graph adaptor}.
 
 Each node and edge in the merge graph adaptor corresponds to a connected component of 
 edge and nodes in the base graph.
-Two union find data structure (UFD), and edge and node ufd encode these connected components.
+Two union find data structure (UFD), an edge and node UDF encode these connected components.
 
 Feature merging is done via \emph{callbacks} which can be registered to the merge graph adaptor.
 The \emph{callback API} is explained in detail below. 
@@ -452,10 +452,10 @@ To perform feature merging the merge graph uses a callback API which is explaine
 
 \paragraph{Callback API :}
 
-To merge features the merge graph uses three different callbacks types.
-Any of these callbacks is implemented within boosts API for callbacks \citep{ boost_function}
+To merge features, the merge graph uses three different callbacks types.
+Any of these callbacks is implemented within BOOST's API for callbacks \citep{ boost_function}
 \footnote{
-Currently we use the boost implementation for callbacks, but 
+Currently we use the BOOST implementation for callbacks, but 
 in the future we might use a faster implementation with the same API  \citep{code_project_function}.
 }.
 
@@ -465,7 +465,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
     A contraction of an edge merges the two nodes of the edge
     into a single node.
     To merge node features a callbacks with the following signature 
-    can be registered to the merge graphs merge node callback vector.
+    can be registered to the merge node callback vector.
     \\
     \lstinline[language=c++]{void mergeNodeSignature(const Node & anchorNode,const Node & deadNode);}
     \\
@@ -474,7 +474,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
     the  id and descriptor of \lstinline{deadNode} become invalid.
 
 
-\item Merge node callback :
+\item Merge edge callback :
     A single edge contraction can lead to multiple parallel edges
     which will be merged into single edges.
     To merge features attached to edges, a callback vector
@@ -484,7 +484,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
     \\
     \lstinline[language=c++]{void mergeEdgeSignature(const Edge & anchorEdge,const Edge & deadEdge);}
     \\
-    Again, the first argument is the anchor, and ids and descriptors stay valid.
+    Again, the first argument is the anchor, for which the id and descriptor stay valid.
     The id and descriptor of the second argument become invalid after the merge.
 
 \item Erase edge callback :
@@ -622,7 +622,8 @@ in the future we might use a faster implementation with the same API  \citep{cod
         heap
     } where the edge with minimal weight can be accessed  and for any edge, the weight can be changed
     efficient.
-    
+    Then class design and interaction for hierarchical clustering is shown
+    in \cref{fig:hc_class_design}.
 
 
     \subsubsection{Watershed Algorithms}
@@ -632,7 +633,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
     \subsubsection{Multicut}
         In contrast to rest of this thesis, the \emph{Cut Glue \& Cut} algorithms
-        is not implemented within VIGRA, but within \emph{OpenGM} \citep{opengm_paper}.
+        is not implemented within VIGRA, but within \emph{OpenGM} \citep{andres_2012_opengm_arxiv}.
         To interface with OpenGM, especially with multicut algorithms, we provide
         a set of functions to convert a weighted graph w.r.t. VIGRA's graph api
         into OpenGM compatible datastructures.

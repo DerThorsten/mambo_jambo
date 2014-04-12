@@ -7,9 +7,9 @@
 We strongly belief is is beneficial to use an existing graph API,
 instead of inventing an own graph API for VIGRA.
 Coming up with a new API is not straight forward
-since one might to think of any future use case this API.
+since one might to think of any future use case.
 In addition, users became accustomed with existing API as 
-the LEMON or Boost graph API.
+the LEMON \citep{lemon_lib} or BOOST graph API \citep{ boost_bgl}.
 Existing algorithms might be reused, as \cite{straehle_2011_miccai} which is implemented 
 within LEMON's API.
 
@@ -26,14 +26,14 @@ within LEMON's API.
     The extensive usage of templates make this library very flexible.
     While LEMON provides a huge set of graph algorithms,
     we are mostly interested in the graph API itself.
-    In the following we will give a brief overview of lemons graph 
+    In the following, we will give a brief overview of lemons graph 
     API and the related concepts.
     Explaining the complete  API in detail
     is beyond the scope of this thesis.
     Interested readers are referred to work of \citet{lemon_lib}.
     We will only discuss the API for undirected graphs since any
     graph algorithm we implemented within this thesis
-    will work on undirected graphs.
+    will work on undirected graphs exclusively.
 
 \paragraph{Graph Items :}
     Any undirected graph class fulfilling the LEMON API needs to define 
@@ -50,9 +50,9 @@ within LEMON's API.
     Therefore  multiple  nodes cannot have the same id.
     The same holds line for edges and arcs.
     But there might be a node and edge which have the same id}.
-    These id's can be accessed via \lstinline{Graph::id(Node)}, \lstinline{Graph::id(Edge)} and \lstinline{Graph::id(Arc)}.
-    These id's can not only be dense but also sparse, which is very
-    important for an efficient handling of grid graph edge ids.
+    These ids can be accessed via \lstinline{Graph::id(Node)}, \lstinline{Graph::id(Edge)} and \lstinline{Graph::id(Arc)}.
+    These ids can not only be dense but also sparse, which is very
+    important for an efficient handling of grid graph edge ids (see \cref{sec:graphs_grid_graph}.
 
 
 \phantomsection
@@ -87,9 +87,9 @@ within LEMON's API.
     The separation between the graph, and data which is related to
     the graph is crucial.
     Different algorithms which operate on the same graph will
-    need different data attached to the edge nodes and arcs. 
+    need different data attached to the edge, nodes and arcs. 
 
-    In lemon, graph classes store only the structure of the graph itself.
+    In LEMON, graph classes store only the structure of the graph itself.
     All addition data for nodes, edges and arcs is stored 
     in \emph{maps}.
     The API for graph maps in lemon is very small and easy to implement.
@@ -321,7 +321,7 @@ within LEMON's API.
         UndirectedGraphConcept shows LEMON's API for undirected 
         graphs. Any graph implemented within LEMON's API 
         needs to implemented all methods and typedefs showed 
-        within in the UML diagram.
+        in the UML diagram.
         To implemented a graph class within the API one needs 
         to implemented descriptor classes for nodes, edges and arcs.
         These descriptor classes have almost no API.
@@ -401,9 +401,9 @@ within LEMON's API.
     % %\end{minipage}
 
 \subsection{BOOST Graph API}\label{sec:boost_graph_apis}
-The Boost Graph Library (BGL)  \citep{boost_bgl} is set of data structures and 
+The BOOST Graph Library (BGL)  \citep{boost_bgl} is set of data structures and 
 algorithms for graph related computations.
-Since all  datastructures and algorithms presented within this thesis  are implemented within the LEMON graph interface, 
+Since all  data-structures and algorithms presented within this thesis  are implemented within the LEMON graph interface, 
 the BGL graph API will only be described briefly.
 
 The main difference between the LEMON graph API and the BGL,
@@ -416,10 +416,9 @@ This allows for very flexible implementations.
 Node and edge descriptors are used in the same way as in LEMON's
 graph API \footnote{within BGL these descriptors are called \lstinline{vertex_descriptor} and 
 \lstinline{node_descriptor}}.
-There are no restriction who these descriptors can be implemented.
-
+There are no restriction how these descriptors can be implemented.
 For most graph algorithms, the BGL expects a list of dense integers for
-nodes and edges.
+node and edge ids.
 With this requirement, any flexibility of custom edge and node descriptors is lost.
 We belief that this is a poor design choices, since sparse ids
 are crucial for most graphs (see \cref{sec:impl_graphs}).
@@ -430,12 +429,12 @@ are crucial for most graphs (see \cref{sec:impl_graphs}).
 \subsection{VIGRA Graph API}
 
 While the grid graph is implemented within the BGL and LEMON graph API,
-all algorithms and datastructures implemented within this thesis will
+all algorithms and data-structures implemented within this thesis will
 use the LEMON graph API instead of the BGL 
 for the following reason.
 \begin{inparaenum}[(i)]
 \item Algorithms using the BGL API expect not only the graph, but also 
-a list of these integers, while LEMON allows for sparse id's which 
+a list of dense integers, while LEMON allows for sparse ids which 
 are part of the graph itself.
 \item LEMON seems to be well maintained and under active development,
 while for the BGL there is no current development at all.
