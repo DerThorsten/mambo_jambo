@@ -6,7 +6,7 @@
 Segmentation is an important problem in computer vision as a first step
 towards understanding an image. Many algorithms start with an over-segmentation
 into superpixels.
-The superpixel segmentation can be interpreted as an \emph{region adjacency graph} (see \cref{fig:make_rag}) and
+The superpixel segmentation can be interpreted as a \emph{region adjacency graph} (see \cref{fig:make_rag}) and
 well studied graph-theoretical approaches can be applied to analyze and segment such a graph \cite{vlachos_1993_csv}.
 
 
@@ -47,7 +47,7 @@ well studied graph-theoretical approaches can be applied to analyze and segment 
     }%
   }%
   \caption[An image treaded as grid graph]{ \label{fig:grid_graph}
-  An image \Cref{fig:gg_33} can be interpreted as a grid graph. 
+  An image as in \Cref{fig:gg_33} can be interpreted as a grid graph. 
   Two different types of grid graphs can be defined for an image.
   \Cref{fig:gg_33_4} shows a grid graph with 4-neighborhood,
   \cref{fig:gg_33_8}  with 8-neighborhood.  
@@ -62,25 +62,25 @@ well studied graph-theoretical approaches can be applied to analyze and segment 
 %}
 %\end{figure}
 
-Many algorithm have been generalized to N-Dimension images.
-And since a N-Dimension image itself can be interpreted as an \emph{grid graph}  (see \cref{fig:grid_graph}) any graph based algorithm can be applied to images if they are treated as grid graphs.
+Many algorithms have been generalized to N-Dimension images.
+Since a $n$-Dimension image itself can be interpreted as a \emph{grid graph}  (see \cref{fig:grid_graph}) any graph-based algorithm can be applied to images, if they are treated as grid graphs.
 
-Therefore, \emph{graph based image analyses} can be viewed as a generalization of \emph{image analyses}.
+Therefore, \emph{graph-based image analysis} can be viewed as a generalization of \emph{image analysis}.
 From a theoretical and  point of view, such a generalization is very desirable.
-Well studied graph-theoretical approaches as clustering can be applied 
+For example, it allows to easy apply well studied graph-theoretical approaches, such as clustering
 to  \emph{image analyses} \cite{vlachos_1993_csv,arbelaez_2006_cvpr,ohlander_1978_cgip}.
 
 From an algorithmic point of view, such a generalization can help to reduce 
 code redundancy.
-Generic graph algorithm can be written once, and might be applied 
+Generic graph algorithms can be written once, and might be applied 
 to grid graphs (2D, 3D, 3D+t, N-dimensional grid graphs ) and irregular graphs ( \eg regions adjacency graphs and nearest neighbor graphs).
 
-In addition, many graph based algorithms are build on top of
-very simple building blocks 
+In addition, many graph-based algorithms are composed  of
+very simple building blocks such
 as \emph{minimum spanning trees}, \emph{hierarchical clustering} and 
 \emph{shortest path algorithms}. 
 
-Providing generic and reusable implementation of these building blocks
+Providing generic and reusable implementations of these building blocks
  is therefore beneficial.
 
 
@@ -125,7 +125,7 @@ Providing generic and reusable implementation of these building blocks
   }%
 \caption[Make a region adjacency graph from a labeled graph]{
     A labeled grid graph  (\cref{fig:make_rag_grid}, \cref{fig:make_rag_grid_graph}  and \ref{fig:make_rag_labels_labels})
-    or any other graph can be turned into an region adjacency graph (\cref{fig:make_rag_labels_on_graph}, \cref{fig:make_rag_rag_a} and \cref{fig:make_rag_rag_b}). 
+    or any other graph can be turned into a region adjacency graph (\cref{fig:make_rag_labels_on_graph}, \cref{fig:make_rag_rag_a} and \cref{fig:make_rag_rag_b}). 
     Any edge  $\{u,v\}$ where $u$ and $v$ have the same label is contracted and $u$ and $v$ 
     are merged.
 }\label{fig:make_rag}
@@ -138,10 +138,10 @@ Within this thesis we make the following contributions:
 
 \begin{inparaenum}[(i)]
     \item 
-    We propose and implemented a library for graph based image analysis 
+    We propose and implement a library for graph-based image analysis 
         implemented within the \emph{VIGRA} library \cite{koethe_2000_phd_thesis,software_vigra}. 
     \item 
-        We provide implementations for important graph based algorithms based on the proposed library.
+        We also provide implementations for important graph-based algorithms based on the proposed library.
         All data structures and algorithm are implemented in fast C++,
     \item but can also be used from Python for rapid prototyping.
     \item Ready to use examples are given within this thesis.
@@ -187,18 +187,18 @@ in \cref{sec:cut_glue_cut_algorithm}. Extensive experiments
 on benchmark datasets are presented in \cref{sec:experiments},
 where show an extensive comparison  with existing solvers.
 
-In \cref{ch:vigra_graph_lib} we will propose an implementation of
-a graph based library build on top of VIGRA. 
-The used graph APIs will be discussed in \cref{sec:graph_apis}.
+In \cref{ch:vigra_graph_lib} describe our implementation of
+a graph-based library build on top of VIGRA \cite{koethe_2000_phd_thesis,software_vigra}. 
+The used graph APIs are discussed in \cref{sec:graph_apis}.
 The different graph classes implemented within VIGRA
 will be presented in \cref{sec:impl_graphs}, where
-design choices will be discussed and most 
-important implementation details will be explained.
+design choices are discussed and most 
+important implementation details are explained.
 All design choices related to \emph{Python} will
 be discussed separately within \cref{sec:graph_lib_python}.
 Ready to use code examples will be given in \cref{ch:the_showcase}.
-In \cref{ch:conclusion} the presented work will be concluded
-and future research topics related to this thesis will be presented.
+In \cref{ch:conclusion} the presented is concluded
+and future research topics related to this thesis is presented.
 
 
 

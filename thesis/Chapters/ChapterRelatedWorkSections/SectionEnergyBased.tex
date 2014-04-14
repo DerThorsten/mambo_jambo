@@ -1,12 +1,12 @@
 % !TEX root = ../../main.tex
 \section{Energy Based Methods}\label{sec:energy_based_methods}
 
-Energy based methods have become very popular recently.
+Energy based methods have recently become very popular.
 
 Given a graph $G = (E,V)$ we 
-associate  a variable $ x_i \quad \forall  u_i \in V$ with any node.
-Within this thesis we focus on discrete energy function.
-Therefore we use discrete variables $x$.
+associate  a variable $ x_i \quad \forall  u_i \in V$ with every node.
+Within this thesis we focus on discrete energy functions,
+therefore we use discrete variables $x$.
 W.l.o.g. we set  $ x_i   \in \{ 0,1,2,\ldots, N_{labels}-1 \} \quad \forall \quad u_i \in V$,
 which means that any node has the same number of labels.
 
@@ -25,18 +25,16 @@ An energy function $E(x)$ can be  defined  in the following way:
 
 
 
-Where the \emph{unaries} $\phi_i(x_i)$ encode local costs
-for a variable to have certain label.
-While the \emph{pairwise terms} $\phi_{ij}(x_i,x_j) $ define the interaction of adjacent nodes.
+Here the \emph{unaries} $\phi_i(x_i)$ encode local costs
+for a variable to have a certain label.
+The \emph{pairwise terms} $\phi_{ij}(x_i,x_j) $ define the interaction of adjacent nodes.
 Often they are used to introduce some smoothness prior
 into the model \citep{szeliski_2008_pami}.
 The vector which yields a minimum value of $E(x)$
 is called $x_{\text{optimal}}$.
-
 \begin{equation} \label{eq:gm_argmin}
 x_{\text{optimal}} = \argmin_{x}  E(x)
 \end{equation}
-
 
 Before discussing how to optimize such energy functions,
 we will give some concrete examples how $E(X)$ 
@@ -57,6 +55,14 @@ Let $I_i$ be the gray value of the pixel associated with variable $x_i$.
 E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
 \end{equation}
 
+The unaries ensure that the labeling matches the image.
+The second order terms penalize adjacent nodes where the difference
+between the labels is huge.
+This model is described as part of a collection of MRF benchmark models \citep{szeliski_2008_pami}.
+
+
+
+
 \begin{figure}[H]
     \centering
     \subfloat[Input Image $I$]{ \label{fig:eq:gm_ef_dension_input}
@@ -73,18 +79,18 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
     }
     \caption[Energy based truncated denoising]{
         Finding $x_{\text{optimal}} $ for the energy function given
-        in \cref{eq:gm_ef_dension} is NP hard, we show result of approximative solvers.
+        in \cref{eq:gm_ef_dension} is NP-hard. We show results of approximative solvers.
         Using \cref{fig:eq:gm_ef_dension_input} as input (for the black area no unaries 
         are used)
         the following
         results are obtained:
         ICM
-         \citep{besag_1986_icm}  (\Cref{fig:eq:gm_ef_dension_icm} ) fails
+         \citep{besag_1986_icm} (\Cref{fig:eq:gm_ef_dension_icm}) fails
         to fill the in-painting area. 
         While TRWS
-        \citep{kolmogorov_2006_pami_trws}  (\Cref{fig:eq:gm_ef_dension_trws} ) 
+        \citep{kolmogorov_2006_pami_trws}  (\Cref{fig:eq:gm_ef_dension_trws}) 
         and $\alpha$-Expansion
-        \citep{boykov_2001_pami}  (\Cref{fig:eq:gm_ef_dension_ae} ) 
+        \citep{boykov_2001_pami} (\Cref{fig:eq:gm_ef_dension_ae}) 
         can fill the in-painting area
         with meaningful values.
         The input image has been taken from \citep{szeliski_2008_pami}.
@@ -92,16 +98,16 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda (x_i-x_j)^2
     }\label{fig:gm_ef_denoise}
 \end{figure}
 
-This model is taken from \citep{szeliski_2008_pami} where they proposed a MRF-benchmark.
+
 
 
 \paragraph{Truncated Denoising:} 
 
 This model is almost the same as the \emph{Denoising} model defined above,
-but the second order term is truncate to $\gamma$ if $(x_i-x_j)^2$ is larger than $\gamma$.
-Therefore we do pay only $\gamma$ at strong edges.
-Due to this truncation, this model allows for sharp edges.
-This model has also been proposed by \citep{szeliski_2008_pami} within their MRF-benchmark.
+but the second order term is clipped to $\gamma$ if $(x_i-x_j)^2$ is larger than $\gamma$.
+Therefore one only pays $\gamma$ at strong edges.
+Due to this truncation, the model allows for sharp edges.
+This model is also described in \citep{szeliski_2008_pami}.
 
 
 \begin{equation} \label{eq:gm_ef_dension_truncated}
@@ -124,13 +130,13 @@ E(x) = \sum_{v \in V}  (I_i - x_i)^2 + \sum_{e=(i,j) \in E } \lambda \cdot \min\
     }
     \caption[Energy based truncated denoising]{
         Finding $x_{\text{optimal}} $ for the energy function given
-        in \cref{eq:gm_ef_dension_truncated} we show result of approximative solvers.
+        in \cref{eq:gm_ef_dension_truncated} is NP-hard. We show result of approximative solvers.
         Using \cref{fig:eq:gm_ef_dension_truncated_input} as input (for the black area no unaries 
         are used)
         the following
-        results are obtained: ICM \citep{besag_1986_icm}  (\Cref{fig:eq:gm_ef_dension_truncated_icm} ) fails
+        results are obtained: ICM \citep{besag_1986_icm}  (\Cref{fig:eq:gm_ef_dension_truncated_icm}) fails
         to fill the in-painting area. While TRWS \cite{kolmogorov_2006_pami_trws}  (\Cref{fig:eq:gm_ef_dension_truncated_trws} ) 
-        and $\alpha$-expansion \cite{boykov_2001_pami}  (\Cref{fig:eq:gm_ef_dension_truncated_ae} ) can fill the in-painting area
+        and $\alpha$-expansion \cite{boykov_2001_pami} (\Cref{fig:eq:gm_ef_dension_truncated_ae}) can fill the in-painting area
         with meaningful values.
         The input image has been taken from \citep{szeliski_2008_pami}.
         The result images have been generated with OpenGM\citep{andres_2012_opengm_arxiv}.
@@ -156,13 +162,13 @@ adjacent variables with different states.
      \quad +  \quad
     \underbrace{
         \beta \cdot \sum_{e=(i,j) \in E }  \delta(\cdot x_i\neq x_j) 
-    }_{\text{pairwise potts terms}}
+    }_{\text{pairwise potts terms}} ,
 \end{equation}
-Where $\delta(a)=1$ if $a$ is true and $0$ else
+where $\delta(a)=1$ if $a$ is true and $0$ else
 and $\beta>0$.
 
-This model is also known as potts model and is often
-used for binary segmentation (\eg foreground background segmentation)
+This model is also known as the \emph{potts model} and is often
+used for binary segmentation (\eg\quad foreground background segmentation)
 but can also be extended to the multi-label case.
 Instead of a single $\beta$, often a different $\beta_i$ is used
 for each edge \citep{szeliski_2008_pami}.
@@ -215,9 +221,9 @@ image segmentation \cite{andres_2011_iccv,yarkony_2012_eccv,alush_2013_simbad}.
 Given an edge-weighted region adjacency graph,
 the problem is to find the segmentation which
 minimizes the cost of the cut edges.
-Therefore multicuts can be viewed as \emph{thresholding} w.r.t. close contours, while
+Therefore multicuts can be viewed as \emph{thresholding} w.r.t. closed contours, while
 naive thresholding will lead to inconsistencies 
-(see \cref{fig:naive_thresholding,fig:mc_ineq} ).
+(see \cref{fig:naive_thresholding,fig:mc_ineq}).
 
 
 \begin{figure}[h]
@@ -225,10 +231,10 @@ naive thresholding will lead to inconsistencies
     \subfloat[Oversegmentation]{ \label{fig:naive_thresholding_a}
         \includegraphics[width=0.25\textwidth]{fig/andres/0.png}
     }
-    \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_b}
+    \subfloat[Inconsistencies]{  \label{fig:naive_thresholding_b}
         \includegraphics[width=0.25\textwidth]{fig/andres/1.png}
     }
-    \subfloat[Oversegmentation]{  \label{fig:naive_thresholding_c}
+    \subfloat[Consistent segmentation]{  \label{fig:naive_thresholding_c}
         \includegraphics[width=0.25\textwidth]{fig/andres/2.png}
     }
     \addtocontents{lof}{%
@@ -242,8 +248,8 @@ naive thresholding will lead to inconsistencies
     \caption[Naive thresholding vs. multicuts]{
     This figure has been taken from \cite{andres_2011_iccv} .
     \Cref{fig:naive_thresholding_a} shows the oversegmentation of 
-    an image .
-    \Cref{fig:naive_thresholding_b} shows the result of naive thresholding..
+    an image.
+    \Cref{fig:naive_thresholding_b} shows the result of naive thresholding.
     Any inconsistent boundary is shown in red while consistent
     boundaries are shown in yellow. 
     \Cref{fig:naive_thresholding_c} shows the result with the multicut
@@ -281,10 +287,10 @@ where $\delta(a) = 1$ if $a$ is true and $0$ else.
 
 Removing all unaries from \cref{eq:gm_energy} and 
 setting $\phi_{ij}(x_i,x_j) =   \w_e \cdot \delta( x_i \neq x_j )$ 
-will lead to the multicut objective (see \cref{ch:cgc}) .
+will lead to the multicut objective (also see \cref{ch:cgc}) .
 
 For planar problems  $N_{labels}$ can be set to 4 since any planar map is 4 colorable \citep{appel_1977_4color}.
-For non planar problems we need to set $N_{labels}$ to $|V|$.
+For non-planar problems we need to set $N_{labels}$ to $|V|$.
 
 
 \citet{andres_2011_iccv} and \citet{kappes_2011_emmcvpr} use a
@@ -328,9 +334,9 @@ If $N_{labels}=2$ and $\phi_{ij}(x_i,x_j)$ is submodular,
 graph cuts \cite{boykov_2001_pami,kolmogorov_2004_pami} can be applied to find $x_{\text{optimal}}$
 in polynomial time.
 
-Graph cut is a optimization algorithm which casts the energy minimizing problem
-to the maximum flow / minimum cut problem. Energy function of binary variables which
-have a form as
+Graph cut is an optimization algorithm which casts the energy minimizing problem
+to an maximum flow / minimum cut problem. Energy functions of binary variables which
+have the following form 
 
 \begin{equation} \label{eq:gm_graph_cut_energy}
     E(x) = 
@@ -345,11 +351,10 @@ have a form as
 
 
 
-where the pairwise energy term of binary variables is submodular, can be minimized with
+and for which the pairwise energy term of binary variables is submodular, can be minimized with
 graph cuts. 
 
 $\phi_{ij}$ is submodular if:
-
 \begin{equation} \label{eq:gm_submodular_criterion}
     \phi_{ij}(0,1) + \phi_{ij}(1,0) >  \phi_{ij}(0,0) + \phi_{ij}(1,1)
 \end{equation}
@@ -357,7 +362,7 @@ $\phi_{ij}$ is submodular if:
 To use graph cut, we have to associate each possible solution with a cut on a graph as in
 \cref{fig:graph_cut} and ensure that the capacities on the graph match our energy function 
 defined in \cref{eq:gm_graph_cut_energy}.
-Since the max flow/ min cut problem is defined on a directed graph, we have to construct
+Since the max flow / min cut problem is defined on a directed graph, we have to construct
 a directed graph from the energy function we want to minimize. We add a source and a
 sink vertex and connect these terminal vertices with all variable vertices and assign
 each edge a non-negative flow capacity. The flow goes from the source vertex to the
@@ -366,9 +371,9 @@ sink vertex. The edge capacities are constructed as described in the work of
 
 \Cref{fig:graph_cut_b} shows the
 construction of  the directed max flow  graph, which is associated with the energy function $E(x)$.
-\citet{kohli_2007_pami} proposed a method, where min-st-cut can be recomputed in an efficiently manner,
+\citet{kohli_2007_pami} proposed a method where graph cuts can be recomputed in an efficiently manner
 if some capacities / energies where changed. This allows an efficient computation of 
-of graph cut min marginal an uncertainties \citep{kohli_2006_eccv,tarlow_2012_cvpr}.
+graph cut min marginals an uncertainties \citep{kohli_2006_eccv,tarlow_2012_cvpr}.
 
 
 \begin{figure}[H]
@@ -383,19 +388,19 @@ of graph cut min marginal an uncertainties \citep{kohli_2006_eccv,tarlow_2012_cv
 \end{center}
 \caption{
     \Cref{fig:graph_cut_a}: Each variable vertex is connected to the 2 terminal vertices, source s, and
-        sink t, the edges between the variables vertices and terminal vertices are
+        sink t, the edges between the variable vertices and terminal vertices are
         called t-links, the edges between variables vertices are called n-links. The
-        line dotted in green is a cut, separating the variable with state zero from
+        line dotted in green is a cut, separating the variables with state zero from
         those with state one.
     \Cref{fig:graph_cut_b} is a simplification of the construction of the weighted graph.
         A constant term $\beta$ which has to be added to some capacities
         has been omitted for simplicity. 
-        Interested readers are refereed to  the work of \citet{kolmogorov_2004_pami}.
+        Interested readers are referred to  the work of \citet{kolmogorov_2004_pami}.
 }\label{fig:graph_cut}
 \end{figure}
 
 
-Whenever we have a a energy function of binary variables with pairwise potentials which
+Whenever we have an energy function of binary variables with pairwise potentials which
 are non-submodular we cannot use graph cut. QPBO (quadratic pseudo-boolean optimization), 
 the work of \citet{rother_2007_cvpr}, 
 addresses the problem of minimizing such an energy function as the
@@ -417,23 +422,22 @@ following:
 \end{equation}
 
 The basic idea of QPBO is to relax the problem by optimizing an auxiliary graphical
-model with twice as much variables as the problem we want to optimize. The
-auxiliary problem is constructed in such a way that it is submodular. The
-auxiliary problem is constructed as in \cite{rother_2007_cvpr} and optimized with graph cut. 
+model with twice as many variables as the problem we want to optimize. The
+auxiliary problem is constructed in such a way that it is submodular,
+as showed in  \cite{rother_2007_cvpr}, and is optimized with graph cuts.
 The output of QPBO
-is a partial labeling $x_i \in \{ 0,1,\emptyset \}$. Where $\emptyset$ is interpreted as unknown state. There are several
+is a partial labeling $x_i \in \{ 0,1,\emptyset \}$, where $\emptyset$ is interpreted as unknown state. There are several
 extension to QPBO which reduce the number
 of variables which have an unknown state.
 
-
 If the label space is larger than 2, $\alpha$-expansion and $\alpha \beta$-swap \cite{boykov_2001_pami} can be used.
-The main idea of $\alpha$-expansionm is to iteratively
+The main idea of $\alpha$-expansion is to iteratively
 solve binary sub-problems, where one only has to decide whether a variable should be
 flipped to the state $\alpha$ or keep the current state. The value of $\alpha$ is changed in each iteration.
 
-$\alpha \beta$-swap] is very similar  to  $\alpha$-expansion.
+$\alpha \beta$-swap is very similar  to  $\alpha$-expansion.
 But this time we have two labels, $\alpha$ and $\beta$. Within each iteration variables
-with the state $\alpha$ can be flipped to the state $\beta$ and visa versa. The values of $\alpha$ and $\beta$
+with the state $\alpha$ can be flipped to the state $\beta$ and vice versa. The values of $\alpha$ and $\beta$
 are changed after each iteration.
 
 If the binary sub-problems are submodular graph cut can be used, otherwise QPBO.
@@ -444,7 +448,7 @@ If the binary sub-problems are submodular graph cut can be used, otherwise QPBO.
 
 
 
-An alternative formulation of the multicut objective (see \cref{eq:multicut_primal})
+An alternative formulation of the multicut objective (see \cref{eq:multicut_primal_a})
 is in terms of binary edge indicator variables.
 $\y \in \{0,1\}^{| E |}$:
 \begin{align}
@@ -472,7 +476,7 @@ constraints \cite{chopra_1993_mp}, but in practice
 a small subset of those are sufficient.
 Therefore, a major branch of research has focused 
 on cutting plane approaches,
-by solving a relaxation of \eqref{eq:multicut_dual}
+by solving a relaxation of \eqref{eq:multicut_dual_a}
 by a sequence of linear programs 
 \cite{kim_2011_nips,kim_2012_ip,kappes_2013_arxiv,finley_2005_ml}.
 
@@ -541,12 +545,13 @@ solutions since the \emph{local consistency constraints}
 define a polytope which is a relaxation
 of the marginal polytope.
 In \cref{fig:local_poly} is a visualization of the local
-polytope \footnote{
-Interested readers are refereed to the doctoral
-thesis of  \citet{sontag_2010_thesis} which gives
-a great overview and introduction to linear programming
-based optimization.
-}.
+polytope.
+%  \footnote{
+% Interested readers are refereed to the doctoral
+% thesis of  \citet{sontag_2010_thesis} which gives
+% a great overview and introduction to linear programming
+% based optimization.
+% }.
 
 An additional set of constraints, \emph{integer constraint} as defined in \cref{eq:integral_constraint}, can be added to the LP in \cref{eq:gm_lp}. These constraints turn the LP into an integer LP (I-LP).
 
@@ -578,7 +583,7 @@ global optimal solutions of the energy function defined in
     in blue.
     The figure has been taken from \citep{sontag_2010_thesis}
     and has been modified slightly.
-    Interested readers are refereed to the doctoral
+    Interested readers are referred to the doctoral
     thesis of  \citet{sontag_2010_thesis} which gives
     a great overview and introduction to linear programming
     based optimization.

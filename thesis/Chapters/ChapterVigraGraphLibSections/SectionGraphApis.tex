@@ -52,7 +52,7 @@ within LEMON's API.
     But there might be a node and edge which have the same id}.
     These ids can be accessed via \lstinline{Graph::id(Node)}, \lstinline{Graph::id(Edge)} and \lstinline{Graph::id(Arc)}.
     These ids can not only be dense but also sparse, which is very
-    important for an efficient handling of grid graph edge ids (see \cref{sec:graphs_grid_graph}.
+    important for an efficient handling of grid graph edge ids (see \cref{sec:graphs_grid_graph}).
 
 
 \phantomsection
@@ -87,7 +87,7 @@ within LEMON's API.
     The separation between the graph, and data which is related to
     the graph is crucial.
     Different algorithms which operate on the same graph will
-    need different data attached to the edge, nodes and arcs. 
+    need different data attached to the edges, nodes and arcs. 
 
     In LEMON, graph classes store only the structure of the graph itself.
     All addition data for nodes, edges and arcs is stored 
@@ -322,12 +322,12 @@ within LEMON's API.
         graphs. Any graph implemented within LEMON's API 
         needs to implemented all methods and typedefs showed 
         in the UML diagram.
-        To implemented a graph class within the API one needs 
-        to implemented descriptor classes for nodes, edges and arcs.
+        To implement a graph class within the API one needs 
+        to implement descriptor classes for nodes, edges and arcs.
         These descriptor classes have almost no API.
         The graph itself is responsible to deal with them.
         The descriptors are usually implemented as cheap classes,
-        and are used to \emph{describe} a node, and not implemented
+        and are used to \emph{describe} a node, and do not implement
         functionality for nodes.
         The functionality comes from the graph class itself.
         Iterators in LEMON are somehow different from usual 
@@ -420,7 +420,7 @@ There are no restriction how these descriptors can be implemented.
 For most graph algorithms, the BGL expects a list of dense integers for
 node and edge ids.
 With this requirement, any flexibility of custom edge and node descriptors is lost.
-We belief that this is a poor design choices, since sparse ids
+We belief that this is a poor design choice, since sparse ids
 are crucial for most graphs (see \cref{sec:impl_graphs}).
 
 

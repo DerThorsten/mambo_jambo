@@ -67,25 +67,26 @@ BOOST_PYTHON_MODULE(my_module) @\label{lst:boost_python_modname}@
     \Cref{lst:boost_python_ff} shows how to export a free function.
 }
 
-On the C++ side, the VIGRA graph library is a set of classes (\ie grid graph, adjacency list graph) 
-which share a common API, 
-and generic template algorithms which use that API (\ie Watersheds, hierarchical clustering).
-As a result, algorithms can be applied to any graph which implements VIGRA's graph API.
+On the C++ side, the VIGRA graph library is a set of graph classes,
+all implemented within the same API,
+and generic template algorithms which use that API.
+As a result, any implemented algorithm can operate on any graph
+implemented within VIGRA.
 To archive the same genericity on the Python side, one
 needs to write glue code for any combination of graphs and algorithms.
-This meas a single algorithm needs to be exported separately for any
+This means a single algorithm needs to be exported separately for any
 graph type. 
 Luckily, BOOST Python glue code can be written in a generic fashion.
 The glue code itself can be templated, and therefore 
 glue code for a particular algorithm needs to be written once, 
 and can be reused for different graph types.
-The B OOST Pythons ``def-visitor'' concept \footnote{\url{http://www.boost.org/doc/libs/1_55_0/libs/python/doc/v2/def_visitor.html}}
+The BOOST Pythons ``def-visitor'' concept \footnote{\url{http://www.boost.org/doc/libs/1_55_0/libs/python/doc/v2/def_visitor.html}}
 provides a way to bundle glue code for multiple functions / algorithms within a simple struct called def-visitor.
 This def-visitor can be reused for multiple classes.
 A brief example of Boost Pythons def-visitor concept is given in \cref{lst:def_visitor}.
 To get a very modular design, we provide a set of different def-visitors,
 each responsible for a different set of member functions and algorithms.
-The most important def-visitor is the \emph{Core} def-visitors (see \cref{tab:graph_exporter}).
+The most important def-visitor is the \emph{Core}-visitor (see \cref{tab:graph_exporter}).
 which exports the graph API for undirected graphs.
 In \cref{tab:graph_exporter} we give an overview of 
 the different def-visitors, and briefly explain the main purpose
@@ -133,11 +134,8 @@ BOOST_PYTHON_MODULE(my_module)
     A struct derived from \lstinline{boost::python::def_visitor} 
     via curiously recurring template pattern is used
     to bundle a set of algorithms. 
-    This ``def-visitor'' can applied to multiple classes
-    and fewer glue code lines are needed.
-    Since all graph of VIGRA's graph library have a common
-    interface, the ``def-visitor'' concept is used 
-    to export VIGRA's graph API.
+    This ``def-visitor'' can applied to multiple classes, which reduces the
+    glue code drastically.
 }
 
 
@@ -222,7 +220,7 @@ BOOST_PYTHON_MODULE(my_module)
     \caption{
         To archive maximum flexibility and modularity, different Boost Python 
         def-visitors are implemented.
-        Each of those bundles a set of functions which can are exported to Python.
+        Each of those bundles a set of functions which are exported to Python.
     }\label{tab:graph_exporter}
 \end{scriptsize}
 \end{table}
@@ -242,18 +240,7 @@ The fast C implementation and the highly vectorized API of numpy makes it very e
 fast python code within a few lines.
 Virtually any Python user will be familiar with the numpy API, and therefore it 
 seems to be natural to store graph maps within numpy arrays.
-
 In addition VIGRA provides an mechanism to pass numpy arrays to C++.
-Therefore no new mechanism needs to be implemented to transfer graph
-maps from python to C++.
-This will not only simplify writing extension for the new VIGRA graph API,
-but also it will reduce the glue code since we can use well tested existing
-solutions.
-
-New algorithms might be implemented in pure python with a mix of
-existing numpy functions and new functions provided within VIGRA's graph API.
-
-
 Within the following sections we will explain in detail
 how graph maps can be passed from python to C++ and vice versa.
 This is important, since any future extension of this graph library
@@ -265,18 +252,58 @@ should use the proposed mechanisms.
 
 Each graph has an \emph{tagged node map shape} 
 and an \emph{tagged edge map shape}. 
+A tagged shape consists of a shape and axis-tags
+\footnote{
+    A good explanation of axis-tags can be found in VIGRA's documentation:
+    \url{http://ukoethe.github.io/vigra/doc-release/vigranumpy/index.html\#axistags-and-the-vigraarray-data-structure}
+}.
+
+
 These tagged shapes are used to get numpy arrays with 
 the correct shape and ordering of axis.
-For a 2D grid graph the node map should also be a 2D dimensional array.
-because in this way an usual image can be used as an node map.
-To access the  intrinsic shapes of node and edge maps 
-we use a small trait class with default implementations
-for unknown graphs.
-This class can be specialized for user defined graphs.
-The default implementation is given below:
+For a 2D grid graph the node map should also be a 2D dimensional array,
+such that image can be used as an node map.
+To access the shape of node and edge maps 
+we use a small trait classes with a default implementation.
+These classes can be specialized for user defined graphs.
+The default implementations are given below:
 
 
 \begin{lstlisting}[language=c++]
+
+// shape of graph maps
+template<class GRAPH>
+class IntrinsicGraphShape{
+private:
+    typedef GRAPH Graph;
+    typedef typename vigra::MultiArray<1,int>::difference_type DiffType1d;
+    typedef typename Graph::index_type  index_type;
+public:
+    typedef typename Graph::Node Node ;
+    typedef typename Graph::Edge Edge ;
+    typedef typename  Graph::Arc  Arc ;
+
+    typedef DiffType1d IntrinsicNodeMapShape;
+    typedef DiffType1d IntrinsicEdgeMapShape;
+    typedef DiffType1d  IntrinsicArcMapShape;
+
+    static IntrinsicNodeMapShape intrinsicNodeMapShape(const Graph & g){
+        return IntrinsicNodeMapShape(g.maxNodeId()+1);
+    }
+    static IntrinsicEdgeMapShape intrinsicEdgeMapShape(const Graph & g){
+        return IntrinsicEdgeMapShape(g.maxEdgeId()+1);
+    }
+    static IntrinsicArcMapShape intrinsicArcMapShape(const Graph & g){
+        return  IntrinsicArcMapShape(g.maxArcId()+1);
+    }
+
+
+    static const unsigned int IntrinsicNodeMapDimension=1;
+    static const unsigned int IntrinsicEdgeMapDimension=1;
+    static const unsigned int IntrinsicArcMapDimension=1;
+};
+
+// tagged shape of graph maps
 template<class G>
 class TaggedGraphShape{
 public:
@@ -284,14 +311,18 @@ public:
     const static unsigned int ND = IntrinsicGraphShape<Graph>::IntrinsicNodeMapDimension;
     const static unsigned int ED = IntrinsicGraphShape<Graph>::IntrinsicEdgeMapDimension;
     const static unsigned int AD = IntrinsicGraphShape<Graph>::IntrinsicArcMapDimension;
+
     static TaggedShape  taggedNodeMapShape(const Graph & graph){
-        return NumpyArray<ND,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicNodeMapShape(graph),"n");
+        return NumpyArray<ND,int>::ArrayTraits::taggedShape(
+            IntrinsicGraphShape<Graph>::intrinsicNodeMapShape(graph),"n");
     }
     static TaggedShape  taggedEdgeMapShape(const Graph & graph){
-        return NumpyArray<ED,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicEdgeMapShape(graph),"e");
+        return NumpyArray<ED,int>::ArrayTraits::taggedShape(
+            IntrinsicGraphShape<Graph>::intrinsicEdgeMapShape(graph),"e");
     }
     static TaggedShape  taggedArcMapShape(const Graph & graph){
-        return NumpyArray<AD,int>::ArrayTraits::taggedShape(IntrinsicGraphShape<Graph>::intrinsicArcMapShape(graph),"e");
+        return NumpyArray<AD,int>::ArrayTraits::taggedShape(
+            IntrinsicGraphShape<Graph>::intrinsicArcMapShape(graph),"e");
     }
 
     static AxisInfo  axistagsNodeMap(const Graph & graph){
@@ -311,40 +342,29 @@ public:
 \subsubsection{Numpy Arrays To LEMON Maps}
 
 
-On the C++ side, numpy arrays are stored in MultiArrayViews.
-Since the API of MultiArrayViews does
-not implemented the API  of LEMON graph maps (e.g. node-maps, edge-maps and arc-maps), 
-a thin wrapper is used to convert the arrays to LEMON conform maps.
-These wrappers can be accessed via \lstinline{PyNodeMapTraits<Graph,T>::Array} and 
-\lstinline{PyNodeMapTraits<Graph,T>::Map}. 
-
-
 In the following we will give a brief example how to pass numpy arrays to C++
 and convert them to LEMON conform graph maps.
+Assuming we need a function which operates on a graph an a node feature map,
+as a normalization of node features.
+On the Python side we want to have the following signature:
 
-Assuming we need a function which does something with node features as normalization.
-On the python side we want to have the following signature:
+\lstinline[language=Python]{result=vigra.graphs.normalizeNodeFeatures(graph,nodeFeatures=nodeFeatures,out=None)}.
 
-\lstinline{result=vigra.graphs.normNodeFeat(graph,nodeFeatures=nodeFeatures,out=None)}.
-
-The function should work on single band node features and multi band node features
-(an arbitrary number of channels, but the same for all nodes).
+The function should work on single band and multi band node features.
 There should be a single C++ function which can be used to export
-\lstinline{normNodeFeat} for any graph within VIGRA's graph API. 
-
-
+this function for any graph implemented within VIGR
 
 
 \begin{minipage}{\textwidth}
 
 To archive this we propose the following design:
 On the C++ side we use a function  which
-is has two templates , one for the graph, and one for the value type.
+is has two templates, one for the graph, and one for the value type.
 A prototypical implementation is given below.
 
 \begin{lstlisting}[language=c++]
 template<class Graph,class T>
-NumpyAnyArray normNodeFeat(
+NumpyAnyArray normalizeNodeFeatures(
     const Graph & g,
     const typename PyNodeMapTraits<Graph,T >::Array & nodeFeaturesInArray,
     typename PyNodeMapTraits<Graph,T>::Array  outArray 
@@ -394,8 +414,8 @@ We will export the function for single band floats and multi band floats.
 \begin{lstlisting}[language=c++]
 // single-band float32
 boost::python::def(
-    "normNodeFeat",
-     &normNodeFeat<Graph,float>,
+    "normalizeNodeFeatures",
+     &normalizeNodeFeatures<Graph,float>,
     (
         boost::python::arg("graph"),
         boost::python::arg("nodeFeatures"),
@@ -405,8 +425,8 @@ boost::python::def(
 
 // multi-band float32
 boost::python::def(
-    "normNodeFeat",
-     &normNodeFeat<Graph,Multiband<float> >,
+    "normalizeNodeFeatures",
+     &normalizeNodeFeatures<Graph,Multiband<float> >,
     (
         boost::python::arg("graph"),
         boost::python::arg("nodeFeatures"),
@@ -427,18 +447,18 @@ allocated.
 
 \begin{lstlisting}[language=Python]
 # with automatically allocated outFeatures
-outFeatures = vigra.graphs.normNodeFeat(graph,nodeFeatures)
+outFeatures = vigra.graphs.normalizeNodeFeatures(graph,nodeFeatures)
 
 # with explicitly given outFeatures
 # - here we assume single band features
 outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32)
-outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+outFeatures2 = vigra.graphs.normalizeNodeFeatures(graph,nodeFeatures,out=outFeatures2)
 
 
 # with multiband node features 
 # - here we assume multi band features
 #   with 3 channels per node
 outFeatures2 = vigra.graphs.graphMap(graph,item='node',dtype=np.float32,channels=3)
-outFeatures2 = vigra.graphs.normNodeFeat(graph,nodeFeatures,out=outFeatures2)
+outFeatures2 = vigra.graphs.normalizeNodeFeatures(graph,nodeFeatures,out=outFeatures2)
 \end{lstlisting}
 
