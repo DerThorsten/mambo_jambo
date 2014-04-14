@@ -108,8 +108,8 @@ There are a few differences between classic unstructured agglomerative clusterin
 \citep{florek_1951,sokal_1958_science_bulletin,ward_63_jasa}
 and agglomerative clustering on graph data structures \citep{arbelaez_2006_cvpr,iglesias_2013,morel_1995_book}, 
 e.g. grid-graphs and region adjacency graphs\citep{vlachos_1993_csv}.
-While in unstructured hierarchical clustering, any pair of observations can be merged,
-for graph hierarchical clustering, only adjacent nodes / regions can be merged.
+While in unstructured hierarchical clustering any pair of observations can be merged,
+for graph hierarchical clustering only adjacent nodes / regions can be merged.
 In the literature this is also called ``hierarchical clustering with connectivity constraints'' \cite{scikit_learn}.
 
 
@@ -181,13 +181,13 @@ Due to this merging, similarities change and need to be updated
 \caption{
     The distance between to clusters is usually based on the 
     individual distance between elements within the clusters.
-    These distance are \emph{linked} together.
+    These distances are \emph{linked} together.
     An overview of the most common cluster distances linkages and their main properties.
 }\label{tab:hc_linkage_types}
 \end{table}
 
 
-The definition of a specific distance betweens clusters is crucial, 
+The definition of a specific distance between clusters is crucial, 
 but strongly depends on the application.
 The distance between two clusters is usually based on the 
 individual distance between elements within the clusters.

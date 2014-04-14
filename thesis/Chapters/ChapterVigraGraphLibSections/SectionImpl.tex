@@ -23,7 +23,7 @@ in \cref{sec:graph_graph_algorithms}.
 While the core implementation of any algorithm is in C++,
 we provide Python binding to make almost
 any algorithm available in Python.
-All design choices related to Python will be explain in \cref{sec:graph_lib_python}.
+All design choices related to Python will be explained in \cref{sec:graph_lib_python}.
 
 
 
@@ -31,8 +31,8 @@ All design choices related to Python will be explain in \cref{sec:graph_lib_pyth
 
 \subsection{Graphs} \label{sec:impl_graphs}
 
-In the following we will discuss the design and implementation
-of VIRGS's graph classes.
+In the following, we will discuss the design and implementation
+of VIGRA's graph classes.
 An overview of the different classes and their main properties
 is given in \cref{tab:graph_classes}.
 
@@ -208,7 +208,7 @@ This image has the same dimension as a node map, but an extra
 dimension for the edges.
 The first $N$ axes in the edge descriptor are 
 used to determine which pixel ``owns'' the edge,
-while the last axis selects the endge index the w.r.t. the node.
+while the last axis selects the edge index w.r.t. the node.
 The default edge map is derived from \lstinline{vigra::MultiArray<DIM+1,Multiband<T> >}.
 
 %\paragraph{Usage :}
@@ -217,11 +217,11 @@ The default edge map is derived from \lstinline{vigra::MultiArray<DIM+1,Multiban
 
 \subsubsection{Adjacency List Graph} \label{sec:graphs_adjacency_list_graph}
 
-The adjacency list graph is  multipurpose graph.
+The adjacency list graph is a multipurpose graph.
 Region adjacency graphs, nearest neighbor graph,
 and  any undirected graph with arbitrary structure can 
 be encoded with this graph.
-Users can add node and edges \footnote{Edge and Node deletion is currently
+Users can add nodes and edges \footnote{Edge and Node deletion is currently
 not implemented, but will be available in a future release}.
 
 
@@ -302,16 +302,14 @@ This is implemented as an edge map of RAG with
 \lstinline[language=c++]{std::vector<BaseGraphEdge>} as value type.
 The backward mapping of edges is returned by \lstinline[language=c++]{makeRegionAdjacenyGraph}.
 Since the ids of the region adjacency graph can be 
-sparse, the labeling of the base graph does not need to be dense.
-
-
+sparse, the labeling of the base graph does not need to be dense
 \footnote{Also disjoint labeling are allowed}.
 
 
 
 \subsubsection{Merge Graph} \label{sec:graphs_merge_graph}
 
-To implemented structured clustering algorithms (see \cref{sec:rw_hc}), 
+To implement structured clustering algorithms (see \cref{sec:rw_hc}), 
 a graph which supports edge contraction and feature merging is needed.
 Some graphs within the LEMON library support 
 edge contraction, but this is not part of LEMON's undirected graph concept \footnote{
@@ -329,7 +327,7 @@ are not mutable (\eg a grid graph)}.
         } 
 
     }%
-    \caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ is merged into node $w$.
+    \caption[Schematic edge contraction]{ Schematic edge contraction: Node $u$ and $v$ are merged into node $w$.
         Note the gray node $n$ which is connected to $u$ and $v$.
         After the contraction, edges $\{ n,u\}$ and $\{ n,v\}$ are also merged into 
         a single edge $\{ n, w\}$.
@@ -344,7 +342,7 @@ is crucial for image processing application \citep{arbelaez_2006_cvpr}.
 As a consequence, we define a new concept / API for 
 edge contraction and feature merging within the philosophy of LEMON.
 
-We implemented the \emph{merge graph} as an LEMON  \href{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html}{graph adaptor}
+We implemented the \emph{merge graph} as a LEMON  \href{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html}{graph adaptor}
 \footnote{ LEMON Graph Adaptor: \url{http://lemon.cs.elte.hu/pub/doc/latest/a00592.html} }.
 A graph adaptor is always a view to a base graph and cannot exist without one.
 A subgraph adaptor can be used to get a view to a subgraph w.r.t. the base graph, without
@@ -352,7 +350,7 @@ the need to reallocate the complete subgraph.
 In a similar manner, we implement a \emph{merge graph adaptor}.
 
 Each node and edge in the merge graph adaptor corresponds to a connected component of 
-edge and nodes in the base graph.
+edges and nodes in the base graph.
 Two union find data structure (UFD), an edge and node UDF encode these connected components.
 
 Feature merging is done via \emph{callbacks} which can be registered to the merge graph adaptor.
@@ -434,7 +432,7 @@ This is only defined if $u,v$-nodes of this edge are in different connected comp
 
 \paragraph{Node Map, EdgeMap :} 
 The node and edge maps are derived from \lstinline{vigra::MultiArray<1,T>}.
-Their size is to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
+Their size is equal to \lstinline{maxNodeId()+1} and  \lstinline{maxEdgeId()+1}.
 The id and the descriptors can be used to index node and edge maps.
 The implementation is exactly the same as for the AdjacencyListGraph ( see \cref{sec:graphs_adjacency_list_graph}).
 The default implementation of node and edge maps does not perform 
@@ -487,8 +485,8 @@ in the future we might use a faster implementation with the same API  \citep{cod
     \\
     \lstinline[language=c++]{void eraseEdgeSignature(const Edge & edge);}
     \\
-    Furthermore, this callback is called at the very and of each
-    edge contraction, and this callback can be used
+    Furthermore, this callback is called at the end of each
+    edge contraction, therefore this callback can be used
     to indicate that all callbacks have been called and
     the contraction is finished.
 
@@ -522,7 +520,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
     Most of these algorithms are  implemented as free functions and are 
     straight forward to use.
     The users are referred to VIGRA's documentation where these
-    algorithms are explained, and usage examples are given.
+    algorithms are explained and usage examples are given.
 
     For hierarchical clustering algorithms, we use a non trivial 
     class design, which will be explained in the following section.
@@ -625,11 +623,11 @@ in the future we might use a faster implementation with the same API  \citep{cod
 
     The \emph{cluster operator} is connected to the merge
     graph via callbacks and is responsible for feature
-    merging and the selection of the edge which needs to be contractEdge
+    merging and the selection of the edge which needs to be contracted
     next.
     Any edge contraction in the merge graph will call
     members of a cluster operator to merge node and edge features.
-    From these merged features, the cluster operator needs
+    From these merged features the cluster operator needs
     to find the edge which needs to be contracted next.
     Often this is implemented with a 
     dynamic priority queue \footnote{
@@ -637,8 +635,7 @@ in the future we might use a faster implementation with the same API  \citep{cod
         heap.
     } where the edge with minimal weight can be accessed,  and for any edge the weights can be changed
     efficiently.
-    Then class design and interaction for hierarchical clustering is shown
-    in \cref{fig:hc_class_design}.
+    \Cref{fig:hc_class_design} shows the class design for hierarchical clustering.
     This design is very flexible, since different merging strategies can be implemented 
     in different cluster operators.
     We encourage users to implemented a custom \emph{cluster operator}
