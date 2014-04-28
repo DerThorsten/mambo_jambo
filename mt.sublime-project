@@ -2,21 +2,6 @@
 	"folders":
 	[
 		{
-			"file_exclude_patterns":
-			[
-				"*.log",
-				"*.lol",
-				"*.aux",
-				"*.bbl",
-				"*.blg",
-				"*.lof",
-				"*.lot",
-				"*.toc"
-			],
-			"follow_symlinks": true,
-			"path": "."
-		},
-		{
 			"follow_symlinks": true,
 			"path": "/home/tbeier/src/vigra"
 		},
